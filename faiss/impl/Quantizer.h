@@ -11,7 +11,7 @@
 
 namespace faiss {
 
-/** General interface for quantizer objects */
+/** Product Quantizer. Implemented only for METRIC_L2 */
 struct Quantizer {
     size_t d;         ///< size of the input vectors
     size_t code_size; ///< bytes per indexed vector

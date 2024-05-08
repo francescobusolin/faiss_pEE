@@ -29,10 +29,8 @@ def index_cpu_to_gpu_multiple_py(resources, index, co=None, gpus=None):
     for i, res in zip(gpus, resources):
         vdev.push_back(i)
         vres.push_back(res)
-    if isinstance(index, IndexBinary):
-        return index_binary_cpu_to_gpu_multiple(vres, vdev, index, co)
-    else:
-        return index_cpu_to_gpu_multiple(vres, vdev, index, co)
+    index = index_cpu_to_gpu_multiple(vres, vdev, index, co)
+    return index
 
 
 def index_cpu_to_all_gpus(index, co=None, ngpu=-1):
@@ -56,7 +54,7 @@ def index_cpu_to_gpus_list(index, co=None, gpus=None, ngpu=-1):
 # allows numpy ndarray usage with bfKnn
 
 
-def knn_gpu(res, xq, xb, k, D=None, I=None, metric=METRIC_L2, device=-1, use_raft=False, vectorsMemoryLimit=0, queriesMemoryLimit=0):
+def knn_gpu(res, xq, xb, k, D=None, I=None, metric=METRIC_L2, device=-1):
     """
     Compute the k nearest neighbors of a vector on one GPU without constructing an index
 
@@ -84,14 +82,6 @@ def knn_gpu(res, xq, xb, k, D=None, I=None, metric=METRIC_L2, device=-1, use_raf
         (can also be set via torch.cuda.set_device in PyTorch)
         Otherwise, an integer 0 <= device < numDevices indicates the GPU on which
         the computation should be run
-    vectorsMemoryLimit: int, optional
-    queriesMemoryLimit: int, optional
-        Memory limits for vectors and queries.
-        If not 0, the GPU will use at most this amount of memory
-        for vectors and queries respectively.
-        Vectors are broken up into chunks of size vectorsMemoryLimit,
-        and queries are broken up into chunks of size queriesMemoryLimit,
-        including the memory required for the results.
 
     Returns
     -------
@@ -178,14 +168,10 @@ def knn_gpu(res, xq, xb, k, D=None, I=None, metric=METRIC_L2, device=-1, use_raf
     args.outIndices = I_ptr
     args.outIndicesType = I_type
     args.device = device
-    args.use_raft = use_raft
 
     # no stream synchronization needed, inputs and outputs are guaranteed to
     # be on the CPU (numpy arrays)
-    if vectorsMemoryLimit > 0 or queriesMemoryLimit > 0:
-        bfKnn_tiling(res, args, vectorsMemoryLimit, queriesMemoryLimit)
-    else:
-        bfKnn(res, args)
+    bfKnn(res, args)
 
     return D, I
 

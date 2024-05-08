@@ -12,11 +12,11 @@
 #include <omp.h>
 #include <stdint.h>
 
-#include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
-#include <memory>
+
+#include <algorithm>
 
 #include <faiss/utils/distances.h>
 #include <faiss/utils/hamming.h>
@@ -683,21 +683,18 @@ struct RankingScore2 : Score3Computer<float, double> {
     double accum_gt_weight_diff(
             const std::vector<int>& a,
             const std::vector<int>& b) {
-        const auto nb_2 = b.size();
-        const auto na = a.size();
+        int nb = b.size(), na = a.size();
 
         double accu = 0;
-        size_t j = 0;
-        for (size_t i = 0; i < na; i++) {
-            const auto ai = a[i];
-            while (j < nb_2 && ai >= b[j]) {
+        int j = 0;
+        for (int i = 0; i < na; i++) {
+            int ai = a[i];
+            while (j < nb && ai >= b[j])
                 j++;
-            }
 
             double accu_i = 0;
-            for (auto k = j; k < b.size(); k++) {
+            for (int k = j; k < b.size(); k++)
                 accu_i += rank_weight(b[k] - ai);
-            }
 
             accu += rank_weight(ai) * accu_i;
         }
@@ -885,13 +882,14 @@ void PolysemousTraining::optimize_ranking(
 
         double t0 = getmillisecs();
 
-        std::unique_ptr<PermutationObjective> obj(new RankingScore2(
+        PermutationObjective* obj = new RankingScore2(
                 nbits,
                 nq,
                 nb,
                 codes.data(),
                 codes.data() + nq,
-                gt_distances.data()));
+                gt_distances.data());
+        ScopeDeleter1<PermutationObjective> del(obj);
 
         if (verbose > 0) {
             printf("   m=%d, nq=%zd, nb=%zd, initialize RankingScore "
@@ -902,7 +900,7 @@ void PolysemousTraining::optimize_ranking(
                    getmillisecs() - t0);
         }
 
-        SimulatedAnnealingOptimizer optim(obj.get(), *this);
+        SimulatedAnnealingOptimizer optim(obj, *this);
 
         if (log_pattern.size()) {
             char fname[256];

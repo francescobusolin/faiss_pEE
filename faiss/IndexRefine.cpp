@@ -62,7 +62,7 @@ void IndexRefine::reset() {
 
 namespace {
 
-using idx_t = faiss::idx_t;
+typedef faiss::idx_t idx_t;
 
 template <class C>
 static void reorder_2_heaps(
@@ -96,40 +96,25 @@ void IndexRefine::search(
         idx_t k,
         float* distances,
         idx_t* labels,
-        const SearchParameters* params_in) const {
-    const IndexRefineSearchParameters* params = nullptr;
-    if (params_in) {
-        params = dynamic_cast<const IndexRefineSearchParameters*>(params_in);
-        FAISS_THROW_IF_NOT_MSG(
-                params, "IndexRefine params have incorrect type");
-    }
-
-    idx_t k_base = (params != nullptr) ? idx_t(k * params->k_factor)
-                                       : idx_t(k * k_factor);
-    SearchParameters* base_index_params =
-            (params != nullptr) ? params->base_index_params : nullptr;
-
-    FAISS_THROW_IF_NOT(k_base >= k);
-
-    FAISS_THROW_IF_NOT(base_index);
-    FAISS_THROW_IF_NOT(refine_index);
-
+        const SearchParameters* params) const {
+    FAISS_THROW_IF_NOT_MSG(
+            !params, "search params not supported for this index");
     FAISS_THROW_IF_NOT(k > 0);
     FAISS_THROW_IF_NOT(is_trained);
+    idx_t k_base = idx_t(k * k_factor);
     idx_t* base_labels = labels;
     float* base_distances = distances;
-    std::unique_ptr<idx_t[]> del1;
-    std::unique_ptr<float[]> del2;
+    ScopeDeleter<idx_t> del1;
+    ScopeDeleter<float> del2;
 
     if (k != k_base) {
         base_labels = new idx_t[n * k_base];
-        del1.reset(base_labels);
+        del1.set(base_labels);
         base_distances = new float[n * k_base];
-        del2.reset(base_distances);
+        del2.set(base_distances);
     }
 
-    base_index->search(
-            n, x, k_base, base_distances, base_labels, base_index_params);
+    base_index->search(n, x, k_base, base_distances, base_labels);
 
     for (int i = 0; i < n * k_base; i++)
         assert(base_labels[i] >= -1 && base_labels[i] < ntotal);
@@ -240,40 +225,25 @@ void IndexRefineFlat::search(
         idx_t k,
         float* distances,
         idx_t* labels,
-        const SearchParameters* params_in) const {
-    const IndexRefineSearchParameters* params = nullptr;
-    if (params_in) {
-        params = dynamic_cast<const IndexRefineSearchParameters*>(params_in);
-        FAISS_THROW_IF_NOT_MSG(
-                params, "IndexRefineFlat params have incorrect type");
-    }
-
-    idx_t k_base = (params != nullptr) ? idx_t(k * params->k_factor)
-                                       : idx_t(k * k_factor);
-    SearchParameters* base_index_params =
-            (params != nullptr) ? params->base_index_params : nullptr;
-
-    FAISS_THROW_IF_NOT(k_base >= k);
-
-    FAISS_THROW_IF_NOT(base_index);
-    FAISS_THROW_IF_NOT(refine_index);
-
+        const SearchParameters* params) const {
+    FAISS_THROW_IF_NOT_MSG(
+            !params, "search params not supported for this index");
     FAISS_THROW_IF_NOT(k > 0);
     FAISS_THROW_IF_NOT(is_trained);
+    idx_t k_base = idx_t(k * k_factor);
     idx_t* base_labels = labels;
     float* base_distances = distances;
-    std::unique_ptr<idx_t[]> del1;
-    std::unique_ptr<float[]> del2;
+    ScopeDeleter<idx_t> del1;
+    ScopeDeleter<float> del2;
 
     if (k != k_base) {
         base_labels = new idx_t[n * k_base];
-        del1.reset(base_labels);
+        del1.set(base_labels);
         base_distances = new float[n * k_base];
-        del2.reset(base_distances);
+        del2.set(base_distances);
     }
 
-    base_index->search(
-            n, x, k_base, base_distances, base_labels, base_index_params);
+    base_index->search(n, x, k_base, base_distances, base_labels);
 
     for (int i = 0; i < n * k_base; i++)
         assert(base_labels[i] >= -1 && base_labels[i] < ntotal);

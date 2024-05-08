@@ -441,10 +441,13 @@ void eig(size_t d_in, double* cov, double* eigenvalues, int verbose) {
 
 } // namespace
 
-void PCAMatrix::train(idx_t n, const float* x_in) {
-    const float* x = fvecs_maybe_subsample(
-            d_in, (size_t*)&n, max_points_per_d * d_in, x_in, verbose);
-    TransformedVectors tv(x_in, x);
+void PCAMatrix::train(idx_t n, const float* x) {
+    const float* x_in = x;
+
+    x = fvecs_maybe_subsample(
+            d_in, (size_t*)&n, max_points_per_d * d_in, x, verbose);
+
+    ScopeDeleter<float> del_x(x != x_in ? x : nullptr);
 
     // compute mean
     mean.clear();
@@ -881,13 +884,14 @@ ITQTransform::ITQTransform(int d_in, int d_out, bool do_pca)
     is_trained = false;
 }
 
-void ITQTransform::train(idx_t n, const float* x_in) {
+void ITQTransform::train(idx_t n, const float* x) {
     FAISS_THROW_IF_NOT(!is_trained);
 
+    const float* x_in = x;
     size_t max_train_points = std::max(d_in * max_train_per_dim, 32768);
-    const float* x =
-            fvecs_maybe_subsample(d_in, (size_t*)&n, max_train_points, x_in);
-    TransformedVectors tv(x_in, x);
+    x = fvecs_maybe_subsample(d_in, (size_t*)&n, max_train_points, x);
+
+    ScopeDeleter<float> del_x(x != x_in ? x : nullptr);
 
     std::unique_ptr<float[]> x_norm(new float[n * d_in]);
     { // normalize
@@ -984,16 +988,25 @@ void ITQTransform::check_identical(const VectorTransform& other_in) const {
  *********************************************/
 
 OPQMatrix::OPQMatrix(int d, int M, int d2)
-        : LinearTransform(d, d2 == -1 ? d : d2, false), M(M) {
+        : LinearTransform(d, d2 == -1 ? d : d2, false),
+          M(M),
+          niter(50),
+          niter_pq(4),
+          niter_pq_0(40),
+          verbose(false),
+          pq(nullptr) {
     is_trained = false;
     // OPQ is quite expensive to train, so set this right.
     max_train_points = 256 * 256;
+    pq = nullptr;
 }
 
-void OPQMatrix::train(idx_t n, const float* x_in) {
-    const float* x = fvecs_maybe_subsample(
-            d_in, (size_t*)&n, max_train_points, x_in, verbose);
-    TransformedVectors tv(x_in, x);
+void OPQMatrix::train(idx_t n, const float* x) {
+    const float* x_in = x;
+
+    x = fvecs_maybe_subsample(d_in, (size_t*)&n, max_train_points, x, verbose);
+
+    ScopeDeleter<float> del_x(x != x_in ? x : nullptr);
 
     // To support d_out > d_in, we pad input vectors with 0s to d_out
     size_t d = d_out <= d_in ? d_in : d_out;

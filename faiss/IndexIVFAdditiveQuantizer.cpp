@@ -37,20 +37,30 @@ IndexIVFAdditiveQuantizer::IndexIVFAdditiveQuantizer(
 IndexIVFAdditiveQuantizer::IndexIVFAdditiveQuantizer(AdditiveQuantizer* aq)
         : IndexIVF(), aq(aq) {}
 
-void IndexIVFAdditiveQuantizer::train_encoder(
-        idx_t n,
-        const float* x,
-        const idx_t* assign) {
-    aq->train(n, x);
-}
+void IndexIVFAdditiveQuantizer::train_residual(idx_t n, const float* x) {
+    const float* x_in = x;
 
-idx_t IndexIVFAdditiveQuantizer::train_encoder_num_vectors() const {
     size_t max_train_points = 1024 * ((size_t)1 << aq->nbits[0]);
     // we need more data to train LSQ
     if (dynamic_cast<LocalSearchQuantizer*>(aq)) {
         max_train_points = 1024 * aq->M * ((size_t)1 << aq->nbits[0]);
     }
-    return max_train_points;
+
+    x = fvecs_maybe_subsample(
+            d, (size_t*)&n, max_train_points, x, verbose, 1234);
+    ScopeDeleter<float> del_x(x_in == x ? nullptr : x);
+
+    if (by_residual) {
+        std::vector<idx_t> idx(n);
+        quantizer->assign(n, x, idx.data());
+
+        std::vector<float> residuals(n * d);
+        quantizer->compute_residual_n(n, x, residuals.data(), idx.data());
+
+        aq->train(n, residuals.data());
+    } else {
+        aq->train(n, x);
+    }
 }
 
 void IndexIVFAdditiveQuantizer::encode_vectors(
@@ -116,7 +126,7 @@ void IndexIVFAdditiveQuantizer::sa_decode(
     }
 }
 
-IndexIVFAdditiveQuantizer::~IndexIVFAdditiveQuantizer() = default;
+IndexIVFAdditiveQuantizer::~IndexIVFAdditiveQuantizer() {}
 
 /*********************************************
  * AQInvertedListScanner
@@ -149,7 +159,6 @@ struct AQInvertedListScanner : InvertedListScanner {
     const float* q;
     /// following codes come from this inverted list
     void set_list(idx_t list_no, float coarse_dis) override {
-        this->list_no = list_no;
         if (ia.metric_type == METRIC_L2 && ia.by_residual) {
             ia.quantizer->compute_residual(q0, tmp.data(), list_no);
             q = tmp.data();
@@ -158,7 +167,7 @@ struct AQInvertedListScanner : InvertedListScanner {
         }
     }
 
-    ~AQInvertedListScanner() = default;
+    ~AQInvertedListScanner() {}
 };
 
 template <bool is_IP>
@@ -189,7 +198,7 @@ struct AQInvertedListScannerDecompress : AQInvertedListScanner {
                      : fvec_L2sqr(q, b.data(), aq.d);
     }
 
-    ~AQInvertedListScannerDecompress() override = default;
+    ~AQInvertedListScannerDecompress() override {}
 };
 
 template <bool is_IP, Search_type_t search_type>
@@ -232,7 +241,7 @@ struct AQInvertedListScannerLUT : AQInvertedListScanner {
                 aq.compute_1_distance_LUT<is_IP, search_type>(code, LUT.data());
     }
 
-    ~AQInvertedListScannerLUT() override = default;
+    ~AQInvertedListScannerLUT() override {}
 };
 
 } // anonymous namespace
@@ -311,7 +320,7 @@ IndexIVFResidualQuantizer::IndexIVFResidualQuantizer(
                   metric,
                   search_type) {}
 
-IndexIVFResidualQuantizer::~IndexIVFResidualQuantizer() = default;
+IndexIVFResidualQuantizer::~IndexIVFResidualQuantizer() {}
 
 /**************************************************************************************
  * IndexIVFLocalSearchQuantizer
@@ -333,7 +342,7 @@ IndexIVFLocalSearchQuantizer::IndexIVFLocalSearchQuantizer(
 IndexIVFLocalSearchQuantizer::IndexIVFLocalSearchQuantizer()
         : IndexIVFAdditiveQuantizer(&lsq) {}
 
-IndexIVFLocalSearchQuantizer::~IndexIVFLocalSearchQuantizer() = default;
+IndexIVFLocalSearchQuantizer::~IndexIVFLocalSearchQuantizer() {}
 
 /**************************************************************************************
  * IndexIVFProductResidualQuantizer
@@ -356,7 +365,7 @@ IndexIVFProductResidualQuantizer::IndexIVFProductResidualQuantizer(
 IndexIVFProductResidualQuantizer::IndexIVFProductResidualQuantizer()
         : IndexIVFAdditiveQuantizer(&prq) {}
 
-IndexIVFProductResidualQuantizer::~IndexIVFProductResidualQuantizer() = default;
+IndexIVFProductResidualQuantizer::~IndexIVFProductResidualQuantizer() {}
 
 /**************************************************************************************
  * IndexIVFProductLocalSearchQuantizer
@@ -379,7 +388,6 @@ IndexIVFProductLocalSearchQuantizer::IndexIVFProductLocalSearchQuantizer(
 IndexIVFProductLocalSearchQuantizer::IndexIVFProductLocalSearchQuantizer()
         : IndexIVFAdditiveQuantizer(&plsq) {}
 
-IndexIVFProductLocalSearchQuantizer::~IndexIVFProductLocalSearchQuantizer() =
-        default;
+IndexIVFProductLocalSearchQuantizer::~IndexIVFProductLocalSearchQuantizer() {}
 
 } // namespace faiss

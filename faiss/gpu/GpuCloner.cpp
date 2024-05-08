@@ -7,12 +7,10 @@
 
 #include <faiss/gpu/GpuCloner.h>
 #include <faiss/impl/FaissAssert.h>
-#include <memory>
 #include <typeinfo>
 
 #include <faiss/gpu/StandardGpuResources.h>
 
-#include <faiss/IndexBinaryFlat.h>
 #include <faiss/IndexFlat.h>
 #include <faiss/IndexIVF.h>
 #include <faiss/IndexIVFFlat.h>
@@ -23,7 +21,6 @@
 #include <faiss/IndexShardsIVF.h>
 #include <faiss/MetaIndexes.h>
 #include <faiss/gpu/GpuIndex.h>
-#include <faiss/gpu/GpuIndexBinaryFlat.h>
 #include <faiss/gpu/GpuIndexFlat.h>
 #include <faiss/gpu/GpuIndexIVFFlat.h>
 #include <faiss/gpu/GpuIndexIVFPQ.h>
@@ -124,7 +121,6 @@ Index* ToGpuCloner::clone_Index(const Index* index) {
         GpuIndexFlatConfig config;
         config.device = device;
         config.useFloat16 = useFloat16;
-        config.use_raft = use_raft;
         return new GpuIndexFlat(provider, ifl, config);
     } else if (
             dynamic_cast<const IndexScalarQuantizer*>(index) &&
@@ -133,8 +129,6 @@ Index* ToGpuCloner::clone_Index(const Index* index) {
         GpuIndexFlatConfig config;
         config.device = device;
         config.useFloat16 = true;
-        FAISS_THROW_IF_NOT_MSG(
-                !use_raft, "this type of index is not implemented for RAFT");
         GpuIndexFlat* gif = new GpuIndexFlat(
                 provider, index->d, index->metric_type, config);
         // transfer data by blocks
@@ -152,8 +146,6 @@ Index* ToGpuCloner::clone_Index(const Index* index) {
         config.device = device;
         config.indicesOptions = indicesOptions;
         config.flatConfig.useFloat16 = useFloat16CoarseQuantizer;
-        config.use_raft = use_raft;
-        config.allowCpuCoarseQuantizer = allowCpuCoarseQuantizer;
 
         GpuIndexIVFFlat* res = new GpuIndexIVFFlat(
                 provider, ifl->d, ifl->nlist, ifl->metric_type, config);
@@ -170,8 +162,6 @@ Index* ToGpuCloner::clone_Index(const Index* index) {
         config.device = device;
         config.indicesOptions = indicesOptions;
         config.flatConfig.useFloat16 = useFloat16CoarseQuantizer;
-        FAISS_THROW_IF_NOT_MSG(
-                !use_raft, "this type of index is not implemented for RAFT");
 
         GpuIndexIVFScalarQuantizer* res = new GpuIndexIVFScalarQuantizer(
                 provider,
@@ -204,9 +194,6 @@ Index* ToGpuCloner::clone_Index(const Index* index) {
         config.flatConfig.useFloat16 = useFloat16CoarseQuantizer;
         config.useFloat16LookupTables = useFloat16;
         config.usePrecomputedTables = usePrecomputed;
-        config.use_raft = use_raft;
-        config.interleavedLayout = use_raft;
-        config.allowCpuCoarseQuantizer = allowCpuCoarseQuantizer;
 
         GpuIndexIVFPQ* res = new GpuIndexIVFPQ(provider, ipq, config);
 
@@ -216,13 +203,8 @@ Index* ToGpuCloner::clone_Index(const Index* index) {
 
         return res;
     } else {
-        // use CPU cloner for IDMap and PreTransform
-        auto index_idmap = dynamic_cast<const IndexIDMap*>(index);
-        auto index_pt = dynamic_cast<const IndexPreTransform*>(index);
-        if (index_idmap || index_pt) {
-            return Cloner::clone_Index(index);
-        }
-        FAISS_THROW_MSG("This index type is not implemented on GPU.");
+        // default: use CPU cloner
+        return Cloner::clone_Index(index);
     }
 }
 
@@ -247,7 +229,7 @@ ToGpuClonerMultiple::ToGpuClonerMultiple(
         : GpuMultipleClonerOptions(options) {
     FAISS_THROW_IF_NOT(provider.size() == devices.size());
     for (size_t i = 0; i < provider.size(); i++) {
-        sub_cloners.emplace_back(provider[i], devices[i], options);
+        sub_cloners.push_back(ToGpuCloner(provider[i], devices[i], options));
     }
 }
 
@@ -316,8 +298,8 @@ Index* ToGpuClonerMultiple::clone_Index_to_shards(const Index* index) {
             !dynamic_cast<const IndexFlat*>(quantizer)) {
             // then we flatten the coarse quantizer so that everything remains
             // on GPU
-            new_quantizer = std::make_unique<IndexFlat>(
-                    quantizer->d, quantizer->metric_type);
+            new_quantizer.reset(
+                    new IndexFlat(quantizer->d, quantizer->metric_type));
             std::vector<float> centroids(quantizer->d * quantizer->ntotal);
             quantizer->reconstruct_n(0, quantizer->ntotal, centroids.data());
             new_quantizer->add(quantizer->ntotal, centroids.data());
@@ -327,7 +309,6 @@ Index* ToGpuClonerMultiple::clone_Index_to_shards(const Index* index) {
 
     std::vector<faiss::Index*> shards(n);
 
-#pragma omp parallel for
     for (idx_t i = 0; i < n; i++) {
         // make a shallow copy
         if (reserveVecs) {
@@ -340,7 +321,7 @@ Index* ToGpuClonerMultiple::clone_Index_to_shards(const Index* index) {
                     const_cast<Index*>(quantizer),
                     index_ivfpq->d,
                     index_ivfpq->nlist,
-                    index_ivfpq->pq.M,
+                    index_ivfpq->code_size,
                     index_ivfpq->pq.nbits);
             idx2.metric_type = index_ivfpq->metric_type;
             idx2.pq = index_ivfpq->pq;
@@ -490,77 +471,6 @@ Index* GpuProgressiveDimIndexFactory::operator()(int dim) {
     IndexFlatL2 index(dim);
     ncall++;
     return index_cpu_to_gpu_multiple(vres, devices, &index, &options);
-}
-
-/*********************************************
- * Cloning binary indexes
- *********************************************/
-
-faiss::IndexBinary* index_binary_gpu_to_cpu(
-        const faiss::IndexBinary* gpu_index) {
-    if (auto ii = dynamic_cast<const GpuIndexBinaryFlat*>(gpu_index)) {
-        IndexBinaryFlat* ret = new IndexBinaryFlat();
-        ii->copyTo(ret);
-        return ret;
-    } else {
-        FAISS_THROW_MSG("cannot clone this type of index");
-    }
-}
-
-faiss::IndexBinary* index_binary_cpu_to_gpu(
-        GpuResourcesProvider* provider,
-        int device,
-        const faiss::IndexBinary* index,
-        const GpuClonerOptions* options) {
-    if (auto ii = dynamic_cast<const IndexBinaryFlat*>(index)) {
-        GpuIndexBinaryFlatConfig config;
-        config.device = device;
-        if (options) {
-            config.use_raft = options->use_raft;
-        }
-        return new GpuIndexBinaryFlat(provider, ii, config);
-    } else {
-        FAISS_THROW_MSG("cannot clone this type of index");
-    }
-}
-
-faiss::IndexBinary* index_binary_cpu_to_gpu_multiple(
-        std::vector<GpuResourcesProvider*>& provider,
-        std::vector<int>& devices,
-        const faiss::IndexBinary* index,
-        const GpuMultipleClonerOptions* options) {
-    GpuMultipleClonerOptions defaults;
-    FAISS_THROW_IF_NOT(devices.size() == provider.size());
-    int n = devices.size();
-    if (n == 1) {
-        return index_binary_cpu_to_gpu(provider[0], devices[0], index, options);
-    }
-    if (!options) {
-        options = &defaults;
-    }
-    if (options->shard) {
-        auto* fi = dynamic_cast<const IndexBinaryFlat*>(index);
-        FAISS_THROW_IF_NOT_MSG(fi, "only flat index cloning supported");
-        IndexBinaryShards* ret = new IndexBinaryShards(true, true);
-        for (int i = 0; i < n; i++) {
-            IndexBinaryFlat fig(fi->d);
-            size_t i0 = i * fi->ntotal / n;
-            size_t i1 = (i + 1) * fi->ntotal / n;
-            fig.add(i1 - i0, fi->xb.data() + i0 * fi->code_size);
-            ret->addIndex(index_binary_cpu_to_gpu(
-                    provider[i], devices[i], &fig, options));
-        }
-        ret->own_indices = true;
-        return ret;
-    } else { // replicas
-        IndexBinaryReplicas* ret = new IndexBinaryReplicas(true);
-        for (int i = 0; i < n; i++) {
-            ret->addIndex(index_binary_cpu_to_gpu(
-                    provider[i], devices[i], index, options));
-        }
-        ret->own_indices = true;
-        return ret;
-    }
 }
 
 } // namespace gpu

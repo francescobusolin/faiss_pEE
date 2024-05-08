@@ -97,18 +97,18 @@ void TestUintReaderBits() {
     TestUintReader<17, CODE_BITS>();
 }
 
-TEST(testCppcontribUintreader, Test8bit) {
+TEST(TEST_CPPCONTRIB_UINTREADER, Test8bit) {
     TestUintReaderBits<8>();
 }
 
-TEST(testCppcontribUintreader, Test10bit) {
+TEST(TEST_CPPCONTRIB_UINTREADER, Test10bit) {
     TestUintReaderBits<10>();
 }
 
-TEST(testCppcontribUintreader, Test12bit) {
+TEST(TEST_CPPCONTRIB_UINTREADER, Test12bit) {
     TestUintReaderBits<12>();
 }
 
-TEST(testCppcontribUintreader, Test16bit) {
+TEST(TEST_CPPCONTRIB_UINTREADER, Test16bit) {
     TestUintReaderBits<16>();
 }

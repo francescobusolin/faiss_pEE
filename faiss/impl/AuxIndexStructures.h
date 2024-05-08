@@ -41,6 +41,7 @@ struct RangeSearchResult {
 
     /// called when lims contains the nb of elements result entries
     /// for each query
+
     virtual void do_allocation();
 
     virtual ~RangeSearchResult();
@@ -164,7 +165,7 @@ struct FAISS_API InterruptCallback {
 /// set implementation optimized for fast access.
 struct VisitedTable {
     std::vector<uint8_t> visited;
-    uint8_t visno;
+    int visno;
 
     explicit VisitedTable(int size) : visited(size), visno(1) {}
 

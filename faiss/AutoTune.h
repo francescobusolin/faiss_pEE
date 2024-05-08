@@ -11,6 +11,7 @@
 #define FAISS_AUTO_TUNE_H
 
 #include <stdint.h>
+#include <unordered_map>
 #include <vector>
 
 #include <faiss/Index.h>

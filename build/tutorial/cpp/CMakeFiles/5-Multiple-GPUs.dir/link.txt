@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG "CMakeFiles/5-Multiple-GPUs.dir/5-Multiple-GPUs.cpp.o" -o 5-Multiple-GPUs  ../../faiss/libfaiss.a /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so -lpthread /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a 

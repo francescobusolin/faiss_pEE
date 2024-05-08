@@ -7,31 +7,27 @@
 
 #pragma once
 
-#include <cstddef>
-#include <cstdint>
+#include <faiss/impl/ProductQuantizer.h>
 
 namespace faiss {
 
 /// Returns the distance to a single code.
 template <typename PQDecoderT>
 inline float distance_single_code_generic(
-        // number of subquantizers
-        const size_t M,
-        // number of bits per quantization index
-        const size_t nbits,
+        // the product quantizer
+        const ProductQuantizer& pq,
         // precomputed distances, layout (M, ksub)
         const float* sim_table,
         // the code
         const uint8_t* code) {
-    PQDecoderT decoder(code, nbits);
-    const size_t ksub = 1 << nbits;
+    PQDecoderT decoder(code, pq.nbits);
 
     const float* tab = sim_table;
     float result = 0;
 
-    for (size_t m = 0; m < M; m++) {
+    for (size_t m = 0; m < pq.M; m++) {
         result += tab[decoder.decode()];
-        tab += ksub;
+        tab += pq.ksub;
     }
 
     return result;
@@ -41,10 +37,8 @@ inline float distance_single_code_generic(
 /// General-purpose version.
 template <typename PQDecoderT>
 inline void distance_four_codes_generic(
-        // number of subquantizers
-        const size_t M,
-        // number of bits per quantization index
-        const size_t nbits,
+        // the product quantizer
+        const ProductQuantizer& pq,
         // precomputed distances, layout (M, ksub)
         const float* sim_table,
         // codes
@@ -57,11 +51,10 @@ inline void distance_four_codes_generic(
         float& result1,
         float& result2,
         float& result3) {
-    PQDecoderT decoder0(code0, nbits);
-    PQDecoderT decoder1(code1, nbits);
-    PQDecoderT decoder2(code2, nbits);
-    PQDecoderT decoder3(code3, nbits);
-    const size_t ksub = 1 << nbits;
+    PQDecoderT decoder0(code0, pq.nbits);
+    PQDecoderT decoder1(code1, pq.nbits);
+    PQDecoderT decoder2(code2, pq.nbits);
+    PQDecoderT decoder3(code3, pq.nbits);
 
     const float* tab = sim_table;
     result0 = 0;
@@ -69,12 +62,12 @@ inline void distance_four_codes_generic(
     result2 = 0;
     result3 = 0;
 
-    for (size_t m = 0; m < M; m++) {
+    for (size_t m = 0; m < pq.M; m++) {
         result0 += tab[decoder0.decode()];
         result1 += tab[decoder1.decode()];
         result2 += tab[decoder2.decode()];
         result3 += tab[decoder3.decode()];
-        tab += ksub;
+        tab += pq.ksub;
     }
 }
 

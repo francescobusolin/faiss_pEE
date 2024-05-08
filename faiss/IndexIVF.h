@@ -72,8 +72,6 @@ struct SearchParametersIVF : SearchParameters {
     size_t nprobe = 1;    ///< number of probes at query time
     size_t max_codes = 0; ///< max nb of codes to visit to do a query
     SearchParameters* quantizer_params = nullptr;
-    /// context object to pass to InvertedLists
-    void* inverted_list_context = nullptr;
 
     virtual ~SearchParametersIVF() {}
 };
@@ -179,7 +177,6 @@ struct IndexIVF : Index, IndexIVFInterface {
     bool own_invlists = false;
 
     size_t code_size = 0; ///< code size per vector in bytes
-
     /** Parallel mode determines how queries are parallelized with OpenMP
      *
      * 0 (default): split over queries
@@ -197,10 +194,6 @@ struct IndexIVF : Index, IndexIVFInterface {
      *  enables reconstruct() */
     DirectMap direct_map;
 
-    /// do the codes in the invlists encode the vectors relative to the
-    /// centroids?
-    bool by_residual = true;
-
     /** The Inverted file takes a quantizer (an Index) on input,
      * which implements the function mapping a vector to a list
      * identifier.
@@ -214,7 +207,7 @@ struct IndexIVF : Index, IndexIVFInterface {
 
     void reset() override;
 
-    /// Trains the quantizer and calls train_encoder to train sub-quantizers
+    /// Trains the quantizer and calls train_residual to train sub-quantizers
     void train(idx_t n, const float* x) override;
 
     /// Calls add_with_ids with NULL ids
@@ -234,8 +227,7 @@ struct IndexIVF : Index, IndexIVFInterface {
             idx_t n,
             const float* x,
             const idx_t* xids,
-            const idx_t* precomputed_idx,
-            void* inverted_list_context = nullptr);
+            const idx_t* precomputed_idx);
 
     /** Encodes a set of vectors as they would appear in the inverted lists
      *
@@ -260,15 +252,9 @@ struct IndexIVF : Index, IndexIVFInterface {
      */
     void add_sa_codes(idx_t n, const uint8_t* codes, const idx_t* xids);
 
-    /** Train the encoder for the vectors.
-     *
-     * If by_residual then it is called with residuals and corresponding assign
-     * array, otherwise x is the raw training vectors and assign=nullptr */
-    virtual void train_encoder(idx_t n, const float* x, const idx_t* assign);
-
-    /// can be redefined by subclasses to indicate how many training vectors
-    /// they need
-    virtual idx_t train_encoder_num_vectors() const;
+    /// Sub-classes that encode the residuals can train their encoders here
+    /// does nothing by default
+    virtual void train_residual(idx_t n, const float* x);
 
     void search_preassigned(
             idx_t n,
@@ -360,24 +346,6 @@ struct IndexIVF : Index, IndexIVFInterface {
             float* recons,
             const SearchParameters* params = nullptr) const override;
 
-    /** Similar to search, but also returns the codes corresponding to the
-     * stored vectors for the search results.
-     *
-     * @param codes      codes (n, k, code_size)
-     * @param include_listno
-     *                   include the list ids in the code (in this case add
-     *                   ceil(log8(nlist)) to the code size)
-     */
-    void search_and_return_codes(
-            idx_t n,
-            const float* x,
-            idx_t k,
-            float* distances,
-            idx_t* labels,
-            uint8_t* recons,
-            bool include_listno = false,
-            const SearchParameters* params = nullptr) const;
-
     /** Reconstruct a vector given the location in terms of (inv list index +
      * inv list offset) instead of the id.
      *
@@ -433,14 +401,6 @@ struct IndexIVF : Index, IndexIVFInterface {
 
     /* The standalone codec interface (except sa_decode that is specific) */
     size_t sa_code_size() const override;
-
-    /** encode a set of vectors
-     * sa_encode will call encode_vector with include_listno=true
-     * @param n      nb of vectors to encode
-     * @param x      the vectors to encode
-     * @param bytes  output array for the codes
-     * @return nb of bytes written to codes
-     */
     void sa_encode(idx_t n, const float* x, uint8_t* bytes) const override;
 
     IndexIVF();

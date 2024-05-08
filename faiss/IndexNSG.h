@@ -28,25 +28,25 @@ struct IndexNSG : Index {
     NSG nsg;
 
     /// the sequential storage
-    bool own_fields = false;
-    Index* storage = nullptr;
+    bool own_fields;
+    Index* storage;
 
     /// the index is built or not
-    bool is_built = false;
+    bool is_built;
 
     /// K of KNN graph for building
-    int GK = 64;
+    int GK;
 
     /// indicate how to build a knn graph
     /// - 0: build NSG with brute force search
     /// - 1: build NSG with NNDescent
-    char build_type = 0;
+    char build_type;
 
     /// parameters for nndescent
-    int nndescent_S = 10;
-    int nndescent_R = 100;
-    int nndescent_L; // set to GK + 50
-    int nndescent_iter = 10;
+    int nndescent_S;
+    int nndescent_R;
+    int nndescent_L;
+    int nndescent_iter;
 
     explicit IndexNSG(int d = 0, int R = 32, MetricType metric = METRIC_L2);
     explicit IndexNSG(Index* storage, int R = 32);
@@ -90,7 +90,7 @@ struct IndexNSGFlat : IndexNSG {
  */
 struct IndexNSGPQ : IndexNSG {
     IndexNSGPQ();
-    IndexNSGPQ(int d, int pq_m, int M, int pq_nbits = 8);
+    IndexNSGPQ(int d, int pq_m, int M);
     void train(idx_t n, const float* x) override;
 };
 

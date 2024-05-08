@@ -29,16 +29,32 @@ using namespace nsg;
  * IndexNSG implementation
  **************************************************************/
 
-IndexNSG::IndexNSG(int d, int R, MetricType metric) : Index(d, metric), nsg(R) {
+IndexNSG::IndexNSG(int d, int R, MetricType metric)
+        : Index(d, metric),
+          nsg(R),
+          own_fields(false),
+          storage(nullptr),
+          is_built(false),
+          GK(64),
+          build_type(0) {
+    nndescent_S = 10;
+    nndescent_R = 100;
     nndescent_L = GK + 50;
+    nndescent_iter = 10;
 }
 
 IndexNSG::IndexNSG(Index* storage, int R)
         : Index(storage->d, storage->metric_type),
           nsg(R),
+          own_fields(false),
           storage(storage),
+          is_built(false),
+          GK(64),
           build_type(1) {
+    nndescent_S = 10;
+    nndescent_R = 100;
     nndescent_L = GK + 50;
+    nndescent_iter = 10;
 }
 
 IndexNSG::~IndexNSG() {
@@ -79,8 +95,8 @@ void IndexNSG::search(
         {
             VisitedTable vt(ntotal);
 
-            std::unique_ptr<DistanceComputer> dis(
-                    storage_distance_computer(storage));
+            DistanceComputer* dis = storage_distance_computer(storage);
+            ScopeDeleter1<DistanceComputer> del(dis);
 
 #pragma omp for
             for (idx_t i = i0; i < i1; i++) {
@@ -104,7 +120,7 @@ void IndexNSG::search(
     }
 }
 
-void IndexNSG::build(idx_t n, const float* x, idx_t* knn_graph, int GK_2) {
+void IndexNSG::build(idx_t n, const float* x, idx_t* knn_graph, int GK) {
     FAISS_THROW_IF_NOT_MSG(
             storage,
             "Please use IndexNSGFlat (or variants) instead of IndexNSG directly");
@@ -115,9 +131,9 @@ void IndexNSG::build(idx_t n, const float* x, idx_t* knn_graph, int GK_2) {
     ntotal = storage->ntotal;
 
     // check the knn graph
-    check_knn_graph(knn_graph, n, GK_2);
+    check_knn_graph(knn_graph, n, GK);
 
-    const nsg::Graph<idx_t> knng(knn_graph, n, GK_2);
+    const nsg::Graph<idx_t> knng(knn_graph, n, GK);
     nsg.build(storage, n, knng, verbose);
     is_built = true;
 }
@@ -286,10 +302,10 @@ IndexNSGFlat::IndexNSGFlat(int d, int R, MetricType metric)
  * IndexNSGPQ implementation
  **************************************************************/
 
-IndexNSGPQ::IndexNSGPQ() = default;
+IndexNSGPQ::IndexNSGPQ() {}
 
-IndexNSGPQ::IndexNSGPQ(int d, int pq_m, int M, int pq_nbits)
-        : IndexNSG(new IndexPQ(d, pq_m, pq_nbits), M) {
+IndexNSGPQ::IndexNSGPQ(int d, int pq_m, int M)
+        : IndexNSG(new IndexPQ(d, pq_m, 8), M) {
     own_fields = true;
     is_trained = false;
 }
@@ -309,10 +325,10 @@ IndexNSGSQ::IndexNSGSQ(
         int M,
         MetricType metric)
         : IndexNSG(new IndexScalarQuantizer(d, qtype, metric), M) {
-    is_trained = this->storage->is_trained;
+    is_trained = false;
     own_fields = true;
 }
 
-IndexNSGSQ::IndexNSGSQ() = default;
+IndexNSGSQ::IndexNSGSQ() {}
 
 } // namespace faiss

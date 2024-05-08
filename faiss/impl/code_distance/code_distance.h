@@ -32,23 +32,19 @@ namespace faiss {
 
 template <typename PQDecoderT>
 inline float distance_single_code(
-        // number of subquantizers
-        const size_t M,
-        // number of bits per quantization index
-        const size_t nbits,
+        // the product quantizer
+        const ProductQuantizer& pq,
         // precomputed distances, layout (M, ksub)
         const float* sim_table,
         // the code
         const uint8_t* code) {
-    return distance_single_code_avx2<PQDecoderT>(M, nbits, sim_table, code);
+    return distance_single_code_avx2<PQDecoderT>(pq, sim_table, code);
 }
 
 template <typename PQDecoderT>
 inline void distance_four_codes(
-        // number of subquantizers
-        const size_t M,
-        // number of bits per quantization index
-        const size_t nbits,
+        // the product quantizer
+        const ProductQuantizer& pq,
         // precomputed distances, layout (M, ksub)
         const float* sim_table,
         // codes
@@ -62,8 +58,7 @@ inline void distance_four_codes(
         float& result2,
         float& result3) {
     distance_four_codes_avx2<PQDecoderT>(
-            M,
-            nbits,
+            pq,
             sim_table,
             code0,
             code1,
@@ -85,23 +80,19 @@ namespace faiss {
 
 template <typename PQDecoderT>
 inline float distance_single_code(
-        // number of subquantizers
-        const size_t M,
-        // number of bits per quantization index
-        const size_t nbits,
+        // the product quantizer
+        const ProductQuantizer& pq,
         // precomputed distances, layout (M, ksub)
         const float* sim_table,
         // the code
         const uint8_t* code) {
-    return distance_single_code_generic<PQDecoderT>(M, nbits, sim_table, code);
+    return distance_single_code_generic<PQDecoderT>(pq, sim_table, code);
 }
 
 template <typename PQDecoderT>
 inline void distance_four_codes(
-        // number of subquantizers
-        const size_t M,
-        // number of bits per quantization index
-        const size_t nbits,
+        // the product quantizer
+        const ProductQuantizer& pq,
         // precomputed distances, layout (M, ksub)
         const float* sim_table,
         // codes
@@ -115,8 +106,7 @@ inline void distance_four_codes(
         float& result2,
         float& result3) {
     distance_four_codes_generic<PQDecoderT>(
-            M,
-            nbits,
+            pq,
             sim_table,
             code0,
             code1,

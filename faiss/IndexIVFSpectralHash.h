@@ -30,14 +30,14 @@ struct IndexPreTransform;
  */
 struct IndexIVFSpectralHash : IndexIVF {
     /// transformation from d to nbit dim
-    VectorTransform* vt = nullptr;
+    VectorTransform* vt;
     /// own the vt
-    bool own_fields = true;
+    bool own_fields;
 
     /// nb of bits of the binary signature
-    int nbit = 0;
+    int nbit;
     /// interval size for 0s and 1s
-    float period = 0;
+    float period;
 
     enum ThresholdType {
         Thresh_global,        ///< global threshold at 0
@@ -45,7 +45,7 @@ struct IndexIVFSpectralHash : IndexIVF {
         Thresh_centroid_half, ///< central interval around centroid
         Thresh_median         ///< median of training set
     };
-    ThresholdType threshold_type = Thresh_global;
+    ThresholdType threshold_type;
 
     /// Trained threshold.
     /// size nlist * nbit or 0 if Thresh_global
@@ -60,7 +60,7 @@ struct IndexIVFSpectralHash : IndexIVF {
 
     IndexIVFSpectralHash();
 
-    void train_encoder(idx_t n, const float* x, const idx_t* assign) override;
+    void train_residual(idx_t n, const float* x) override;
 
     void encode_vectors(
             idx_t n,

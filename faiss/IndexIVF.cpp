@@ -11,7 +11,6 @@
 
 #include <omp.h>
 #include <cstdint>
-#include <memory>
 #include <mutex>
 
 #include <algorithm>
@@ -46,7 +45,7 @@ Level1Quantizer::Level1Quantizer(Index* quantizer, size_t nlist)
     cp.niter = 10;
 }
 
-Level1Quantizer::Level1Quantizer() = default;
+Level1Quantizer::Level1Quantizer() {}
 
 Level1Quantizer::~Level1Quantizer() {
     if (own_fields) {
@@ -173,7 +172,7 @@ IndexIVF::IndexIVF(
     }
 }
 
-IndexIVF::IndexIVF() = default;
+IndexIVF::IndexIVF() {}
 
 void IndexIVF::add(idx_t n, const float* x) {
     add_with_ids(n, x, nullptr);
@@ -203,8 +202,7 @@ void IndexIVF::add_core(
         idx_t n,
         const float* x,
         const idx_t* xids,
-        const idx_t* coarse_idx,
-        void* inverted_list_context) {
+        const idx_t* coarse_idx) {
     // do some blocking to avoid excessive allocs
     idx_t bs = 65536;
     if (n > bs) {
@@ -219,8 +217,7 @@ void IndexIVF::add_core(
                     i1 - i0,
                     x + i0 * d,
                     xids ? xids + i0 : nullptr,
-                    coarse_idx + i0,
-                    inverted_list_context);
+                    coarse_idx + i0);
         }
         return;
     }
@@ -251,10 +248,7 @@ void IndexIVF::add_core(
             if (list_no >= 0 && list_no % nt == rank) {
                 idx_t id = xids ? xids[i] : ntotal + i;
                 size_t ofs = invlists->add_entry(
-                        list_no,
-                        id,
-                        flat_codes.get() + i * code_size,
-                        inverted_list_context);
+                        list_no, id, flat_codes.get() + i * code_size);
 
                 dm_adder.add(i, list_no, ofs);
 
@@ -381,7 +375,7 @@ void IndexIVF::search(
             indexIVF_stats.add(stats[slice]);
         }
     } else {
-        // handle parallelization at level below (or don't run in parallel at
+        // handle paralellization at level below (or don't run in parallel at
         // all)
         sub_search_func(n, x, distances, labels, &indexIVF_stats);
     }
@@ -444,19 +438,17 @@ void IndexIVF::search_preassigned(
         max_codes = unlimited_list_size;
     }
 
-    [[maybe_unused]] bool do_parallel = omp_get_max_threads() >= 2 &&
+    bool do_parallel = omp_get_max_threads() >= 2 &&
             (pmode == 0           ? false
                      : pmode == 3 ? n > 1
                      : pmode == 1 ? nprobe > 1
                                   : nprobe * n > 1);
 
-    void* inverted_list_context =
-            params ? params->inverted_list_context : nullptr;
-
 #pragma omp parallel if (do_parallel) reduction(+ : nlistv, ndis, nheap)
     {
-        std::unique_ptr<InvertedListScanner> scanner(
-                get_InvertedListScanner(store_pairs, sel));
+        InvertedListScanner* scanner =
+                get_InvertedListScanner(store_pairs, sel);
+        ScopeDeleter1<InvertedListScanner> del(scanner);
 
         /*****************************************************
          * Depending on parallel_mode, there are two possible ways
@@ -515,7 +507,7 @@ void IndexIVF::search_preassigned(
                     nlist);
 
             // don't waste time on empty lists
-            if (invlists->is_empty(key, inverted_list_context)) {
+            if (invlists->is_empty(key)) {
                 return (size_t)0;
             }
 
@@ -528,7 +520,7 @@ void IndexIVF::search_preassigned(
                     size_t list_size = 0;
 
                     std::unique_ptr<InvertedListsIterator> it(
-                            invlists->get_iterator(key, inverted_list_context));
+                            invlists->get_iterator(key));
 
                     nheap += scanner->iterate_codes(
                             it.get(), simi, idxi, k, list_size);
@@ -547,8 +539,7 @@ void IndexIVF::search_preassigned(
                     const idx_t* ids = nullptr;
 
                     if (!store_pairs) {
-                        sids = std::make_unique<InvertedLists::ScopedIds>(
-                                invlists, key);
+                        sids.reset(new InvertedLists::ScopedIds(invlists, key));
                         ids = sids->get();
                     }
 
@@ -668,6 +659,7 @@ void IndexIVF::search_preassigned(
 #pragma omp for schedule(dynamic)
             for (int64_t ij = 0; ij < n * nprobe; ij++) {
                 size_t i = ij / nprobe;
+                size_t j = ij % nprobe;
 
                 scanner->set_query(x + i * d);
                 init_result(local_dis.data(), local_idx.data());
@@ -704,13 +696,12 @@ void IndexIVF::search_preassigned(
         }
     }
 
-    if (ivf_stats == nullptr) {
-        ivf_stats = &indexIVF_stats;
+    if (ivf_stats) {
+        ivf_stats->nq += n;
+        ivf_stats->nlist += nlistv;
+        ivf_stats->ndis += ndis;
+        ivf_stats->nheap_updates += nheap;
     }
-    ivf_stats->nq += n;
-    ivf_stats->nlist += nlistv;
-    ivf_stats->ndis += ndis;
-    ivf_stats->nheap_updates += nheap;
 }
 
 void IndexIVF::range_search(
@@ -784,14 +775,11 @@ void IndexIVF::range_search_preassigned(
 
     int pmode = this->parallel_mode & ~PARALLEL_MODE_NO_HEAP_INIT;
     // don't start parallel section if single query
-    [[maybe_unused]] bool do_parallel = omp_get_max_threads() >= 2 &&
+    bool do_parallel = omp_get_max_threads() >= 2 &&
             (pmode == 3           ? false
                      : pmode == 0 ? nx > 1
                      : pmode == 1 ? nprobe > 1
                                   : nprobe * nx > 1);
-
-    void* inverted_list_context =
-            params ? params->inverted_list_context : nullptr;
 
 #pragma omp parallel if (do_parallel) reduction(+ : nlistv, ndis)
     {
@@ -814,7 +802,7 @@ void IndexIVF::range_search_preassigned(
                     ik,
                     nlist);
 
-            if (invlists->is_empty(key, inverted_list_context)) {
+            if (invlists->is_empty(key)) {
                 return;
             }
 
@@ -823,7 +811,7 @@ void IndexIVF::range_search_preassigned(
                 scanner->set_list(key, coarse_dis[i * nprobe + ik]);
                 if (invlists->use_iterator) {
                     std::unique_ptr<InvertedListsIterator> it(
-                            invlists->get_iterator(key, inverted_list_context));
+                            invlists->get_iterator(key));
 
                     scanner->iterate_codes_range(
                             it.get(), radius, qres, list_size);
@@ -903,18 +891,17 @@ void IndexIVF::range_search_preassigned(
         }
     }
 
-    if (stats == nullptr) {
-        stats = &indexIVF_stats;
+    if (stats) {
+        stats->nq += nx;
+        stats->nlist += nlistv;
+        stats->ndis += ndis;
     }
-    stats->nq += nx;
-    stats->nlist += nlistv;
-    stats->ndis += ndis;
 }
 
 InvertedListScanner* IndexIVF::get_InvertedListScanner(
         bool /*store_pairs*/,
         const IDSelector* /* sel */) const {
-    FAISS_THROW_MSG("get_InvertedListScanner not implemented");
+    return nullptr;
 }
 
 void IndexIVF::reconstruct(idx_t key, float* recons) const {
@@ -986,68 +973,14 @@ void IndexIVF::search_and_reconstruct(
             std::min(nlist, params ? params->nprobe : this->nprobe);
     FAISS_THROW_IF_NOT(nprobe > 0);
 
-    std::unique_ptr<idx_t[]> idx(new idx_t[n * nprobe]);
-    std::unique_ptr<float[]> coarse_dis(new float[n * nprobe]);
+    idx_t* idx = new idx_t[n * nprobe];
+    ScopeDeleter<idx_t> del(idx);
+    float* coarse_dis = new float[n * nprobe];
+    ScopeDeleter<float> del2(coarse_dis);
 
-    quantizer->search(n, x, nprobe, coarse_dis.get(), idx.get());
+    quantizer->search(n, x, nprobe, coarse_dis, idx);
 
-    invlists->prefetch_lists(idx.get(), n * nprobe);
-
-    // search_preassigned() with `store_pairs` enabled to obtain the list_no
-    // and offset into `codes` for reconstruction
-    search_preassigned(
-            n,
-            x,
-            k,
-            idx.get(),
-            coarse_dis.get(),
-            distances,
-            labels,
-            true /* store_pairs */,
-            params);
-#pragma omp parallel for if (n * k > 1000)
-    for (idx_t ij = 0; ij < n * k; ij++) {
-        idx_t key = labels[ij];
-        float* reconstructed = recons + ij * d;
-        if (key < 0) {
-            // Fill with NaNs
-            memset(reconstructed, -1, sizeof(*reconstructed) * d);
-        } else {
-            int list_no = lo_listno(key);
-            int offset = lo_offset(key);
-
-            // Update label to the actual id
-            labels[ij] = invlists->get_single_id(list_no, offset);
-
-            reconstruct_from_offset(list_no, offset, reconstructed);
-        }
-    }
-}
-
-void IndexIVF::search_and_return_codes(
-        idx_t n,
-        const float* x,
-        idx_t k,
-        float* distances,
-        idx_t* labels,
-        uint8_t* codes,
-        bool include_listno,
-        const SearchParameters* params_in) const {
-    const IVFSearchParameters* params = nullptr;
-    if (params_in) {
-        params = dynamic_cast<const IVFSearchParameters*>(params_in);
-        FAISS_THROW_IF_NOT_MSG(params, "IndexIVF params have incorrect type");
-    }
-    const size_t nprobe =
-            std::min(nlist, params ? params->nprobe : this->nprobe);
-    FAISS_THROW_IF_NOT(nprobe > 0);
-
-    std::unique_ptr<idx_t[]> idx(new idx_t[n * nprobe]);
-    std::unique_ptr<float[]> coarse_dis(new float[n * nprobe]);
-
-    quantizer->search(n, x, nprobe, coarse_dis.get(), idx.get());
-
-    invlists->prefetch_lists(idx.get(), n * nprobe);
+    invlists->prefetch_lists(idx, n * nprobe);
 
     // search_preassigned() with `store_pairs` enabled to obtain the list_no
     // and offset into `codes` for reconstruction
@@ -1055,38 +988,29 @@ void IndexIVF::search_and_return_codes(
             n,
             x,
             k,
-            idx.get(),
-            coarse_dis.get(),
+            idx,
+            coarse_dis,
             distances,
             labels,
             true /* store_pairs */,
             params);
+    for (idx_t i = 0; i < n; ++i) {
+        for (idx_t j = 0; j < k; ++j) {
+            idx_t ij = i * k + j;
+            idx_t key = labels[ij];
+            float* reconstructed = recons + ij * d;
+            if (key < 0) {
+                // Fill with NaNs
+                memset(reconstructed, -1, sizeof(*reconstructed) * d);
+            } else {
+                int list_no = lo_listno(key);
+                int offset = lo_offset(key);
 
-    size_t code_size_1 = code_size;
-    if (include_listno) {
-        code_size_1 += coarse_code_size();
-    }
+                // Update label to the actual id
+                labels[ij] = invlists->get_single_id(list_no, offset);
 
-#pragma omp parallel for if (n * k > 1000)
-    for (idx_t ij = 0; ij < n * k; ij++) {
-        idx_t key = labels[ij];
-        uint8_t* code1 = codes + ij * code_size_1;
-
-        if (key < 0) {
-            // Fill with 0xff
-            memset(code1, -1, code_size_1);
-        } else {
-            int list_no = lo_listno(key);
-            int offset = lo_offset(key);
-            const uint8_t* cc = invlists->get_single_code(list_no, offset);
-
-            labels[ij] = invlists->get_single_id(list_no, offset);
-
-            if (include_listno) {
-                encode_listno(list_no, code1);
-                code1 += code_size_1 - code_size;
+                reconstruct_from_offset(list_no, offset, reconstructed);
             }
-            memcpy(code1, cc, code_size);
         }
     }
 }
@@ -1137,52 +1061,22 @@ void IndexIVF::update_vectors(int n, const idx_t* new_ids, const float* x) {
 }
 
 void IndexIVF::train(idx_t n, const float* x) {
-    if (verbose) {
+    if (verbose)
         printf("Training level-1 quantizer\n");
-    }
 
     train_q1(n, x, verbose, metric_type);
 
-    if (verbose) {
+    if (verbose)
         printf("Training IVF residual\n");
-    }
 
-    // optional subsampling
-    idx_t max_nt = train_encoder_num_vectors();
-    if (max_nt <= 0) {
-        max_nt = (size_t)1 << 35;
-    }
-
-    TransformedVectors tv(
-            x, fvecs_maybe_subsample(d, (size_t*)&n, max_nt, x, verbose));
-
-    if (by_residual) {
-        std::vector<idx_t> assign(n);
-        quantizer->assign(n, tv.x, assign.data());
-
-        std::vector<float> residuals(n * d);
-        quantizer->compute_residual_n(n, tv.x, residuals.data(), assign.data());
-
-        train_encoder(n, residuals.data(), assign.data());
-    } else {
-        train_encoder(n, tv.x, nullptr);
-    }
-
+    train_residual(n, x);
     is_trained = true;
 }
 
-idx_t IndexIVF::train_encoder_num_vectors() const {
-    return 0;
-}
-
-void IndexIVF::train_encoder(
-        idx_t /*n*/,
-        const float* /*x*/,
-        const idx_t* assign) {
-    // does nothing by default
-    if (verbose) {
+void IndexIVF::train_residual(idx_t /*n*/, const float* /*x*/) {
+    if (verbose)
         printf("IndexIVF: no residual training\n");
-    }
+    // does nothing by default
 }
 
 bool check_compatible_for_merge_expensive_check = true;

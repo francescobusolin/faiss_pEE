@@ -76,14 +76,10 @@ typedef uint64_t size_t;
 #include <faiss/Index2Layer.h>
 #include <faiss/IndexIVFPQR.h>
 #include <faiss/IndexIVFFlat.h>
-#include <faiss/IndexIVFIndependentQuantizer.h>
 
 #include <faiss/IndexFastScan.h>
 #include <faiss/IndexAdditiveQuantizerFastScan.h>
 #include <faiss/IndexPQFastScan.h>
-#include <faiss/utils/simdlib.h>
-#include <faiss/impl/simd_result_handlers.h>
-
 #include <faiss/IndexIVFFastScan.h>
 #include <faiss/IndexIVFAdditiveQuantizerFastScan.h>
 #include <faiss/IndexIVFPQFastScan.h>
@@ -127,7 +123,6 @@ typedef uint64_t size_t;
 
 #include <faiss/IVFlib.h>
 #include <faiss/utils/utils.h>
-
 #include <faiss/utils/sorting.h>
 #include <faiss/utils/distances.h>
 #include <faiss/utils/extra_distances.h>
@@ -140,11 +135,9 @@ typedef uint64_t size_t;
 #include <faiss/impl/DistanceComputer.h>
 #include <faiss/impl/AdditiveQuantizer.h>
 #include <faiss/impl/ResidualQuantizer.h>
-#include <faiss/impl/residual_quantizer_encode_steps.h>
-
 #include <faiss/impl/LocalSearchQuantizer.h>
 #include <faiss/impl/ProductAdditiveQuantizer.h>
-#include <faiss/impl/CodePacker.h>
+#include  <faiss/impl/CodePacker.h>
 
 #include <faiss/invlists/BlockInvertedLists.h>
 
@@ -256,7 +249,6 @@ namespace std {
 %template(RepeatVector) std::vector<faiss::Repeat>;
 %template(ClusteringIterationStatsVector) std::vector<faiss::ClusteringIterationStats>;
 %template(ParameterRangeVector) std::vector<faiss::ParameterRange>;
-
 
 #ifndef SWIGWIN
 %template(OnDiskOneListVector) std::vector<faiss::OnDiskOneList>;
@@ -392,9 +384,6 @@ void gpu_sync_all_devices()
 // order matters because includes are not recursive
 
 %include  <faiss/utils/utils.h>
-%template(CombinerRangeKNNfloat) faiss::CombinerRangeKNN<float>;
-%template(CombinerRangeKNNint16) faiss::CombinerRangeKNN<int16_t>;
-
 %include  <faiss/utils/distances.h>
 %include  <faiss/utils/random.h>
 %include  <faiss/utils/sorting.h>
@@ -420,7 +409,6 @@ void gpu_sync_all_devices()
 %include  <faiss/impl/Quantizer.h>
 %include  <faiss/impl/ProductQuantizer.h>
 %include  <faiss/impl/AdditiveQuantizer.h>
-%include  <faiss/impl/residual_quantizer_encode_steps.h>
 %include  <faiss/impl/ResidualQuantizer.h>
 %include  <faiss/impl/LocalSearchQuantizer.h>
 %include  <faiss/impl/ProductAdditiveQuantizer.h>
@@ -460,20 +448,7 @@ void gpu_sync_all_devices()
 %include  <faiss/IndexNNDescent.h>
 
 %include  <faiss/IndexIVFFlat.h>
-
-%warnfilter(509) faiss::nsg::Graph< int >::at(int,int);
-
 %include  <faiss/impl/NSG.h>
-
-%template(NSG_Graph_int) faiss::nsg::Graph<int>;
-
-// not using %shared_ptr to avoid mem leaks
-%extend faiss::NSG {
-    faiss::nsg::Graph<int>* get_final_graph() {
-        return $self->final_graph.get();
-    }
-}
-
 %include  <faiss/IndexNSG.h>
 
 #ifndef SWIGWIN
@@ -493,15 +468,8 @@ void gpu_sync_all_devices()
 %include  <faiss/IndexFastScan.h>
 %include  <faiss/IndexAdditiveQuantizerFastScan.h>
 %include  <faiss/IndexPQFastScan.h>
-
-// NOTE(matthijs) let's not go into wrapping simdlib
-struct faiss::simd16uint16 {};
-
-%include  <faiss/impl/simd_result_handlers.h>
 %include  <faiss/IndexIVFFastScan.h>
 %include  <faiss/IndexIVFAdditiveQuantizerFastScan.h>
-%include  <faiss/IndexIVFIndependentQuantizer.h>
-
 %include  <faiss/IndexIVFPQFastScan.h>
 %include  <faiss/utils/quantize_lut.h>
 
@@ -526,6 +494,11 @@ struct faiss::simd16uint16 {};
 %template(IndexBinaryReplicas) faiss::IndexReplicasTemplate<faiss::IndexBinary>;
 
 %include  <faiss/MetaIndexes.h>
+%include  <faiss/IndexIDMap.h>
+%template(IndexIDMap) faiss::IndexIDMapTemplate<faiss::Index>;
+%template(IndexBinaryIDMap) faiss::IndexIDMapTemplate<faiss::IndexBinary>;
+%template(IndexIDMap2) faiss::IndexIDMap2Template<faiss::Index>;
+%template(IndexBinaryIDMap2) faiss::IndexIDMap2Template<faiss::IndexBinary>;
 
 %include  <faiss/IndexRowwiseMinMax.h>
 
@@ -539,13 +512,6 @@ struct faiss::simd16uint16 {};
 
 %include <faiss/impl/AuxIndexStructures.h>
 %include <faiss/impl/IDSelector.h>
-
-%include  <faiss/IndexIDMap.h>
-%template(IndexIDMap) faiss::IndexIDMapTemplate<faiss::Index>;
-%template(IndexBinaryIDMap) faiss::IndexIDMapTemplate<faiss::IndexBinary>;
-%template(IndexIDMap2) faiss::IndexIDMap2Template<faiss::Index>;
-%template(IndexBinaryIDMap2) faiss::IndexIDMap2Template<faiss::IndexBinary>;
-
 
 %include <faiss/utils/approx_topk/mode.h>
 
@@ -609,7 +575,6 @@ struct faiss::simd16uint16 {};
 %newobject read_VectorTransform;
 %newobject read_ProductQuantizer;
 %newobject clone_index;
-%newobject clone_binary_index;
 %newobject clone_Quantizer;
 %newobject clone_VectorTransform;
 
@@ -620,7 +585,6 @@ struct faiss::simd16uint16 {};
     DOWNCAST ( IndexShardsIVF )
     DOWNCAST2 ( IndexShards, IndexShardsTemplateT_faiss__Index_t )
     DOWNCAST2 ( IndexReplicas, IndexReplicasTemplateT_faiss__Index_t )
-    DOWNCAST ( IndexIVFIndependentQuantizer)
     DOWNCAST ( IndexIVFPQR )
     DOWNCAST ( IndexIVFPQ )
     DOWNCAST ( IndexIVFPQFastScan )
@@ -637,8 +601,6 @@ struct faiss::simd16uint16 {};
     DOWNCAST ( IndexIVFFlatDedup )
     DOWNCAST ( IndexIVFFlat )
     DOWNCAST ( IndexIVF )
-    DOWNCAST ( IndexFlatIP )
-    DOWNCAST ( IndexFlatL2 )
     DOWNCAST ( IndexFlat )
     DOWNCAST ( IndexRefineFlat )
     DOWNCAST ( IndexRefine )
@@ -689,7 +651,6 @@ struct faiss::simd16uint16 {};
         assert(false);
     }
 }
-
 
 %typemap(out) faiss::IndexBinary * {
     DOWNCAST2 ( IndexBinaryReplicas, IndexReplicasTemplateT_faiss__IndexBinary_t )
@@ -829,6 +790,147 @@ faiss::Quantizer * downcast_Quantizer (faiss::Quantizer *aq)
 #endif
 
 
+
+// Python-specific: do not release GIL any more, as functions below
+// use the Python/C API
+#ifdef SWIGPYTHON
+%exception;
+#endif
+
+
+
+
+
+/*******************************************************************
+ * Python specific: numpy array <-> C++ pointer interface
+ *******************************************************************/
+
+#ifdef SWIGPYTHON
+
+%{
+PyObject *swig_ptr (PyObject *a)
+{
+
+    if (PyBytes_Check(a)) {
+        return SWIG_NewPointerObj(PyBytes_AsString(a), SWIGTYPE_p_char, 0);
+    }
+    if (PyByteArray_Check(a)) {
+        return SWIG_NewPointerObj(PyByteArray_AsString(a), SWIGTYPE_p_char, 0);
+    }
+    if(!PyArray_Check(a)) {
+        PyErr_SetString(PyExc_ValueError, "input not a numpy array");
+        return NULL;
+    }
+    PyArrayObject *ao = (PyArrayObject *)a;
+
+    if(!PyArray_ISCONTIGUOUS(ao)) {
+        PyErr_SetString(PyExc_ValueError, "array is not C-contiguous");
+        return NULL;
+    }
+    void * data = PyArray_DATA(ao);
+    if(PyArray_TYPE(ao) == NPY_FLOAT32) {
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_float, 0);
+    }
+    if(PyArray_TYPE(ao) == NPY_FLOAT64) {
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_double, 0);
+    }
+    if(PyArray_TYPE(ao) == NPY_FLOAT16) {
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_short, 0);
+    }
+    if(PyArray_TYPE(ao) == NPY_UINT8) {
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_char, 0);
+    }
+    if(PyArray_TYPE(ao) == NPY_INT8) {
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_char, 0);
+    }
+    if(PyArray_TYPE(ao) == NPY_UINT16) {
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_short, 0);
+    }
+    if(PyArray_TYPE(ao) == NPY_INT16) {
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_short, 0);
+    }
+    if(PyArray_TYPE(ao) == NPY_UINT32) {
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_int, 0);
+    }
+    if(PyArray_TYPE(ao) == NPY_INT32) {
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_int, 0);
+    }
+    if(PyArray_TYPE(ao) == NPY_UINT64) {
+#ifdef SWIGWORDSIZE64
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_long, 0);
+#else
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_long_long, 0);
+#endif
+    }
+    if(PyArray_TYPE(ao) == NPY_INT64) {
+#ifdef SWIGWORDSIZE64
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_long, 0);
+#else
+        return SWIG_NewPointerObj(data, SWIGTYPE_p_long_long, 0);
+#endif
+    }
+    PyErr_SetString(PyExc_ValueError, "did not recognize array type");
+    return NULL;
+}
+
+
+struct PythonInterruptCallback: faiss::InterruptCallback {
+
+    bool want_interrupt () override {
+        int err;
+        {
+            PyGILState_STATE gstate;
+            gstate = PyGILState_Ensure();
+            err = PyErr_CheckSignals();
+            PyGILState_Release(gstate);
+        }
+        return err == -1;
+    }
+
+};
+
+
+%}
+
+
+%init %{
+    /* needed, else crash at runtime */
+    import_array();
+
+    faiss::InterruptCallback::instance.reset(new PythonInterruptCallback());
+
+%}
+
+// return a pointer usable as input for functions that expect pointers
+PyObject *swig_ptr (PyObject *a);
+
+%define REV_SWIG_PTR(ctype, numpytype)
+
+%{
+PyObject * rev_swig_ptr(ctype *src, npy_intp size) {
+    return PyArray_SimpleNewFromData(1, &size, numpytype, src);
+}
+%}
+
+PyObject * rev_swig_ptr(ctype *src, size_t size);
+
+%enddef
+
+REV_SWIG_PTR(float, NPY_FLOAT32);
+REV_SWIG_PTR(double, NPY_FLOAT64);
+REV_SWIG_PTR(unsigned char, NPY_UINT8);
+REV_SWIG_PTR(char, NPY_INT8);
+REV_SWIG_PTR(unsigned short, NPY_UINT16);
+REV_SWIG_PTR(short, NPY_INT16);
+REV_SWIG_PTR(int, NPY_INT32);
+REV_SWIG_PTR(unsigned int, NPY_UINT32);
+REV_SWIG_PTR(int64_t, NPY_INT64);
+REV_SWIG_PTR(uint64_t, NPY_UINT64);
+
+#endif
+
+
+
 /*******************************************************************
  * How should the template objects appear in the scripting language?
  *******************************************************************/
@@ -903,44 +1005,6 @@ INSTANTIATE_merge_knn_results(CMin, int32_t);
 INSTANTIATE_merge_knn_results(CMax, int32_t);
 
 
-
-%inline %{
-
-/*******************************************************************
- * numpy misses a hash table implementation, hence this class. It
- * represents not found values as -1 like in the Index implementation
- *******************************************************************/
-
-
-struct MapLong2Long {
-    std::unordered_map<int64_t, int64_t> map;
-
-    void add(size_t n, const int64_t *keys, const int64_t *vals) {
-        map.reserve(map.size() + n);
-        for (size_t i = 0; i < n; i++) {
-            map[keys[i]] = vals[i];
-        }
-    }
-
-    int64_t search(int64_t key) const {
-        auto ptr = map.find(key);
-        if (ptr == map.end()) {
-            return -1;
-        } else {
-            return ptr->second;
-        }
-    }
-
-    void search_multiple(size_t n, int64_t *keys, int64_t * vals) {
-        for (size_t i = 0; i < n; i++) {
-            vals[i] = search(keys[i]);
-        }
-    }
-};
-
-%}
-
-
 /*******************************************************************
  * Expose a few basic functions
  *******************************************************************/
@@ -949,152 +1013,6 @@ struct MapLong2Long {
 void omp_set_num_threads (int num_threads);
 int omp_get_max_threads ();
 void *memcpy(void *dest, const void *src, size_t n);
-
-
-
-
-/*******************************************************************
- * Python-specific: do not release GIL any more, as functions below
- * use the Python/C API
- *******************************************************************/
-
-#ifdef SWIGPYTHON
-%exception;
-#endif
-
-
-
-/*******************************************************************
- * Python specific: numpy array <-> C++ pointer interface
- *******************************************************************/
-
-#ifdef SWIGPYTHON
-
-%{
-PyObject *swig_ptr (PyObject *a)
-{
-
-    if (PyBytes_Check(a)) {
-        return SWIG_NewPointerObj(PyBytes_AsString(a), SWIGTYPE_p_char, 0);
-    }
-    if (PyByteArray_Check(a)) {
-        return SWIG_NewPointerObj(PyByteArray_AsString(a), SWIGTYPE_p_char, 0);
-    }
-    if(!PyArray_Check(a)) {
-        PyErr_SetString(PyExc_ValueError, "input not a numpy array");
-        return NULL;
-    }
-    PyArrayObject *ao = (PyArrayObject *)a;
-
-    if(!PyArray_ISCONTIGUOUS(ao)) {
-        PyErr_SetString(PyExc_ValueError, "array is not C-contiguous");
-        return NULL;
-    }
-    void * data = PyArray_DATA(ao);
-    if(PyArray_TYPE(ao) == NPY_FLOAT32) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_float, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_FLOAT64) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_double, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_FLOAT16) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_short, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_UINT8) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_char, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_INT8) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_char, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_UINT16) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_short, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_INT16) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_short, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_UINT32) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_int, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_INT32) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_int, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_BOOL) {
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_bool, 0);
-    }
-    if(PyArray_TYPE(ao) == NPY_UINT64) {
-    // Convert npy64 either long or long long  and it depends on how compiler define int64_t.
-    // In the 64bit machine, typically the int64_t should be long but it is not hold for Apple osx.
-    // In this case, we want to convert npy64 to long_Long in osx
-#if __SIZEOF_LONG__ == 8 && !defined(__APPLE__)
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_long, 0);
-#else
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_unsigned_long_long, 0);
-#endif
-    }
-    if(PyArray_TYPE(ao) == NPY_INT64) {
-#if __SIZEOF_LONG__ == 8 && !defined(__APPLE__)
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_long, 0);
-#else
-        return SWIG_NewPointerObj(data, SWIGTYPE_p_long_long, 0);
-#endif
-    }
-    PyErr_SetString(PyExc_ValueError, "did not recognize array type");
-    return NULL;
-}
-
-
-struct PythonInterruptCallback: faiss::InterruptCallback {
-
-    bool want_interrupt () override {
-        int err;
-        {
-            PyGILState_STATE gstate;
-            gstate = PyGILState_Ensure();
-            err = PyErr_CheckSignals();
-            PyGILState_Release(gstate);
-        }
-        return err == -1;
-    }
-
-};
-%}
-
-%init %{
-    /* needed, else crash at runtime */
-    import_array();
-
-    faiss::InterruptCallback::instance.reset(new PythonInterruptCallback());
-
-%}
-
-// return a pointer usable as input for functions that expect pointers
-PyObject *swig_ptr (PyObject *a);
-
-%define REV_SWIG_PTR(ctype, numpytype)
-
-%{
-PyObject * rev_swig_ptr(ctype *src, npy_intp size) {
-    return PyArray_SimpleNewFromData(1, &size, numpytype, src);
-}
-%}
-
-PyObject * rev_swig_ptr(ctype *src, size_t size);
-
-%enddef
-
-REV_SWIG_PTR(float, NPY_FLOAT32);
-REV_SWIG_PTR(double, NPY_FLOAT64);
-REV_SWIG_PTR(unsigned char, NPY_UINT8);
-REV_SWIG_PTR(char, NPY_INT8);
-REV_SWIG_PTR(unsigned short, NPY_UINT16);
-REV_SWIG_PTR(short, NPY_INT16);
-REV_SWIG_PTR(int, NPY_INT32);
-REV_SWIG_PTR(unsigned int, NPY_UINT32);
-REV_SWIG_PTR(int64_t, NPY_INT64);
-REV_SWIG_PTR(uint64_t, NPY_UINT64);
-
-#endif
-
 
 
 /*******************************************************************
@@ -1121,7 +1039,50 @@ int * cast_integer_to_int_ptr (int64_t x) {
 void * cast_integer_to_void_ptr (int64_t x) {
     return (void*)x;
 }
+
 %}
+
+
+/*******************************************************************
+ * Range search interface
+ *******************************************************************/
+
+
+%inline %{
+
+// numpy misses a hash table implementation, hence this class. It
+// represents not found values as -1 like in the Index implementation
+
+struct MapLong2Long {
+    std::unordered_map<int64_t, int64_t> map;
+
+    void add(size_t n, const int64_t *keys, const int64_t *vals) {
+        map.reserve(map.size() + n);
+        for (size_t i = 0; i < n; i++) {
+            map[keys[i]] = vals[i];
+        }
+    }
+
+    int64_t search(int64_t key) {
+        if (map.count(key) == 0) {
+            return -1;
+        } else {
+            return map[key];
+        }
+    }
+
+    void search_multiple(size_t n, int64_t *keys, int64_t * vals) {
+        for (size_t i = 0; i < n; i++) {
+            vals[i] = search(keys[i]);
+        }
+    }
+};
+
+%}
+
+
+
+
 
 %inline %{
     void wait() {

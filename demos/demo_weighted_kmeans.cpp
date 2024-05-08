@@ -7,7 +7,6 @@
 
 #include <cstdio>
 #include <cstdlib>
-#include <memory>
 
 #include <faiss/Clustering.h>
 #include <faiss/IndexFlat.h>
@@ -40,13 +39,13 @@ float weighted_kmeans_clustering(
 
     switch (index_num) {
         case WKMT_FlatL2:
-            index = std::make_unique<IndexFlatL2>(d);
+            index.reset(new IndexFlatL2(d));
             break;
         case WKMT_FlatIP:
-            index = std::make_unique<IndexFlatIP>(d);
+            index.reset(new IndexFlatIP(d));
             break;
         case WKMT_FlatIP_spherical:
-            index = std::make_unique<IndexFlatIP>(d);
+            index.reset(new IndexFlatIP(d));
             clus.spherical = true;
             break;
         case WKMT_HNSW:

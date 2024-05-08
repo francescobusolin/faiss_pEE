@@ -65,6 +65,7 @@ struct IndexScalarQuantizer : IndexFlatCodes {
 
 struct IndexIVFScalarQuantizer : IndexIVF {
     ScalarQuantizer sq;
+    bool by_residual;
 
     IndexIVFScalarQuantizer(
             Index* quantizer,
@@ -72,13 +73,11 @@ struct IndexIVFScalarQuantizer : IndexIVF {
             size_t nlist,
             ScalarQuantizer::QuantizerType qtype,
             MetricType metric = METRIC_L2,
-            bool by_residual = true);
+            bool encode_residual = true);
 
     IndexIVFScalarQuantizer();
 
-    void train_encoder(idx_t n, const float* x, const idx_t* assign) override;
-
-    idx_t train_encoder_num_vectors() const override;
+    void train_residual(idx_t n, const float* x) override;
 
     void encode_vectors(
             idx_t n,
@@ -91,8 +90,7 @@ struct IndexIVFScalarQuantizer : IndexIVF {
             idx_t n,
             const float* x,
             const idx_t* xids,
-            const idx_t* precomputed_idx,
-            void* inverted_list_context = nullptr) override;
+            const idx_t* precomputed_idx) override;
 
     InvertedListScanner* get_InvertedListScanner(
             bool store_pairs,

@@ -4,29 +4,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/*
- * Copyright (c) 2023, NVIDIA CORPORATION.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-#if defined USE_NVIDIA_RAFT
-#include <raft/core/device_resources.hpp>
-#include <rmm/mr/device/managed_memory_resource.hpp>
-#include <rmm/mr/device/per_device_resource.hpp>
-#include <rmm/mr/host/pinned_memory_resource.hpp>
-#include <memory>
-#endif
 
 #include <faiss/gpu/StandardGpuResources.h>
 #include <faiss/gpu/utils/DeviceUtils.h>
@@ -89,12 +66,7 @@ std::string allocsToString(const std::unordered_map<void*, AllocRequest>& map) {
 //
 
 StandardGpuResourcesImpl::StandardGpuResourcesImpl()
-        :
-#if defined USE_NVIDIA_RAFT
-          mmr_(new rmm::mr::managed_memory_resource),
-          pmr_(new rmm::mr::pinned_memory_resource),
-#endif
-          pinnedMemAlloc_(nullptr),
+        : pinnedMemAlloc_(nullptr),
           pinnedMemAllocSize_(0),
           // let the adjustment function determine the memory size for us by
           // passing in a huge value that will then be adjusted
@@ -102,8 +74,7 @@ StandardGpuResourcesImpl::StandardGpuResourcesImpl()
                   -1,
                   std::numeric_limits<size_t>::max())),
           pinnedMemSize_(kDefaultPinnedMemoryAllocation),
-          allocLogging_(false) {
-}
+          allocLogging_(false) {}
 
 StandardGpuResourcesImpl::~StandardGpuResourcesImpl() {
     // The temporary memory allocator has allocated memory through us, so clean
@@ -158,9 +129,6 @@ StandardGpuResourcesImpl::~StandardGpuResourcesImpl() {
     }
 
     if (pinnedMemAlloc_) {
-#if defined USE_NVIDIA_RAFT
-        pmr_->deallocate(pinnedMemAlloc_, pinnedMemAllocSize_);
-#else
         auto err = cudaFreeHost(pinnedMemAlloc_);
         FAISS_ASSERT_FMT(
                 err == cudaSuccess,
@@ -168,7 +136,6 @@ StandardGpuResourcesImpl::~StandardGpuResourcesImpl() {
                 pinnedMemAlloc_,
                 (int)err,
                 cudaGetErrorString(err));
-#endif
     }
 }
 
@@ -220,11 +187,11 @@ void StandardGpuResourcesImpl::setTempMemory(size_t size) {
             p.second.reset();
 
             // Allocate new
-            p.second = std::make_unique<StackDeviceMemory>(
+            p.second = std::unique_ptr<StackDeviceMemory>(new StackDeviceMemory(
                     this,
                     p.first,
                     // adjust for this specific device
-                    getDefaultTempMemForGPU(device, tempMemSize_));
+                    getDefaultTempMemForGPU(device, tempMemSize_)));
         }
     }
 }
@@ -307,19 +274,6 @@ void StandardGpuResourcesImpl::initializeForDevice(int device) {
     // If this is the first device that we're initializing, create our
     // pinned memory allocation
     if (defaultStreams_.empty() && pinnedMemSize_ > 0) {
-#if defined USE_NVIDIA_RAFT
-        // If this is the first device that we're initializing, create our
-        // pinned memory allocation
-        if (defaultStreams_.empty() && pinnedMemSize_ > 0) {
-            try {
-                pinnedMemAlloc_ = pmr_->allocate(pinnedMemSize_);
-            } catch (const std::bad_alloc& rmm_ex) {
-                FAISS_THROW_MSG("CUDA memory allocation error");
-            }
-
-            pinnedMemAllocSize_ = pinnedMemSize_;
-        }
-#else
         auto err = cudaHostAlloc(
                 &pinnedMemAlloc_, pinnedMemSize_, cudaHostAllocDefault);
 
@@ -332,7 +286,6 @@ void StandardGpuResourcesImpl::initializeForDevice(int device) {
                 cudaGetErrorString(err));
 
         pinnedMemAllocSize_ = pinnedMemSize_;
-#endif
     }
 
     // Make sure that device properties for all devices are cached
@@ -354,15 +307,11 @@ void StandardGpuResourcesImpl::initializeForDevice(int device) {
             device);
 
     // Create streams
-    cudaStream_t defaultStream = nullptr;
+    cudaStream_t defaultStream = 0;
     CUDA_VERIFY(
             cudaStreamCreateWithFlags(&defaultStream, cudaStreamNonBlocking));
 
     defaultStreams_[device] = defaultStream;
-
-#if defined USE_NVIDIA_RAFT
-    raftHandles_.emplace(std::make_pair(device, defaultStream));
-#endif
 
     cudaStream_t asyncCopyStream = 0;
     CUDA_VERIFY(
@@ -372,7 +321,7 @@ void StandardGpuResourcesImpl::initializeForDevice(int device) {
 
     std::vector<cudaStream_t> deviceStreams;
     for (int j = 0; j < kNumStreams; ++j) {
-        cudaStream_t stream = nullptr;
+        cudaStream_t stream = 0;
         CUDA_VERIFY(cudaStreamCreateWithFlags(&stream, cudaStreamNonBlocking));
 
         deviceStreams.push_back(stream);
@@ -381,7 +330,7 @@ void StandardGpuResourcesImpl::initializeForDevice(int device) {
     alternateStreams_[device] = std::move(deviceStreams);
 
     // Create cuBLAS handle
-    cublasHandle_t blasHandle = nullptr;
+    cublasHandle_t blasHandle = 0;
     auto blasStatus = cublasCreate(&blasHandle);
     FAISS_ASSERT(blasStatus == CUBLAS_STATUS_SUCCESS);
     blasHandles_[device] = blasHandle;
@@ -399,11 +348,11 @@ void StandardGpuResourcesImpl::initializeForDevice(int device) {
     allocs_[device] = std::unordered_map<void*, AllocRequest>();
 
     FAISS_ASSERT(tempMemory_.count(device) == 0);
-    auto mem = std::make_unique<StackDeviceMemory>(
+    auto mem = std::unique_ptr<StackDeviceMemory>(new StackDeviceMemory(
             this,
             device,
             // adjust for this specific device
-            getDefaultTempMemForGPU(device, tempMemSize_));
+            getDefaultTempMemForGPU(device, tempMemSize_)));
 
     tempMemory_.emplace(device, std::move(mem));
 }
@@ -425,25 +374,6 @@ cudaStream_t StandardGpuResourcesImpl::getDefaultStream(int device) {
     // Otherwise, our base default stream
     return defaultStreams_[device];
 }
-
-#if defined USE_NVIDIA_RAFT
-raft::device_resources& StandardGpuResourcesImpl::getRaftHandle(int device) {
-    initializeForDevice(device);
-
-    auto it = raftHandles_.find(device);
-    if (it == raftHandles_.end()) {
-        // Make sure we are using the stream the user may have already assigned
-        // to the current GpuResources
-        raftHandles_.emplace(device, getDefaultStream(device));
-
-        // Initialize cublas handle
-        raftHandles_[device].get_cublas_handle();
-    }
-
-    // Otherwise, our base default handle
-    return raftHandles_[device];
-}
-#endif
 
 std::vector<cudaStream_t> StandardGpuResourcesImpl::getAlternateStreams(
         int device) {
@@ -476,6 +406,8 @@ void* StandardGpuResourcesImpl::allocMemory(const AllocRequest& req) {
     void* p = nullptr;
 
     if (adjReq.space == MemorySpace::Temporary) {
+        // If we don't have enough space in our temporary memory manager, we
+        // need to allocate this request separately
         auto& tempMem = tempMemory_[adjReq.device];
 
         if (adjReq.size > tempMem->getSizeAvailable()) {
@@ -496,25 +428,15 @@ void* StandardGpuResourcesImpl::allocMemory(const AllocRequest& req) {
 
         // Otherwise, we can handle this locally
         p = tempMemory_[adjReq.device]->allocMemory(adjReq.stream, adjReq.size);
+
     } else if (adjReq.space == MemorySpace::Device) {
-#if defined USE_NVIDIA_RAFT
-        try {
-            rmm::mr::device_memory_resource* current_mr =
-                    rmm::mr::get_per_device_resource(
-                            rmm::cuda_device_id{adjReq.device});
-            p = current_mr->allocate_async(adjReq.size, adjReq.stream);
-            adjReq.mr = current_mr;
-        } catch (const std::bad_alloc& rmm_ex) {
-            FAISS_THROW_MSG("CUDA memory allocation error");
-        }
-#else
         auto err = cudaMalloc(&p, adjReq.size);
 
         // Throw if we fail to allocate
         if (err != cudaSuccess) {
             // FIXME: as of CUDA 11, a memory allocation error appears to be
-            // presented via cudaGetLastError as well, and needs to be
-            // cleared. Just call the function to clear it
+            // presented via cudaGetLastError as well, and needs to be cleared.
+            // Just call the function to clear it
             cudaGetLastError();
 
             std::stringstream ss;
@@ -529,20 +451,7 @@ void* StandardGpuResourcesImpl::allocMemory(const AllocRequest& req) {
 
             FAISS_THROW_IF_NOT_FMT(err == cudaSuccess, "%s", str.c_str());
         }
-#endif
     } else if (adjReq.space == MemorySpace::Unified) {
-#if defined USE_NVIDIA_RAFT
-        try {
-            // for now, use our own managed MR to do Unified Memory allocations.
-            // TODO: change this to use the current device resource once RMM has
-            // a way to retrieve a "guaranteed" managed memory resource for a
-            // device.
-            p = mmr_->allocate_async(adjReq.size, adjReq.stream);
-            adjReq.mr = mmr_.get();
-        } catch (const std::bad_alloc& rmm_ex) {
-            FAISS_THROW_MSG("CUDA memory allocation error");
-        }
-#else
         auto err = cudaMallocManaged(&p, adjReq.size);
 
         if (err != cudaSuccess) {
@@ -563,7 +472,6 @@ void* StandardGpuResourcesImpl::allocMemory(const AllocRequest& req) {
 
             FAISS_THROW_IF_NOT_FMT(err == cudaSuccess, "%s", str.c_str());
         }
-#endif
     } else {
         FAISS_ASSERT_FMT(false, "unknown MemorySpace %d", (int)adjReq.space);
     }
@@ -597,12 +505,10 @@ void StandardGpuResourcesImpl::deallocMemory(int device, void* p) {
 
     if (req.space == MemorySpace::Temporary) {
         tempMemory_[device]->deallocMemory(device, req.stream, req.size, p);
+
     } else if (
             req.space == MemorySpace::Device ||
             req.space == MemorySpace::Unified) {
-#if defined USE_NVIDIA_RAFT
-        req.mr->deallocate_async(p, req.size, req.stream);
-#else
         auto err = cudaFree(p);
         FAISS_ASSERT_FMT(
                 err == cudaSuccess,
@@ -610,7 +516,7 @@ void StandardGpuResourcesImpl::deallocMemory(int device, void* p) {
                 p,
                 (int)err,
                 cudaGetErrorString(err));
-#endif
+
     } else {
         FAISS_ASSERT_FMT(false, "unknown MemorySpace %d", (int)req.space);
     }
@@ -655,7 +561,7 @@ StandardGpuResourcesImpl::getMemoryInfo() const {
 StandardGpuResources::StandardGpuResources()
         : res_(new StandardGpuResourcesImpl) {}
 
-StandardGpuResources::~StandardGpuResources() = default;
+StandardGpuResources::~StandardGpuResources() {}
 
 std::shared_ptr<GpuResources> StandardGpuResources::getResources() {
     return res_;
@@ -693,12 +599,6 @@ StandardGpuResources::getMemoryInfo() const {
 cudaStream_t StandardGpuResources::getDefaultStream(int device) {
     return res_->getDefaultStream(device);
 }
-
-#if defined USE_NVIDIA_RAFT
-raft::device_resources& StandardGpuResources::getRaftHandle(int device) {
-    return res_->getRaftHandle(device);
-}
-#endif
 
 size_t StandardGpuResources::getTempMemoryAvailable(int device) const {
     return res_->getTempMemoryAvailable(device);

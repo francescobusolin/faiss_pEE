@@ -36,22 +36,15 @@ IndexIVFFlat::IndexIVFFlat(
         MetricType metric)
         : IndexIVF(quantizer, d, nlist, sizeof(float) * d, metric) {
     code_size = sizeof(float) * d;
-    by_residual = false;
-}
-
-IndexIVFFlat::IndexIVFFlat() {
-    by_residual = false;
 }
 
 void IndexIVFFlat::add_core(
         idx_t n,
         const float* x,
-        const idx_t* xids,
-        const idx_t* coarse_idx,
-        void* inverted_list_context) {
+        const int64_t* xids,
+        const int64_t* coarse_idx) {
     FAISS_THROW_IF_NOT(is_trained);
     FAISS_THROW_IF_NOT(coarse_idx);
-    FAISS_THROW_IF_NOT(!by_residual);
     assert(invlists);
     direct_map.check_can_add(xids);
 
@@ -71,8 +64,8 @@ void IndexIVFFlat::add_core(
             if (list_no >= 0 && list_no % nt == rank) {
                 idx_t id = xids ? xids[i] : ntotal + i;
                 const float* xi = x + i * d;
-                size_t offset = invlists->add_entry(
-                        list_no, id, (const uint8_t*)xi, inverted_list_context);
+                size_t offset =
+                        invlists->add_entry(list_no, id, (const uint8_t*)xi);
                 dm_adder.add(i, list_no, offset);
                 n_add++;
             } else if (rank == 0 && list_no == -1) {
@@ -96,7 +89,6 @@ void IndexIVFFlat::encode_vectors(
         const idx_t* list_nos,
         uint8_t* codes,
         bool include_listnos) const {
-    FAISS_THROW_IF_NOT(!by_residual);
     if (!include_listnos) {
         memcpy(codes, x, code_size * n);
     } else {
@@ -131,9 +123,7 @@ struct IVFFlatScanner : InvertedListScanner {
     size_t d;
 
     IVFFlatScanner(size_t d, bool store_pairs, const IDSelector* sel)
-            : InvertedListScanner(store_pairs, sel), d(d) {
-        keep_max = is_similarity_metric(metric);
-    }
+            : InvertedListScanner(store_pairs, sel), d(d) {}
 
     const float* xi;
     void set_query(const float* query) override {

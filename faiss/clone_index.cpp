@@ -17,8 +17,6 @@
 #include <faiss/Index2Layer.h>
 #include <faiss/IndexAdditiveQuantizer.h>
 #include <faiss/IndexAdditiveQuantizerFastScan.h>
-#include <faiss/IndexBinary.h>
-#include <faiss/IndexBinaryFlat.h>
 #include <faiss/IndexFlat.h>
 #include <faiss/IndexHNSW.h>
 #include <faiss/IndexIVF.h>
@@ -37,7 +35,6 @@
 #include <faiss/IndexRefine.h>
 #include <faiss/IndexRowwiseMinMax.h>
 #include <faiss/IndexScalarQuantizer.h>
-
 #include <faiss/MetaIndexes.h>
 #include <faiss/VectorTransform.h>
 
@@ -63,10 +60,9 @@ Index* clone_index(const Index* index) {
 // assumes there is a copy constructor ready. Always try from most
 // specific to most general. Most indexes don't have complicated
 // structs, the default copy constructor often just works.
-#define TRYCLONE(classname, obj)                       \
-    if (const classname* clo##classname =              \
-                dynamic_cast<const classname*>(obj)) { \
-        return new classname(*clo##classname);         \
+#define TRYCLONE(classname, obj)                                      \
+    if (const classname* clo = dynamic_cast<const classname*>(obj)) { \
+        return new classname(*clo);                                   \
     } else
 
 VectorTransform* Cloner::clone_VectorTransform(const VectorTransform* vt) {
@@ -238,6 +234,13 @@ Index* clone_AdditiveQuantizerIndex(const Index* index) {
 
 namespace {
 
+IndexHNSW* clone_HNSW(const IndexHNSW* ihnsw) {
+    TRYCLONE(IndexHNSWFlat, ihnsw)
+    TRYCLONE(IndexHNSWPQ, ihnsw)
+    TRYCLONE(IndexHNSWSQ, ihnsw)
+    return new IndexHNSW(*ihnsw);
+}
+
 InvertedLists* clone_InvertedLists(const InvertedLists* invlists) {
     if (auto* ails = dynamic_cast<const ArrayInvertedLists*>(invlists)) {
         return new ArrayInvertedLists(*ails);
@@ -380,14 +383,6 @@ Quantizer* clone_Quantizer(const Quantizer* quant) {
     TRYCLONE(ProductQuantizer, quant)
     TRYCLONE(ScalarQuantizer, quant)
     FAISS_THROW_MSG("Did not recognize quantizer to clone");
-}
-
-IndexBinary* clone_binary_index(const IndexBinary* index) {
-    if (auto ii = dynamic_cast<const IndexBinaryFlat*>(index)) {
-        return new IndexBinaryFlat(*ii);
-    } else {
-        FAISS_THROW_MSG("cannot clone this type of index");
-    }
 }
 
 } // namespace faiss

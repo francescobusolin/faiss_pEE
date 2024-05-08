@@ -223,76 +223,6 @@ float fvec_L2sqr(const float* x, const float* y, size_t d) {
 }
 FAISS_PRAGMA_IMPRECISE_FUNCTION_END
 
-/// Special version of inner product that computes 4 distances
-/// between x and yi
-FAISS_PRAGMA_IMPRECISE_FUNCTION_BEGIN
-void fvec_inner_product_batch_4(
-        const float* __restrict x,
-        const float* __restrict y0,
-        const float* __restrict y1,
-        const float* __restrict y2,
-        const float* __restrict y3,
-        const size_t d,
-        float& dis0,
-        float& dis1,
-        float& dis2,
-        float& dis3) {
-    float d0 = 0;
-    float d1 = 0;
-    float d2 = 0;
-    float d3 = 0;
-    FAISS_PRAGMA_IMPRECISE_LOOP
-    for (size_t i = 0; i < d; ++i) {
-        d0 += x[i] * y0[i];
-        d1 += x[i] * y1[i];
-        d2 += x[i] * y2[i];
-        d3 += x[i] * y3[i];
-    }
-
-    dis0 = d0;
-    dis1 = d1;
-    dis2 = d2;
-    dis3 = d3;
-}
-FAISS_PRAGMA_IMPRECISE_FUNCTION_END
-
-/// Special version of L2sqr that computes 4 distances
-/// between x and yi, which is performance oriented.
-FAISS_PRAGMA_IMPRECISE_FUNCTION_BEGIN
-void fvec_L2sqr_batch_4(
-        const float* x,
-        const float* y0,
-        const float* y1,
-        const float* y2,
-        const float* y3,
-        const size_t d,
-        float& dis0,
-        float& dis1,
-        float& dis2,
-        float& dis3) {
-    float d0 = 0;
-    float d1 = 0;
-    float d2 = 0;
-    float d3 = 0;
-    FAISS_PRAGMA_IMPRECISE_LOOP
-    for (size_t i = 0; i < d; ++i) {
-        const float q0 = x[i] - y0[i];
-        const float q1 = x[i] - y1[i];
-        const float q2 = x[i] - y2[i];
-        const float q3 = x[i] - y3[i];
-        d0 += q0 * q0;
-        d1 += q1 * q1;
-        d2 += q2 * q2;
-        d3 += q3 * q3;
-    }
-
-    dis0 = d0;
-    dis1 = d1;
-    dis2 = d2;
-    dis3 = d3;
-}
-FAISS_PRAGMA_IMPRECISE_FUNCTION_END
-
 /*********************************************************
  * SSE and AVX implementations
  */
@@ -306,10 +236,8 @@ static inline __m128 masked_read(int d, const float* x) {
     switch (d) {
         case 3:
             buf[2] = x[2];
-            [[fallthrough]];
         case 2:
             buf[1] = x[1];
-            [[fallthrough]];
         case 1:
             buf[0] = x[0];
     }
@@ -318,33 +246,6 @@ static inline __m128 masked_read(int d, const float* x) {
 }
 
 namespace {
-
-/// helper function
-inline float horizontal_sum(const __m128 v) {
-    // say, v is [x0, x1, x2, x3]
-
-    // v0 is [x2, x3, ..., ...]
-    const __m128 v0 = _mm_shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 3, 2));
-    // v1 is [x0 + x2, x1 + x3, ..., ...]
-    const __m128 v1 = _mm_add_ps(v, v0);
-    // v2 is [x1 + x3, ..., .... ,...]
-    __m128 v2 = _mm_shuffle_ps(v1, v1, _MM_SHUFFLE(0, 0, 0, 1));
-    // v3 is [x0 + x1 + x2 + x3, ..., ..., ...]
-    const __m128 v3 = _mm_add_ps(v1, v2);
-    // return v3[0]
-    return _mm_cvtss_f32(v3);
-}
-
-#ifdef __AVX2__
-/// helper function for AVX2
-inline float horizontal_sum(const __m256 v) {
-    // add high and low parts
-    const __m128 v0 =
-            _mm_add_ps(_mm256_castps256_ps128(v), _mm256_extractf128_ps(v, 1));
-    // perform horizontal sum on v0
-    return horizontal_sum(v0);
-}
-#endif
 
 /// Function that does a component-wise operation between x and y
 /// to compute L2 distances. ElementOp can then be used in the fvec_op_ny
@@ -359,13 +260,6 @@ struct ElementOpL2 {
         __m128 tmp = _mm_sub_ps(x, y);
         return _mm_mul_ps(tmp, tmp);
     }
-
-#ifdef __AVX2__
-    static __m256 op(__m256 x, __m256 y) {
-        __m256 tmp = _mm256_sub_ps(x, y);
-        return _mm256_mul_ps(tmp, tmp);
-    }
-#endif
 };
 
 /// Function that does a component-wise operation between x and y
@@ -378,12 +272,6 @@ struct ElementOpIP {
     static __m128 op(__m128 x, __m128 y) {
         return _mm_mul_ps(x, y);
     }
-
-#ifdef __AVX2__
-    static __m256 op(__m256 x, __m256 y) {
-        return _mm256_mul_ps(x, y);
-    }
-#endif
 };
 
 template <class ElementOp>
@@ -426,131 +314,6 @@ void fvec_op_ny_D2(float* dis, const float* x, const float* y, size_t ny) {
     }
 }
 
-#ifdef __AVX2__
-
-template <>
-void fvec_op_ny_D2<ElementOpIP>(
-        float* dis,
-        const float* x,
-        const float* y,
-        size_t ny) {
-    const size_t ny8 = ny / 8;
-    size_t i = 0;
-
-    if (ny8 > 0) {
-        // process 8 D2-vectors per loop.
-        _mm_prefetch((const char*)y, _MM_HINT_T0);
-        _mm_prefetch((const char*)(y + 16), _MM_HINT_T0);
-
-        const __m256 m0 = _mm256_set1_ps(x[0]);
-        const __m256 m1 = _mm256_set1_ps(x[1]);
-
-        for (i = 0; i < ny8 * 8; i += 8) {
-            _mm_prefetch((const char*)(y + 32), _MM_HINT_T0);
-
-            // load 8x2 matrix and transpose it in registers.
-            // the typical bottleneck is memory access, so
-            // let's trade instructions for the bandwidth.
-
-            __m256 v0;
-            __m256 v1;
-
-            transpose_8x2(
-                    _mm256_loadu_ps(y + 0 * 8),
-                    _mm256_loadu_ps(y + 1 * 8),
-                    v0,
-                    v1);
-
-            // compute distances
-            __m256 distances = _mm256_mul_ps(m0, v0);
-            distances = _mm256_fmadd_ps(m1, v1, distances);
-
-            // store
-            _mm256_storeu_ps(dis + i, distances);
-
-            y += 16;
-        }
-    }
-
-    if (i < ny) {
-        // process leftovers
-        float x0 = x[0];
-        float x1 = x[1];
-
-        for (; i < ny; i++) {
-            float distance = x0 * y[0] + x1 * y[1];
-            y += 2;
-            dis[i] = distance;
-        }
-    }
-}
-
-template <>
-void fvec_op_ny_D2<ElementOpL2>(
-        float* dis,
-        const float* x,
-        const float* y,
-        size_t ny) {
-    const size_t ny8 = ny / 8;
-    size_t i = 0;
-
-    if (ny8 > 0) {
-        // process 8 D2-vectors per loop.
-        _mm_prefetch((const char*)y, _MM_HINT_T0);
-        _mm_prefetch((const char*)(y + 16), _MM_HINT_T0);
-
-        const __m256 m0 = _mm256_set1_ps(x[0]);
-        const __m256 m1 = _mm256_set1_ps(x[1]);
-
-        for (i = 0; i < ny8 * 8; i += 8) {
-            _mm_prefetch((const char*)(y + 32), _MM_HINT_T0);
-
-            // load 8x2 matrix and transpose it in registers.
-            // the typical bottleneck is memory access, so
-            // let's trade instructions for the bandwidth.
-
-            __m256 v0;
-            __m256 v1;
-
-            transpose_8x2(
-                    _mm256_loadu_ps(y + 0 * 8),
-                    _mm256_loadu_ps(y + 1 * 8),
-                    v0,
-                    v1);
-
-            // compute differences
-            const __m256 d0 = _mm256_sub_ps(m0, v0);
-            const __m256 d1 = _mm256_sub_ps(m1, v1);
-
-            // compute squares of differences
-            __m256 distances = _mm256_mul_ps(d0, d0);
-            distances = _mm256_fmadd_ps(d1, d1, distances);
-
-            // store
-            _mm256_storeu_ps(dis + i, distances);
-
-            y += 16;
-        }
-    }
-
-    if (i < ny) {
-        // process leftovers
-        float x0 = x[0];
-        float x1 = x[1];
-
-        for (; i < ny; i++) {
-            float sub0 = x0 - y[0];
-            float sub1 = x1 - y[1];
-            float distance = sub0 * sub0 + sub1 * sub1;
-
-            y += 2;
-            dis[i] = distance;
-        }
-    }
-}
-
-#endif
-
 template <class ElementOp>
 void fvec_op_ny_D4(float* dis, const float* x, const float* y, size_t ny) {
     __m128 x0 = _mm_loadu_ps(x);
@@ -558,11 +321,16 @@ void fvec_op_ny_D4(float* dis, const float* x, const float* y, size_t ny) {
     for (size_t i = 0; i < ny; i++) {
         __m128 accu = ElementOp::op(x0, _mm_loadu_ps(y));
         y += 4;
-        dis[i] = horizontal_sum(accu);
+        accu = _mm_hadd_ps(accu, accu);
+        accu = _mm_hadd_ps(accu, accu);
+        dis[i] = _mm_cvtss_f32(accu);
     }
 }
 
 #ifdef __AVX2__
+
+// Specialized versions for AVX2 for any CPUs that support gather/scatter.
+// Todo: implement fvec_op_ny_Dxxx in the same way.
 
 template <>
 void fvec_op_ny_D4<ElementOpIP>(
@@ -575,9 +343,16 @@ void fvec_op_ny_D4<ElementOpIP>(
 
     if (ny8 > 0) {
         // process 8 D4-vectors per loop.
+        _mm_prefetch(y, _MM_HINT_NTA);
+        _mm_prefetch(y + 16, _MM_HINT_NTA);
+
+        // m0 = (x[0], x[0], x[0], x[0], x[0], x[0], x[0], x[0])
         const __m256 m0 = _mm256_set1_ps(x[0]);
+        // m1 = (x[1], x[1], x[1], x[1], x[1], x[1], x[1], x[1])
         const __m256 m1 = _mm256_set1_ps(x[1]);
+        // m2 = (x[2], x[2], x[2], x[2], x[2], x[2], x[2], x[2])
         const __m256 m2 = _mm256_set1_ps(x[2]);
+        // m3 = (x[3], x[3], x[3], x[3], x[3], x[3], x[3], x[3])
         const __m256 m3 = _mm256_set1_ps(x[3]);
 
         for (i = 0; i < ny8 * 8; i += 8) {
@@ -620,7 +395,9 @@ void fvec_op_ny_D4<ElementOpIP>(
         for (; i < ny; i++) {
             __m128 accu = ElementOpIP::op(x0, _mm_loadu_ps(y));
             y += 4;
-            dis[i] = horizontal_sum(accu);
+            accu = _mm_hadd_ps(accu, accu);
+            accu = _mm_hadd_ps(accu, accu);
+            dis[i] = _mm_cvtss_f32(accu);
         }
     }
 }
@@ -636,9 +413,16 @@ void fvec_op_ny_D4<ElementOpL2>(
 
     if (ny8 > 0) {
         // process 8 D4-vectors per loop.
+        _mm_prefetch(y, _MM_HINT_NTA);
+        _mm_prefetch(y + 16, _MM_HINT_NTA);
+
+        // m0 = (x[0], x[0], x[0], x[0], x[0], x[0], x[0], x[0])
         const __m256 m0 = _mm256_set1_ps(x[0]);
+        // m1 = (x[1], x[1], x[1], x[1], x[1], x[1], x[1], x[1])
         const __m256 m1 = _mm256_set1_ps(x[1]);
+        // m2 = (x[2], x[2], x[2], x[2], x[2], x[2], x[2], x[2])
         const __m256 m2 = _mm256_set1_ps(x[2]);
+        // m3 = (x[3], x[3], x[3], x[3], x[3], x[3], x[3], x[3])
         const __m256 m3 = _mm256_set1_ps(x[3]);
 
         for (i = 0; i < ny8 * 8; i += 8) {
@@ -687,7 +471,9 @@ void fvec_op_ny_D4<ElementOpL2>(
         for (; i < ny; i++) {
             __m128 accu = ElementOpL2::op(x0, _mm_loadu_ps(y));
             y += 4;
-            dis[i] = horizontal_sum(accu);
+            accu = _mm_hadd_ps(accu, accu);
+            accu = _mm_hadd_ps(accu, accu);
+            dis[i] = _mm_cvtss_f32(accu);
         }
     }
 }
@@ -710,182 +496,6 @@ void fvec_op_ny_D8(float* dis, const float* x, const float* y, size_t ny) {
     }
 }
 
-#ifdef __AVX2__
-
-template <>
-void fvec_op_ny_D8<ElementOpIP>(
-        float* dis,
-        const float* x,
-        const float* y,
-        size_t ny) {
-    const size_t ny8 = ny / 8;
-    size_t i = 0;
-
-    if (ny8 > 0) {
-        // process 8 D8-vectors per loop.
-        const __m256 m0 = _mm256_set1_ps(x[0]);
-        const __m256 m1 = _mm256_set1_ps(x[1]);
-        const __m256 m2 = _mm256_set1_ps(x[2]);
-        const __m256 m3 = _mm256_set1_ps(x[3]);
-        const __m256 m4 = _mm256_set1_ps(x[4]);
-        const __m256 m5 = _mm256_set1_ps(x[5]);
-        const __m256 m6 = _mm256_set1_ps(x[6]);
-        const __m256 m7 = _mm256_set1_ps(x[7]);
-
-        for (i = 0; i < ny8 * 8; i += 8) {
-            // load 8x8 matrix and transpose it in registers.
-            // the typical bottleneck is memory access, so
-            // let's trade instructions for the bandwidth.
-
-            __m256 v0;
-            __m256 v1;
-            __m256 v2;
-            __m256 v3;
-            __m256 v4;
-            __m256 v5;
-            __m256 v6;
-            __m256 v7;
-
-            transpose_8x8(
-                    _mm256_loadu_ps(y + 0 * 8),
-                    _mm256_loadu_ps(y + 1 * 8),
-                    _mm256_loadu_ps(y + 2 * 8),
-                    _mm256_loadu_ps(y + 3 * 8),
-                    _mm256_loadu_ps(y + 4 * 8),
-                    _mm256_loadu_ps(y + 5 * 8),
-                    _mm256_loadu_ps(y + 6 * 8),
-                    _mm256_loadu_ps(y + 7 * 8),
-                    v0,
-                    v1,
-                    v2,
-                    v3,
-                    v4,
-                    v5,
-                    v6,
-                    v7);
-
-            // compute distances
-            __m256 distances = _mm256_mul_ps(m0, v0);
-            distances = _mm256_fmadd_ps(m1, v1, distances);
-            distances = _mm256_fmadd_ps(m2, v2, distances);
-            distances = _mm256_fmadd_ps(m3, v3, distances);
-            distances = _mm256_fmadd_ps(m4, v4, distances);
-            distances = _mm256_fmadd_ps(m5, v5, distances);
-            distances = _mm256_fmadd_ps(m6, v6, distances);
-            distances = _mm256_fmadd_ps(m7, v7, distances);
-
-            // store
-            _mm256_storeu_ps(dis + i, distances);
-
-            y += 64;
-        }
-    }
-
-    if (i < ny) {
-        // process leftovers
-        __m256 x0 = _mm256_loadu_ps(x);
-
-        for (; i < ny; i++) {
-            __m256 accu = ElementOpIP::op(x0, _mm256_loadu_ps(y));
-            y += 8;
-            dis[i] = horizontal_sum(accu);
-        }
-    }
-}
-
-template <>
-void fvec_op_ny_D8<ElementOpL2>(
-        float* dis,
-        const float* x,
-        const float* y,
-        size_t ny) {
-    const size_t ny8 = ny / 8;
-    size_t i = 0;
-
-    if (ny8 > 0) {
-        // process 8 D8-vectors per loop.
-        const __m256 m0 = _mm256_set1_ps(x[0]);
-        const __m256 m1 = _mm256_set1_ps(x[1]);
-        const __m256 m2 = _mm256_set1_ps(x[2]);
-        const __m256 m3 = _mm256_set1_ps(x[3]);
-        const __m256 m4 = _mm256_set1_ps(x[4]);
-        const __m256 m5 = _mm256_set1_ps(x[5]);
-        const __m256 m6 = _mm256_set1_ps(x[6]);
-        const __m256 m7 = _mm256_set1_ps(x[7]);
-
-        for (i = 0; i < ny8 * 8; i += 8) {
-            // load 8x8 matrix and transpose it in registers.
-            // the typical bottleneck is memory access, so
-            // let's trade instructions for the bandwidth.
-
-            __m256 v0;
-            __m256 v1;
-            __m256 v2;
-            __m256 v3;
-            __m256 v4;
-            __m256 v5;
-            __m256 v6;
-            __m256 v7;
-
-            transpose_8x8(
-                    _mm256_loadu_ps(y + 0 * 8),
-                    _mm256_loadu_ps(y + 1 * 8),
-                    _mm256_loadu_ps(y + 2 * 8),
-                    _mm256_loadu_ps(y + 3 * 8),
-                    _mm256_loadu_ps(y + 4 * 8),
-                    _mm256_loadu_ps(y + 5 * 8),
-                    _mm256_loadu_ps(y + 6 * 8),
-                    _mm256_loadu_ps(y + 7 * 8),
-                    v0,
-                    v1,
-                    v2,
-                    v3,
-                    v4,
-                    v5,
-                    v6,
-                    v7);
-
-            // compute differences
-            const __m256 d0 = _mm256_sub_ps(m0, v0);
-            const __m256 d1 = _mm256_sub_ps(m1, v1);
-            const __m256 d2 = _mm256_sub_ps(m2, v2);
-            const __m256 d3 = _mm256_sub_ps(m3, v3);
-            const __m256 d4 = _mm256_sub_ps(m4, v4);
-            const __m256 d5 = _mm256_sub_ps(m5, v5);
-            const __m256 d6 = _mm256_sub_ps(m6, v6);
-            const __m256 d7 = _mm256_sub_ps(m7, v7);
-
-            // compute squares of differences
-            __m256 distances = _mm256_mul_ps(d0, d0);
-            distances = _mm256_fmadd_ps(d1, d1, distances);
-            distances = _mm256_fmadd_ps(d2, d2, distances);
-            distances = _mm256_fmadd_ps(d3, d3, distances);
-            distances = _mm256_fmadd_ps(d4, d4, distances);
-            distances = _mm256_fmadd_ps(d5, d5, distances);
-            distances = _mm256_fmadd_ps(d6, d6, distances);
-            distances = _mm256_fmadd_ps(d7, d7, distances);
-
-            // store
-            _mm256_storeu_ps(dis + i, distances);
-
-            y += 64;
-        }
-    }
-
-    if (i < ny) {
-        // process leftovers
-        __m256 x0 = _mm256_loadu_ps(x);
-
-        for (; i < ny; i++) {
-            __m256 accu = ElementOpL2::op(x0, _mm256_loadu_ps(y));
-            y += 8;
-            dis[i] = horizontal_sum(accu);
-        }
-    }
-}
-
-#endif
-
 template <class ElementOp>
 void fvec_op_ny_D12(float* dis, const float* x, const float* y, size_t ny) {
     __m128 x0 = _mm_loadu_ps(x);
@@ -899,7 +509,9 @@ void fvec_op_ny_D12(float* dis, const float* x, const float* y, size_t ny) {
         y += 4;
         accu = _mm_add_ps(accu, ElementOp::op(x2, _mm_loadu_ps(y)));
         y += 4;
-        dis[i] = horizontal_sum(accu);
+        accu = _mm_hadd_ps(accu, accu);
+        accu = _mm_hadd_ps(accu, accu);
+        dis[i] = _mm_cvtss_f32(accu);
     }
 }
 
@@ -969,6 +581,7 @@ void fvec_L2sqr_ny_y_transposed_D(
 
     // squared length of x
     float x_sqlen = 0;
+    ;
     for (size_t j = 0; j < DIM; j++) {
         x_sqlen += x[j] * x[j];
     }
@@ -1084,8 +697,8 @@ size_t fvec_L2sqr_ny_nearest_D2(
     // process 8 D2-vectors per loop.
     const size_t ny8 = ny / 8;
     if (ny8 > 0) {
-        _mm_prefetch((const char*)y, _MM_HINT_T0);
-        _mm_prefetch((const char*)(y + 16), _MM_HINT_T0);
+        _mm_prefetch(y, _MM_HINT_T0);
+        _mm_prefetch(y + 16, _MM_HINT_T0);
 
         // track min distance and the closest vector independently
         // for each of 8 AVX2 components.
@@ -1100,7 +713,7 @@ size_t fvec_L2sqr_ny_nearest_D2(
         const __m256 m1 = _mm256_set1_ps(x[1]);
 
         for (; i < ny8 * 8; i += 8) {
-            _mm_prefetch((const char*)(y + 32), _MM_HINT_T0);
+            _mm_prefetch(y + 32, _MM_HINT_T0);
 
             __m256 v0;
             __m256 v1;
@@ -1279,7 +892,10 @@ size_t fvec_L2sqr_ny_nearest_D4(
         for (; i < ny; i++) {
             __m128 accu = ElementOpL2::op(x0, _mm_loadu_ps(y));
             y += 4;
-            const float distance = horizontal_sum(accu);
+            accu = _mm_hadd_ps(accu, accu);
+            accu = _mm_hadd_ps(accu, accu);
+
+            const auto distance = _mm_cvtss_f32(accu);
 
             if (current_min_distance > distance) {
                 current_min_distance = distance;
@@ -1415,9 +1031,23 @@ size_t fvec_L2sqr_ny_nearest_D8(
         __m256 x0 = _mm256_loadu_ps(x);
 
         for (; i < ny; i++) {
-            __m256 accu = ElementOpL2::op(x0, _mm256_loadu_ps(y));
+            __m256 sub = _mm256_sub_ps(x0, _mm256_loadu_ps(y));
+            __m256 accu = _mm256_mul_ps(sub, sub);
             y += 8;
-            const float distance = horizontal_sum(accu);
+
+            // horitontal sum
+            const __m256 h0 = _mm256_hadd_ps(accu, accu);
+            const __m256 h1 = _mm256_hadd_ps(h0, h0);
+
+            // extract high and low __m128 regs from __m256
+            const __m128 h2 = _mm256_extractf128_ps(h1, 1);
+            const __m128 h3 = _mm256_castps256_ps128(h1);
+
+            // get a final hsum into all 4 regs
+            const __m128 h4 = _mm_add_ss(h2, h3);
+
+            // extract f[0] from __m128
+            const float distance = _mm_cvtss_f32(h4);
 
             if (current_min_distance > distance) {
                 current_min_distance = distance;
@@ -1629,6 +1259,21 @@ size_t fvec_L2sqr_ny_nearest_y_transposed(
 #endif
 
 #ifdef USE_AVX
+
+// reads 0 <= d < 8 floats as __m256
+static inline __m256 masked_read_8(int d, const float* x) {
+    assert(0 <= d && d < 8);
+    if (d < 4) {
+        __m256 res = _mm256_setzero_ps();
+        res = _mm256_insertf128_ps(res, masked_read(d, x), 0);
+        return res;
+    } else {
+        __m256 res = _mm256_setzero_ps();
+        res = _mm256_insertf128_ps(res, _mm_loadu_ps(x), 0);
+        res = _mm256_insertf128_ps(res, masked_read(d - 4, x + 4), 1);
+        return res;
+    }
+}
 
 float fvec_L1(const float* x, const float* y, size_t d) {
     __m256 msum1 = _mm256_setzero_ps();
@@ -1848,7 +1493,7 @@ void fvec_inner_products_ny(
  * heavily optimized table computations
  ***************************************************************************/
 
-[[maybe_unused]] static inline void fvec_madd_ref(
+static inline void fvec_madd_ref(
         size_t n,
         const float* a,
         float bf,
@@ -1915,7 +1560,7 @@ static inline void fvec_madd_avx2(
 
 #ifdef __SSE3__
 
-[[maybe_unused]] static inline void fvec_madd_sse(
+static inline void fvec_madd_sse(
         size_t n,
         const float* a,
         float bf,
@@ -2162,13 +1807,10 @@ void pq2_8cents_table(
     switch (nout) {
         case 4:
             ip3.storeu(out + 3 * ldo);
-            [[fallthrough]];
         case 3:
             ip2.storeu(out + 2 * ldo);
-            [[fallthrough]];
         case 2:
             ip1.storeu(out + 1 * ldo);
-            [[fallthrough]];
         case 1:
             ip0.storeu(out);
     }

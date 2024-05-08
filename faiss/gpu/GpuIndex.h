@@ -4,21 +4,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/*
- * Copyright (c) 2023, NVIDIA CORPORATION.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 #pragma once
 
@@ -29,25 +14,16 @@ namespace faiss {
 namespace gpu {
 
 struct GpuIndexConfig {
+    inline GpuIndexConfig() : device(0), memorySpace(MemorySpace::Device) {}
+
     /// GPU device on which the index is resident
-    int device = 0;
+    int device;
 
     /// What memory space to use for primary storage.
     /// On Pascal and above (CC 6+) architectures, allows GPUs to use
     /// more memory than is available on the GPU.
-    MemorySpace memorySpace = MemorySpace::Device;
-
-    /// Should the index dispatch down to RAFT?
-#if defined USE_NVIDIA_RAFT
-    bool use_raft = true;
-#else
-    bool use_raft = false;
-#endif
+    MemorySpace memorySpace;
 };
-
-/// A centralized function that determines whether RAFT should
-/// be used based on various conditions (such as unsupported architecture)
-bool should_use_raft(GpuIndexConfig config_);
 
 class GpuIndex : public faiss::Index {
    public:
@@ -84,14 +60,19 @@ class GpuIndex : public faiss::Index {
 
     /// `x` and `labels` can be resident on the CPU or any GPU; copies are
     /// performed as needed
-    void assign(idx_t n, const float* x, idx_t* labels, idx_t k = 1)
-            const override;
+    void assign(
+            idx_t n,
+            const float* x,
+            idx_t* labels,
+            // faiss::Index has idx_t for k
+            idx_t k = 1) const override;
 
     /// `x`, `distances` and `labels` can be resident on the CPU or any
     /// GPU; copies are performed as needed
     void search(
             idx_t n,
             const float* x,
+            // faiss::Index has idx_t for k
             idx_t k,
             float* distances,
             idx_t* labels,
@@ -102,6 +83,7 @@ class GpuIndex : public faiss::Index {
     void search_and_reconstruct(
             idx_t n,
             const float* x,
+            // faiss::Index has idx_t for k
             idx_t k,
             float* distances,
             idx_t* labels,

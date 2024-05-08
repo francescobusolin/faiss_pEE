@@ -11,7 +11,7 @@
 
 using namespace faiss;
 
-TEST(TestSIMDLib, TestCmpltAndBlendInplace) {
+TEST(TEST_SIMDLIB, TestCmpltAndBlendInplace) {
     simd8float32 lowestValues(0, 1, 2, 3, 4, 5, 6, 7);
     simd8uint32 lowestIndices(0, 1, 2, 3, 4, 5, 6, 7);
 
@@ -36,7 +36,7 @@ TEST(TestSIMDLib, TestCmpltAndBlendInplace) {
     ASSERT_TRUE(lowestIndices.is_same_as(expectedIndices));
 }
 
-TEST(TestSIMDLib, TestCmpltMinMaxFloat) {
+TEST(TEST_SIMDLIB, TestCmpltMinMaxFloat) {
     simd8float32 minValues(0, 0, 0, 0, 0, 0, 0, 0);
     simd8uint32 minIndices(0, 0, 0, 0, 0, 0, 0, 0);
     simd8float32 maxValues(0, 0, 0, 0, 0, 0, 0, 0);
@@ -69,7 +69,7 @@ TEST(TestSIMDLib, TestCmpltMinMaxFloat) {
     ASSERT_TRUE(maxIndices.is_same_as(expectedMaxIndices));
 }
 
-TEST(TestSIMDLib, TestCmpltMinMaxInt) {
+TEST(TEST_SIMDLIB, TestCmpltMinMaxInt) {
     simd8uint32 minValues(0, 0, 0, 0, 0, 0, 0, 0);
     simd8uint32 minIndices(0, 0, 0, 0, 0, 0, 0, 0);
     simd8uint32 maxValues(0, 0, 0, 0, 0, 0, 0, 0);
@@ -102,7 +102,7 @@ TEST(TestSIMDLib, TestCmpltMinMaxInt) {
     ASSERT_TRUE(maxIndices.is_same_as(expectedMaxIndices));
 }
 
-TEST(TestSIMDLib, TestCmpltMinMaxInt16) {
+TEST(TEST_SIMDLIB, TestCmpltMinMaxInt16) {
     simd16uint16 minValues(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     simd16uint16 minIndices(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     simd16uint16 maxValues(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);

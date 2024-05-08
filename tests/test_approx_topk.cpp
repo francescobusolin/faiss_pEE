@@ -99,7 +99,7 @@ void test_approx_topk(
                     k,
                     approxDistances.data(),
                     approxIndices.data());
-        } catch (const faiss::FaissException&) {
+        } catch (const faiss::FaissException& ex) {
             //
             if (verbose) {
                 printf("Skipping the case.\n");
@@ -188,7 +188,7 @@ void test_approx_topk(
 }
 
 //
-TEST(testApproxTopk, COMMON) {
+TEST(TEST_APPROX_TOPK, COMMON) {
     constexpr bool verbose = false;
 
     //

@@ -7,7 +7,6 @@
 
 #include <faiss/IndexFlat.h>
 #include <faiss/IndexIVF.h>
-#include <faiss/clone_index.h>
 #include <faiss/gpu/GpuCloner.h>
 #include <faiss/gpu/GpuIndexFlat.h>
 #include <faiss/gpu/GpuIndexIVF.h>
@@ -75,9 +74,9 @@ void GpuIndexIVF::init_() {
     }
 
     // here we set a low # iterations because this is typically used
-    // for large clusterings (copying IndexIVF.cpp's Level1Quantizer
+    // for large clusterings
+    // (copying IndexIVF.cpp's Level1Quantizer
     cp.niter = 10;
-
     cp.verbose = verbose;
 
     if (quantizer) {
@@ -92,7 +91,6 @@ void GpuIndexIVF::init_() {
         GpuIndexFlatConfig config = ivfConfig_.flatConfig;
         // inherit our same device
         config.device = config_.device;
-        config.use_raft = config_.use_raft;
 
         if (metric_type == faiss::METRIC_L2) {
             quantizer = new GpuIndexFlatL2(resources_, d, config);
@@ -173,29 +171,10 @@ void GpuIndexIVF::copyFrom(const faiss::IndexIVF* index) {
         // over to the GPU, on the same device that we are on.
         GpuResourcesProviderFromInstance pfi(getResources());
 
-        // Attempt to clone the index to GPU. If it fails because the coarse
-        // quantizer is not implemented on GPU and the flag to allow CPU
-        // fallback is set, retry it with CPU cloner and re-throw errors.
-        try {
-            GpuClonerOptions options;
-            auto cloner = ToGpuCloner(&pfi, getDevice(), options);
-            quantizer = cloner.clone_Index(index->quantizer);
-        } catch (const std::exception& e) {
-            if (strstr(e.what(), "not implemented on GPU")) {
-                if (ivfConfig_.allowCpuCoarseQuantizer) {
-                    Cloner cpuCloner;
-                    quantizer = cpuCloner.clone_Index(index->quantizer);
-                } else {
-                    FAISS_THROW_MSG(
-                            "This index type is not implemented on "
-                            "GPU and allowCpuCoarseQuantizer is set to false. "
-                            "Please set the flag to true to allow the CPU "
-                            "fallback in cloning.");
-                }
-            } else {
-                throw;
-            }
-        }
+        GpuClonerOptions options;
+        auto cloner = ToGpuCloner(&pfi, getDevice(), options);
+
+        quantizer = cloner.clone_Index(index->quantizer);
         own_fields = true;
     } else {
         // Otherwise, this is a GPU coarse quantizer index instance found in a
@@ -465,15 +444,14 @@ void GpuIndexIVF::trainQuantizer_(idx_t n, const float* x) {
         printf("Training IVF quantizer on %ld vectors in %dD\n", n, d);
     }
 
-    quantizer->reset();
-
     // leverage the CPU-side k-means code, which works for the GPU
     // flat index as well
+    quantizer->reset();
     Clustering clus(this->d, nlist, this->cp);
     clus.verbose = verbose;
     clus.train(n, x, *quantizer);
-
     quantizer->is_trained = true;
+
     FAISS_ASSERT(quantizer->ntotal == nlist);
 }
 

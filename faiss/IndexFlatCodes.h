@@ -34,6 +34,7 @@ struct IndexFlatCodes : Index {
 
     void reset() override;
 
+    /// reconstruction using the codec interface
     void reconstruct_n(idx_t i0, idx_t ni, float* recons) const override;
 
     void reconstruct(idx_t key, float* recons) const override;
@@ -58,9 +59,6 @@ struct IndexFlatCodes : Index {
     void check_compatible_for_merge(const Index& otherIndex) const override;
 
     virtual void merge_from(Index& otherIndex, idx_t add_id = 0) override;
-
-    // permute_entries. perm of size ntotal maps new to old positions
-    void permute_entries(const idx_t* perm);
 };
 
 } // namespace faiss

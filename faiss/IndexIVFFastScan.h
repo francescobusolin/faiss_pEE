@@ -14,9 +14,6 @@
 
 namespace faiss {
 
-struct NormTableScaler;
-struct SIMDResultHandlerToFloat;
-
 /** Fast scan version of IVFPQ and IVFAQ. Works for 4-bit PQ/AQ for now.
  *
  * The codes in the inverted lists are not stored sequentially but
@@ -31,12 +28,6 @@ struct SIMDResultHandlerToFloat;
  * 11: idem, collect results in reservoir
  * 12: optimizer int16 search, collect results in heap, uses qbs
  * 13: idem, collect results in reservoir
- * 14: internally multithreaded implem over nq * nprobe
- * 15: same with reservoir
- *
- * For range search, only 10 and 12 are supported.
- * add 100 to the implem to force single-thread scanning (the coarse quantizer
- * may still use multiple threads).
  */
 
 struct IndexIVFFastScan : IndexIVF {
@@ -54,6 +45,7 @@ struct IndexIVFFastScan : IndexIVF {
     int implem = 0;
     // skip some parts of the computation (for timing)
     int skip = 0;
+    bool by_residual = false;
 
     // batching factors at search time (0 = default)
     int qbs = 0;
@@ -89,24 +81,19 @@ struct IndexIVFFastScan : IndexIVF {
 
     virtual bool lookup_table_is_3d() const = 0;
 
-    // compact way of conveying coarse quantization results
-    struct CoarseQuantized {
-        size_t nprobe;
-        const float* dis = nullptr;
-        const idx_t* ids = nullptr;
-    };
-
     virtual void compute_LUT(
             size_t n,
             const float* x,
-            const CoarseQuantized& cq,
+            const idx_t* coarse_ids,
+            const float* coarse_dis,
             AlignedTable<float>& dis_tables,
             AlignedTable<float>& biases) const = 0;
 
     void compute_LUT_uint8(
             size_t n,
             const float* x,
-            const CoarseQuantized& cq,
+            const idx_t* coarse_ids,
+            const float* coarse_dis,
             AlignedTable<uint8_t>& dis_tables,
             AlignedTable<uint16_t>& biases,
             float* normalizers) const;
@@ -119,18 +106,7 @@ struct IndexIVFFastScan : IndexIVF {
             idx_t* labels,
             const SearchParameters* params = nullptr) const override;
 
-    void search_preassigned(
-            idx_t n,
-            const float* x,
-            idx_t k,
-            const idx_t* assign,
-            const float* centroid_dis,
-            float* distances,
-            idx_t* labels,
-            bool store_pairs,
-            const IVFSearchParameters* params = nullptr,
-            IndexIVFStats* stats = nullptr) const override;
-
+    /// will just fail
     void range_search(
             idx_t n,
             const float* x,
@@ -140,82 +116,69 @@ struct IndexIVFFastScan : IndexIVF {
 
     // internal search funcs
 
-    // dispatch to implementations and parallelize
+    template <bool is_max, class Scaler>
     void search_dispatch_implem(
             idx_t n,
             const float* x,
             idx_t k,
             float* distances,
             idx_t* labels,
-            const CoarseQuantized& cq,
-            const NormTableScaler* scaler,
-            const IVFSearchParameters* params = nullptr) const;
+            const Scaler& scaler) const;
 
-    void range_search_dispatch_implem(
-            idx_t n,
-            const float* x,
-            float radius,
-            RangeSearchResult& rres,
-            const CoarseQuantized& cq_in,
-            const NormTableScaler* scaler,
-            const IVFSearchParameters* params = nullptr) const;
-
-    // impl 1 and 2 are just for verification
-    template <class C>
+    template <class C, class Scaler>
     void search_implem_1(
             idx_t n,
             const float* x,
             idx_t k,
             float* distances,
             idx_t* labels,
-            const CoarseQuantized& cq,
-            const NormTableScaler* scaler,
-            const IVFSearchParameters* params = nullptr) const;
+            const Scaler& scaler) const;
 
-    template <class C>
+    template <class C, class Scaler>
     void search_implem_2(
             idx_t n,
             const float* x,
             idx_t k,
             float* distances,
             idx_t* labels,
-            const CoarseQuantized& cq,
-            const NormTableScaler* scaler,
-            const IVFSearchParameters* params = nullptr) const;
+            const Scaler& scaler) const;
 
     // implem 10 and 12 are not multithreaded internally, so
     // export search stats
+    template <class C, class Scaler>
     void search_implem_10(
             idx_t n,
             const float* x,
-            SIMDResultHandlerToFloat& handler,
-            const CoarseQuantized& cq,
+            idx_t k,
+            float* distances,
+            idx_t* labels,
+            int impl,
             size_t* ndis_out,
             size_t* nlist_out,
-            const NormTableScaler* scaler,
-            const IVFSearchParameters* params = nullptr) const;
+            const Scaler& scaler) const;
 
+    template <class C, class Scaler>
     void search_implem_12(
             idx_t n,
             const float* x,
-            SIMDResultHandlerToFloat& handler,
-            const CoarseQuantized& cq,
+            idx_t k,
+            float* distances,
+            idx_t* labels,
+            int impl,
             size_t* ndis_out,
             size_t* nlist_out,
-            const NormTableScaler* scaler,
-            const IVFSearchParameters* params = nullptr) const;
+            const Scaler& scaler) const;
 
     // implem 14 is multithreaded internally across nprobes and queries
+    template <class C, class Scaler>
     void search_implem_14(
             idx_t n,
             const float* x,
             idx_t k,
             float* distances,
             idx_t* labels,
-            const CoarseQuantized& cq,
             int impl,
-            const NormTableScaler* scaler,
-            const IVFSearchParameters* params = nullptr) const;
+            const Scaler& scaler) const;
 
     // reconstruct vectors from packed invlists
     void reconstruct_from_offset(int64_t list_no, int64_t offset, float* recons)

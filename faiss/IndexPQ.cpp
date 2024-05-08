@@ -14,7 +14,6 @@
 #include <cstring>
 
 #include <algorithm>
-#include <memory>
 
 #include <faiss/impl/DistanceComputer.h>
 #include <faiss/impl/FaissAssert.h>
@@ -87,7 +86,7 @@ struct PQDistanceComputer : FlatCodesDistanceComputer {
         ndis++;
 
         float dis = distance_single_code<PQDecoder>(
-                pq.M, pq.nbits, precomputed_table.data(), code);
+                pq, precomputed_table.data(), code);
         return dis;
     }
 
@@ -199,16 +198,17 @@ void IndexPQ::search(
 
     } else { // code-to-code distances
 
-        std::unique_ptr<uint8_t[]> q_codes(new uint8_t[n * pq.code_size]);
+        uint8_t* q_codes = new uint8_t[n * pq.code_size];
+        ScopeDeleter<uint8_t> del(q_codes);
 
         if (!encode_signs) {
-            pq.compute_codes(x, q_codes.get(), n);
+            pq.compute_codes(x, q_codes, n);
         } else {
             FAISS_THROW_IF_NOT(d == pq.nbits * pq.M);
-            memset(q_codes.get(), 0, n * pq.code_size);
+            memset(q_codes, 0, n * pq.code_size);
             for (size_t i = 0; i < n; i++) {
                 const float* xi = x + i * d;
-                uint8_t* code = q_codes.get() + i * pq.code_size;
+                uint8_t* code = q_codes + i * pq.code_size;
                 for (int j = 0; j < d; j++)
                     if (xi[j] > 0)
                         code[j >> 3] |= 1 << (j & 7);
@@ -219,18 +219,19 @@ void IndexPQ::search(
             float_maxheap_array_t res = {
                     size_t(n), size_t(k), labels, distances};
 
-            pq.search_sdc(q_codes.get(), n, codes.data(), ntotal, &res, true);
+            pq.search_sdc(q_codes, n, codes.data(), ntotal, &res, true);
 
         } else {
-            std::unique_ptr<int[]> idistances(new int[n * k]);
+            int* idistances = new int[n * k];
+            ScopeDeleter<int> del(idistances);
 
             int_maxheap_array_t res = {
-                    size_t(n), size_t(k), labels, idistances.get()};
+                    size_t(n), size_t(k), labels, idistances};
 
             if (search_type == ST_HE) {
                 hammings_knn_hc(
                         &res,
-                        q_codes.get(),
+                        q_codes,
                         codes.data(),
                         ntotal,
                         pq.code_size,
@@ -239,7 +240,7 @@ void IndexPQ::search(
             } else if (search_type == ST_generalized_HE) {
                 generalized_hammings_knn_hc(
                         &res,
-                        q_codes.get(),
+                        q_codes,
                         codes.data(),
                         ntotal,
                         pq.code_size,
@@ -262,23 +263,21 @@ void IndexPQStats::reset() {
 
 IndexPQStats indexPQ_stats;
 
-namespace {
-
 template <class HammingComputer>
-size_t polysemous_inner_loop(
-        const IndexPQ* index,
+static size_t polysemous_inner_loop(
+        const IndexPQ& index,
         const float* dis_table_qi,
         const uint8_t* q_code,
         size_t k,
         float* heap_dis,
         int64_t* heap_ids,
         int ht) {
-    int M = index->pq.M;
-    int code_size = index->pq.code_size;
-    int ksub = index->pq.ksub;
-    size_t ntotal = index->ntotal;
+    int M = index.pq.M;
+    int code_size = index.pq.code_size;
+    int ksub = index.pq.ksub;
+    size_t ntotal = index.ntotal;
 
-    const uint8_t* b_code = index->codes.data();
+    const uint8_t* b_code = index.codes.data();
 
     size_t n_pass_i = 0;
 
@@ -306,16 +305,6 @@ size_t polysemous_inner_loop(
     return n_pass_i;
 }
 
-struct Run_polysemous_inner_loop {
-    using T = size_t;
-    template <class HammingComputer, class... Types>
-    size_t f(Types... args) {
-        return polysemous_inner_loop<HammingComputer>(args...);
-    }
-};
-
-} // anonymous namespace
-
 void IndexPQ::search_core_polysemous(
         idx_t n,
         const float* x,
@@ -332,20 +321,22 @@ void IndexPQ::search_core_polysemous(
     }
 
     // PQ distance tables
-    std::unique_ptr<float[]> dis_tables(new float[n * pq.ksub * pq.M]);
-    pq.compute_distance_tables(n, x, dis_tables.get());
+    float* dis_tables = new float[n * pq.ksub * pq.M];
+    ScopeDeleter<float> del(dis_tables);
+    pq.compute_distance_tables(n, x, dis_tables);
 
     // Hamming embedding queries
-    std::unique_ptr<uint8_t[]> q_codes(new uint8_t[n * pq.code_size]);
+    uint8_t* q_codes = new uint8_t[n * pq.code_size];
+    ScopeDeleter<uint8_t> del2(q_codes);
 
     if (false) {
-        pq.compute_codes(x, q_codes.get(), n);
+        pq.compute_codes(x, q_codes, n);
     } else {
 #pragma omp parallel for
         for (idx_t qi = 0; qi < n; qi++) {
             pq.compute_code_from_distance_table(
-                    dis_tables.get() + qi * pq.M * pq.ksub,
-                    q_codes.get() + qi * pq.code_size);
+                    dis_tables + qi * pq.M * pq.ksub,
+                    q_codes + qi * pq.code_size);
         }
     }
 
@@ -355,33 +346,54 @@ void IndexPQ::search_core_polysemous(
 
 #pragma omp parallel for reduction(+ : n_pass, bad_code_size)
     for (idx_t qi = 0; qi < n; qi++) {
-        const uint8_t* q_code = q_codes.get() + qi * pq.code_size;
+        const uint8_t* q_code = q_codes + qi * pq.code_size;
 
-        const float* dis_table_qi = dis_tables.get() + qi * pq.M * pq.ksub;
+        const float* dis_table_qi = dis_tables + qi * pq.M * pq.ksub;
 
         int64_t* heap_ids = labels + qi * k;
         float* heap_dis = distances + qi * k;
         maxheap_heapify(k, heap_dis, heap_ids);
 
         if (!generalized_hamming) {
-            Run_polysemous_inner_loop r;
-            n_pass += dispatch_HammingComputer(
-                    pq.code_size,
-                    r,
-                    this,
-                    dis_table_qi,
-                    q_code,
-                    k,
-                    heap_dis,
-                    heap_ids,
-                    polysemous_ht);
-
+            switch (pq.code_size) {
+#define DISPATCH(cs)                                          \
+    case cs:                                                  \
+        n_pass += polysemous_inner_loop<HammingComputer##cs>( \
+                *this,                                        \
+                dis_table_qi,                                 \
+                q_code,                                       \
+                k,                                            \
+                heap_dis,                                     \
+                heap_ids,                                     \
+                polysemous_ht);                               \
+        break;
+                DISPATCH(4)
+                DISPATCH(8)
+                DISPATCH(16)
+                DISPATCH(32)
+                DISPATCH(20)
+                default:
+                    if (pq.code_size % 4 == 0) {
+                        n_pass += polysemous_inner_loop<HammingComputerDefault>(
+                                *this,
+                                dis_table_qi,
+                                q_code,
+                                k,
+                                heap_dis,
+                                heap_ids,
+                                polysemous_ht);
+                    } else {
+                        bad_code_size++;
+                    }
+                    break;
+            }
+#undef DISPATCH
         } else { // generalized hamming
             switch (pq.code_size) {
 #define DISPATCH(cs)                                             \
     case cs:                                                     \
         n_pass += polysemous_inner_loop<GenHammingComputer##cs>( \
-                this,                                            \
+                *this,                                           \
                 dis_table_qi,                                    \
                 q_code,                                          \
                 k,                                               \
@@ -395,7 +407,7 @@ void IndexPQ::search_core_polysemous(
                 default:
                     if (pq.code_size % 8 == 0) {
                         n_pass += polysemous_inner_loop<GenHammingComputerM8>(
-                                this,
+                                *this,
                                 dis_table_qi,
                                 q_code,
                                 k,
@@ -438,11 +450,12 @@ void IndexPQ::sa_decode(idx_t n, const uint8_t* bytes, float* x) const {
 
 void IndexPQ::hamming_distance_table(idx_t n, const float* x, int32_t* dis)
         const {
-    std::unique_ptr<uint8_t[]> q_codes(new uint8_t[n * pq.code_size]);
+    uint8_t* q_codes = new uint8_t[n * pq.code_size];
+    ScopeDeleter<uint8_t> del(q_codes);
 
-    pq.compute_codes(x, q_codes.get(), n);
+    pq.compute_codes(x, q_codes, n);
 
-    hammings(q_codes.get(), codes.data(), n, ntotal, pq.code_size, dis);
+    hammings(q_codes, codes.data(), n, ntotal, pq.code_size, dis);
 }
 
 void IndexPQ::hamming_distance_histogram(
@@ -456,15 +469,16 @@ void IndexPQ::hamming_distance_histogram(
     FAISS_THROW_IF_NOT(pq.nbits == 8);
 
     // Hamming embedding queries
-    std::unique_ptr<uint8_t[]> q_codes(new uint8_t[n * pq.code_size]);
-    pq.compute_codes(x, q_codes.get(), n);
+    uint8_t* q_codes = new uint8_t[n * pq.code_size];
+    ScopeDeleter<uint8_t> del(q_codes);
+    pq.compute_codes(x, q_codes, n);
 
     uint8_t* b_codes;
-    std::unique_ptr<uint8_t[]> del_b_codes;
+    ScopeDeleter<uint8_t> del_b_codes;
 
     if (xb) {
         b_codes = new uint8_t[nb * pq.code_size];
-        del_b_codes.reset(b_codes);
+        del_b_codes.set(b_codes);
         pq.compute_codes(xb, b_codes, nb);
     } else {
         nb = ntotal;
@@ -477,7 +491,8 @@ void IndexPQ::hamming_distance_histogram(
 #pragma omp parallel
     {
         std::vector<int64_t> histi(nbits + 1);
-        std::unique_ptr<hamdis_t[]> distances(new hamdis_t[nb * bs]);
+        hamdis_t* distances = new hamdis_t[nb * bs];
+        ScopeDeleter<hamdis_t> del(distances);
 #pragma omp for
         for (idx_t q0 = 0; q0 < n; q0 += bs) {
             // printf ("dis stats: %zd/%zd\n", q0, n);
@@ -486,12 +501,12 @@ void IndexPQ::hamming_distance_histogram(
                 q1 = n;
 
             hammings(
-                    q_codes.get() + q0 * pq.code_size,
+                    q_codes + q0 * pq.code_size,
                     b_codes,
                     q1 - q0,
                     nb,
                     pq.code_size,
-                    distances.get());
+                    distances);
 
             for (size_t i = 0; i < nb * (q1 - q0); i++)
                 histi[distances[i]]++;
@@ -624,7 +639,7 @@ struct SemiSortedArray {
     int N;
 
     // type of the heap: CMax = sort ascending
-    using HC = CMax<T, int>;
+    typedef CMax<T, int> HC;
     std::vector<int> perm;
 
     int k; // k elements are sorted
@@ -718,7 +733,7 @@ struct MinSumK {
      * We use a heap to maintain a queue of sums, with the associated
      * terms involved in the sum.
      */
-    using HC = CMin<T, int64_t>;
+    typedef CMin<T, int64_t> HC;
     size_t heap_capacity, heap_size;
     T* bh_val;
     int64_t* bh_ids;
@@ -812,7 +827,7 @@ struct MinSumK {
             // enqueue followers
             int64_t ii = ti;
             for (int m = 0; m < M; m++) {
-                int64_t n = ii & (((int64_t)1 << nbit) - 1);
+                int64_t n = ii & ((1L << nbit) - 1);
                 ii >>= nbit;
                 if (n + 1 >= N)
                     continue;
@@ -836,7 +851,7 @@ struct MinSumK {
             }
             int64_t ti = 0;
             for (int m = 0; m < M; m++) {
-                int64_t n = ii & (((int64_t)1 << nbit) - 1);
+                int64_t n = ii & ((1L << nbit) - 1);
                 ti += int64_t(ssx[m].get_ord(n)) << (nbit * m);
                 ii >>= nbit;
             }
@@ -908,16 +923,17 @@ void MultiIndexQuantizer::search(
         return;
     }
 
-    std::unique_ptr<float[]> dis_tables(new float[n * pq.ksub * pq.M]);
+    float* dis_tables = new float[n * pq.ksub * pq.M];
+    ScopeDeleter<float> del(dis_tables);
 
-    pq.compute_distance_tables(n, x, dis_tables.get());
+    pq.compute_distance_tables(n, x, dis_tables);
 
     if (k == 1) {
         // simple version that just finds the min in each table
 
 #pragma omp parallel for
         for (int i = 0; i < n; i++) {
-            const float* dis_table = dis_tables.get() + i * pq.ksub * pq.M;
+            const float* dis_table = dis_tables + i * pq.ksub * pq.M;
             float dis = 0;
             idx_t label = 0;
 
@@ -947,7 +963,7 @@ void MultiIndexQuantizer::search(
                     k, pq.M, pq.nbits, pq.ksub);
 #pragma omp for
             for (int i = 0; i < n; i++) {
-                msk.run(dis_tables.get() + i * pq.ksub * pq.M,
+                msk.run(dis_tables + i * pq.ksub * pq.M,
                         pq.ksub,
                         distances + i * k,
                         labels + i * k);
@@ -959,7 +975,7 @@ void MultiIndexQuantizer::search(
 void MultiIndexQuantizer::reconstruct(idx_t key, float* recons) const {
     int64_t jj = key;
     for (int m = 0; m < pq.M; m++) {
-        int64_t n = jj & (((int64_t)1 << pq.nbits) - 1);
+        int64_t n = jj & ((1L << pq.nbits) - 1);
         jj >>= pq.nbits;
         memcpy(recons, pq.get_centroids(m, n), sizeof(recons[0]) * pq.dsub);
         recons += pq.dsub;
@@ -1091,7 +1107,7 @@ void MultiIndexQuantizer2::search(
 
                 const idx_t* idmap0 = sub_ids.data() + i * k2;
                 int64_t ld_idmap = k2 * n;
-                int64_t mask1 = ksub - (int64_t)1;
+                int64_t mask1 = ksub - 1L;
 
                 for (int k = 0; k < K; k++) {
                     const idx_t* idmap = idmap0;
