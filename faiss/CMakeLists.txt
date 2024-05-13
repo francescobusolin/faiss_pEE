@@ -239,12 +239,20 @@ else()
   add_compile_options(/bigobj)
 endif()
 
+add_compile_options(-fPIC>)
+
+
 # Handle `#include <faiss/foo.h>`.
 target_include_directories(faiss PUBLIC
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>)
 # Handle `#include <faiss/foo.h>`.
 target_include_directories(faiss_avx2 PUBLIC
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>)
+
+target_include_directories(faiss PRIVATE ${LIGHTGBM_INCLUDE})
+target_include_directories(faiss_avx2 PRIVATE ${LIGHTGBM_INCLUDE})
+
+
 
 set_target_properties(faiss PROPERTIES
   POSITION_INDEPENDENT_CODE ON
@@ -280,6 +288,9 @@ else()
   target_link_libraries(faiss PRIVATE ${LAPACK_LIBRARIES})
   target_link_libraries(faiss_avx2 PRIVATE ${LAPACK_LIBRARIES})
 endif()
+
+target_link_libraries(faiss PRIVATE ${LIGHTGBM_LIBRARIES})
+target_link_libraries(faiss_avx2 PRIVATE ${LIGHTGBM_LIBRARIES})
 
 install(TARGETS faiss
   EXPORT faiss-targets

@@ -28,6 +28,9 @@
 #include <faiss/impl/FaissAssert.h>
 #include <faiss/impl/IDSelector.h>
 
+#include <LightGBM/prediction_early_stop.h>
+
+
 namespace faiss {
 
 using ScopedIds = InvertedLists::ScopedIds;
@@ -302,13 +305,29 @@ void IndexIVF::search(
             std::min(nlist, params ? params->nprobe : this->nprobe);
     FAISS_THROW_IF_NOT(nprobe > 0);
 
+    //*** EARLY STOPPING ADDONS ***//
+    const auto patience = params ? params->patience : -1;
+    const auto tolerance = params ? params->tolerance : 0.0f;
+    const auto exit_point = params ? params->exit_index : 0;
+    const auto probe_predictor = params ? params->probe_predictor : nullptr;
+
+    idx_t* const prev_search_buffer = params ? params->previous_search_buffer : nullptr;
+    idx_t* const first_search_buffer = params ? params->first_search_buffer : nullptr;
+    idx_t* const stable_probes_buffer = params ? params->stable_probes_buffer : nullptr;
+
+
+
+
     // search function for a subset of queries
     auto sub_search_func = [this, k, nprobe, params](
                                    idx_t n,
                                    const float* x,
                                    float* distances,
                                    idx_t* labels,
-                                   IndexIVFStats* ivf_stats) {
+                                   IndexIVFStats* ivf_stats,
+                                   idx_t* const prev_search_buffer,
+                                   idx_t* const first_search_buffer,
+                                   idx_t* const stable_probes_buffer) {
         std::unique_ptr<idx_t[]> idx(new idx_t[n * nprobe]);
         std::unique_ptr<float[]> coarse_dis(new float[n * nprobe]);
 
@@ -324,17 +343,45 @@ void IndexIVF::search(
         double t1 = getmillisecs();
         invlists->prefetch_lists(idx.get(), n * nprobe);
 
-        search_preassigned(
-                n,
-                x,
-                k,
-                idx.get(),
-                coarse_dis.get(),
-                distances,
-                labels,
-                false,
-                params,
-                ivf_stats);
+        auto patience = params ? params->patience : -1;
+        auto tolerance = params ? params->tolerance : 0.0f;
+        auto predictor = params ? params->probe_predictor : nullptr;
+
+        const bool early_stopping = (patience > 0 && tolerance > 0.0f) || predictor;
+        const bool early_stopping_is_valid = !early_stopping || (prev_search_buffer && first_search_buffer && stable_probes_buffer);
+
+        FAISS_THROW_IF_NOT_MSG(
+                early_stopping_is_valid,
+                "Early stopping requires valid buffers for previous search, first search and stable probes");
+
+        if (early_stopping) {
+            search_preassigned_with_early_stopping(
+                    n,
+                    x,
+                    k,
+                    idx.get(),
+                    coarse_dis.get(),
+                    distances,
+                    labels,
+                    false,
+                    params,
+                    ivf_stats,
+                    prev_search_buffer,
+                    first_search_buffer,
+                    stable_probes_buffer);
+        } else {
+            search_preassigned(
+                    n,
+                    x,
+                    k,
+                    idx.get(),
+                    coarse_dis.get(),
+                    distances,
+                    labels,
+                    false,
+                    params,
+                    ivf_stats);
+        }
         double t2 = getmillisecs();
         ivf_stats->quantization_time += t1 - t0;
         ivf_stats->search_time += t2 - t0;
@@ -358,7 +405,10 @@ void IndexIVF::search(
                             x + i0 * d,
                             distances + i0 * k,
                             labels + i0 * k,
-                            &stats[slice]);
+                            &stats[slice],
+                            prev_search_buffer + i0 * k,
+                            first_search_buffer + i0 * k,
+                            stable_probes_buffer + i0);
                 } catch (const std::exception& e) {
                     std::lock_guard<std::mutex> lock(exception_mutex);
                     exception_string = e.what();
@@ -377,7 +427,364 @@ void IndexIVF::search(
     } else {
         // handle paralellization at level below (or don't run in parallel at
         // all)
-        sub_search_func(n, x, distances, labels, &indexIVF_stats);
+        sub_search_func(n, x, distances, labels, &indexIVF_stats, prev_search_buffer, first_search_buffer, stable_probes_buffer);
+    }
+}
+
+void IndexIVF::search_preassigned_with_early_stopping(
+        idx_t n,
+        const float* x,
+        idx_t k,
+        const idx_t* keys,
+        const float* coarse_dis,
+        float* distances,
+        idx_t* labels,
+        bool store_pairs,
+        const IVFSearchParameters* params,
+        IndexIVFStats* ivf_stats,
+        idx_t* previous_search,
+        idx_t* first_search,
+        idx_t* stable_probes) const {
+    FAISS_THROW_IF_NOT(k > 0);
+
+    idx_t nprobe = params ? params->nprobe : this->nprobe;
+    nprobe = std::min((idx_t)nlist, nprobe);
+    FAISS_THROW_IF_NOT(nprobe > 0);
+
+    const idx_t unlimited_list_size = std::numeric_limits<idx_t>::max();
+    idx_t max_codes = params ? params->max_codes : this->max_codes;
+    IDSelector* sel = params ? params->sel : nullptr;
+    const IDSelectorRange* selr = dynamic_cast<const IDSelectorRange*>(sel);
+    if (selr) {
+        if (selr->assume_sorted) {
+            sel = nullptr; // use special IDSelectorRange processing
+        } else {
+            selr = nullptr; // use generic processing
+        }
+    }
+
+    FAISS_THROW_IF_NOT_MSG(
+            !(sel && store_pairs),
+            "selector and store_pairs cannot be combined");
+
+    FAISS_THROW_IF_NOT_MSG(
+            !invlists->use_iterator || (max_codes == 0 && store_pairs == false),
+            "iterable inverted lists don't support max_codes and store_pairs");
+
+    size_t nlistv = 0, ndis = 0, nheap = 0;
+
+    using HeapForIP = CMin<float, idx_t>;
+    using HeapForL2 = CMax<float, idx_t>;
+
+    bool interrupt = false;
+    std::mutex exception_mutex;
+    std::string exception_string;
+
+    int pmode = this->parallel_mode & ~PARALLEL_MODE_NO_HEAP_INIT;
+    bool do_heap_init = !(this->parallel_mode & PARALLEL_MODE_NO_HEAP_INIT);
+
+    FAISS_THROW_IF_NOT_MSG(
+            max_codes == 0 || pmode == 0 || pmode == 3,
+            "max_codes supported only for parallel_mode = 0 or 3");
+
+    if (max_codes == 0) {
+        max_codes = unlimited_list_size;
+    }
+
+    ///*** EARLY STOPPING ADDONS ***///
+    const auto patience = params ? params->patience : -1;
+    const auto tolerance = params ? params->tolerance : 0.0f;
+    const auto exit_point = params ? params->exit_index : 0;
+    const auto probe_predictor = params ? params->probe_predictor : nullptr;
+    const size_t n_features = 7 + (2*exit_point - 1);
+
+    memset(stable_probes, -1 * (exit_point == 0) , n * sizeof(idx_t));
+    memset(first_search, -1, n * k * sizeof(idx_t));
+    memset(previous_search, -1, n * k * sizeof(idx_t));
+
+//    printf("Early stopping: %d\n", early_stopping);
+//    printf("Patience: %d tolerance: %.2f predictor %p\n", patience, tolerance, probe_predictor);
+    FAISS_THROW_IF_NOT_MSG(
+            (patience > 0 && tolerance > 0.0f) || probe_predictor,
+            "Early stopping requires patience or valid probe predictor");
+
+    LightGBM::PredictionEarlyStopConfig tree_config;
+    LightGBM::PredictionEarlyStopInstance tree_early_stop =
+            LightGBM::CreatePredictionEarlyStopInstance(std::string("none"),
+                                                        tree_config);
+
+    bool do_parallel = omp_get_max_threads() >= 2 &&
+            (pmode == 0           ? false
+                     : pmode == 3 ? n > 1
+                     : pmode == 1 ? nprobe > 1
+                                  : nprobe * n > 1);
+
+#pragma omp parallel if (do_parallel) reduction(+ : nlistv, ndis, nheap)
+    {
+        InvertedListScanner* scanner =
+                get_InvertedListScanner(store_pairs, sel);
+        ScopeDeleter1<InvertedListScanner> del(scanner);
+
+        /*****************************************************
+         * Depending on parallel_mode, there are two possible ways
+         * to organize the search. Here we define local functions
+         * that are in common between the two
+         ******************************************************/
+
+        auto intersection_between = [&](const idx_t* a, const idx_t* b, size_t size) {
+            size_t intersection_size = 0;
+            std::unordered_set<idx_t> b_set(b, b + size);
+            for (size_t i = 0; i < size; i++) {
+                if (b_set.count(a[i])) {
+                    intersection_size++;
+                }
+            }
+            return intersection_size;
+        };
+
+        auto set_features = [&](double* const dest,
+                const float* simi,
+                const idx_t* idxi,
+                const idx_t* prev_search,
+                const idx_t* first_search,
+                idx_t k,
+                size_t n_features){};
+
+        // initialize + reorder a result heap
+
+        auto init_result = [&](float* simi, idx_t* idxi) {
+            if (!do_heap_init)
+                return;
+            if (metric_type == METRIC_INNER_PRODUCT) {
+                heap_heapify<HeapForIP>(k, simi, idxi);
+            } else {
+                heap_heapify<HeapForL2>(k, simi, idxi);
+            }
+        };
+
+        auto add_local_results = [&](const float* local_dis,
+                                     const idx_t* local_idx,
+                                     float* simi,
+                                     idx_t* idxi) {
+            if (metric_type == METRIC_INNER_PRODUCT) {
+                heap_addn<HeapForIP>(k, simi, idxi, local_dis, local_idx, k);
+            } else {
+                heap_addn<HeapForL2>(k, simi, idxi, local_dis, local_idx, k);
+            }
+        };
+
+        auto reorder_result = [&](float* simi, idx_t* idxi) {
+            if (!do_heap_init)
+                return;
+            if (metric_type == METRIC_INNER_PRODUCT) {
+                heap_reorder<HeapForIP>(k, simi, idxi);
+            } else {
+                heap_reorder<HeapForL2>(k, simi, idxi);
+            }
+        };
+
+        // single list scan using the current scanner (with query
+        // set porperly) and storing results in simi and idxi
+        auto scan_one_list = [&](idx_t key,
+                                 float coarse_dis_i,
+                                 float* simi,
+                                 idx_t* idxi,
+                                 idx_t list_size_max) {
+            if (key < 0) {
+                // not enough centroids for multiprobe
+                return (size_t)0;
+            }
+            FAISS_THROW_IF_NOT_FMT(
+                    key < (idx_t)nlist,
+                    "Invalid key=%" PRId64 " nlist=%zd\n",
+                    key,
+                    nlist);
+
+            // don't waste time on empty lists
+            if (invlists->is_empty(key)) {
+                return (size_t)0;
+            }
+
+            scanner->set_list(key, coarse_dis_i);
+
+            nlistv++;
+
+            try {
+                if (invlists->use_iterator) {
+                    size_t list_size = 0;
+
+                    std::unique_ptr<InvertedListsIterator> it(
+                            invlists->get_iterator(key));
+
+                    nheap += scanner->iterate_codes(
+                            it.get(), simi, idxi, k, list_size);
+
+                    return list_size;
+                } else {
+                    size_t list_size = invlists->list_size(key);
+                    if (list_size > list_size_max) {
+                        list_size = list_size_max;
+                    }
+
+                    InvertedLists::ScopedCodes scodes(invlists, key);
+                    const uint8_t* codes = scodes.get();
+
+                    std::unique_ptr<InvertedLists::ScopedIds> sids;
+                    const idx_t* ids = nullptr;
+
+                    if (!store_pairs) {
+                        sids.reset(new InvertedLists::ScopedIds(invlists, key));
+                        ids = sids->get();
+                    }
+
+                    if (selr) { // IDSelectorRange
+                        // restrict search to a section of the inverted list
+                        size_t jmin, jmax;
+                        selr->find_sorted_ids_bounds(
+                                list_size, ids, &jmin, &jmax);
+                        list_size = jmax - jmin;
+                        if (list_size == 0) {
+                            return (size_t)0;
+                        }
+                        codes += jmin * code_size;
+                        ids += jmin;
+                    }
+
+                    nheap += scanner->scan_codes(
+                            list_size, codes, ids, simi, idxi, k);
+
+                    return list_size;
+                }
+            } catch (const std::exception& e) {
+                std::lock_guard<std::mutex> lock(exception_mutex);
+                exception_string =
+                        demangle_cpp_symbol(typeid(e).name()) + "  " + e.what();
+                interrupt = true;
+                return size_t(0);
+            }
+        };
+
+        /****************************************************
+         * Actual loops, depending on parallel_mode
+         ****************************************************/
+
+        if ((pmode == 0 || pmode == 3)) {
+#pragma omp for
+            for (idx_t i = 0; i < n; i++) {
+                if (interrupt) {
+                    continue;
+                }
+
+                // loop over queries
+                scanner->set_query(x + i * d);
+                float* simi = distances + i * k;
+                idx_t* idxi = labels + i * k;
+
+                init_result(simi, idxi);
+
+                idx_t nscan = 0;
+
+                auto query_previous_search = previous_search + (i * k);
+                auto query_first_search = first_search + (i * k);
+                auto query_stable_probes = stable_probes + i;
+                auto query_features = new double[n_features];
+
+                for (idx_t ik = 0; ik < exit_point; ik++) {
+                    nscan += scan_one_list(
+                            keys[(i * nprobe) + ik],
+                            coarse_dis[(i * nprobe) + ik],
+                            simi,
+                            idxi,
+                            max_codes - nscan);
+
+                    if (nscan >= max_codes) {
+                        break;
+                    }
+
+                    if (ik == 0) {
+                        std::memcpy(query_first_search, idxi, k * sizeof(idx_t));
+                    }
+
+                    std::memcpy(query_previous_search, idxi, k * sizeof(idx_t));
+
+                }
+
+                idx_t predicted_probes = exit_point;
+                double model_prediction = 0.0;
+
+                if (probe_predictor) {
+                    set_features(
+                            query_features,
+                            simi,
+                            idxi,
+                            query_previous_search,
+                            query_first_search,
+                            k,
+                            n_features);
+                    probe_predictor->PredictRaw(query_features, &model_prediction, &tree_early_stop);
+                    predicted_probes = std::max((idx_t) std::round(model_prediction), predicted_probes);
+                    delete[] query_features;
+                } else {
+                    predicted_probes = nprobe;
+                }
+                predicted_probes = std::min(predicted_probes, nprobe);
+                // loop over probes
+                for (idx_t ik = exit_point; ik < predicted_probes; ik++) {
+                    nscan += scan_one_list(
+                            keys[(i * nprobe) + ik],
+                            coarse_dis[(i * nprobe) + ik],
+                            simi,
+                            idxi,
+                            max_codes - nscan);
+
+                    auto intersection_size = ik > 0 ? intersection_between(query_previous_search, idxi, k): 1;
+
+                    *query_stable_probes = (*query_stable_probes + 1) * (intersection_size  >= (tolerance * k) );
+
+                    if (*query_stable_probes >= patience) {
+                        break;
+                    }
+
+                    if (nscan >= max_codes) {
+                        break;
+                    }
+
+                    if (ik == 0) {
+                        std::memcpy(query_first_search, idxi, k * sizeof(idx_t));
+                    }
+
+                    std::memcpy(query_previous_search, idxi, k * sizeof(idx_t));
+                }
+
+                ndis += nscan;
+                reorder_result(simi, idxi);
+
+                if (InterruptCallback::is_interrupted()) {
+                    interrupt = true;
+                }
+
+            } // parallel for
+        }
+
+        else {
+            FAISS_THROW_FMT("parallel_mode %d not supported when using early stopping\n", pmode);
+        }
+    } // parallel section
+
+    if (interrupt) {
+        if (!exception_string.empty()) {
+            FAISS_THROW_FMT(
+                    "search interrupted with: %s", exception_string.c_str());
+        } else {
+            FAISS_THROW_MSG("computation interrupted");
+        }
+    }
+
+    if (ivf_stats) {
+        ivf_stats->nq += n;
+        ivf_stats->nlist += nlistv;
+        ivf_stats->ndis += ndis;
+        ivf_stats->nheap_updates += nheap;
     }
 }
 
@@ -437,12 +844,11 @@ void IndexIVF::search_preassigned(
     if (max_codes == 0) {
         max_codes = unlimited_list_size;
     }
-
     bool do_parallel = omp_get_max_threads() >= 2 &&
-            (pmode == 0           ? false
-                     : pmode == 3 ? n > 1
-                     : pmode == 1 ? nprobe > 1
-                                  : nprobe * n > 1);
+                       (pmode == 0           ? false
+                                             : pmode == 3 ? n > 1
+                                                          : pmode == 1 ? nprobe > 1
+                                                                       : nprobe * n > 1);
 
 #pragma omp parallel if (do_parallel) reduction(+ : nlistv, ndis, nheap)
     {
@@ -503,8 +909,8 @@ void IndexIVF::search_preassigned(
             FAISS_THROW_IF_NOT_FMT(
                     key < (idx_t)nlist,
                     "Invalid key=%" PRId64 " nlist=%zd\n",
-                    key,
-                    nlist);
+                key,
+                nlist);
 
             // don't waste time on empty lists
             if (invlists->is_empty(key)) {
@@ -702,6 +1108,7 @@ void IndexIVF::search_preassigned(
         ivf_stats->ndis += ndis;
         ivf_stats->nheap_updates += nheap;
     }
+
 }
 
 void IndexIVF::range_search(

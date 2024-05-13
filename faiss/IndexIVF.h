@@ -22,6 +22,7 @@
 #include <faiss/invlists/DirectMap.h>
 #include <faiss/invlists/InvertedLists.h>
 #include <faiss/utils/Heap.h>
+#include <LightGBM/boosting.h>
 
 namespace faiss {
 
@@ -71,6 +72,14 @@ struct Level1Quantizer {
 struct SearchParametersIVF : SearchParameters {
     size_t nprobe = 1;    ///< number of probes at query time
     size_t max_codes = 0; ///< max nb of codes to visit to do a query
+    int patience = -1;   ///< number of inverted lists to visit before early stopping search. -1 means deactivate
+    float tolerance = 0; ///< early stopping tolerance. 0 means deactivate
+    size_t exit_index = 0; ///< index *after* which possibly exit early from the search
+
+    idx_t*  previous_search_buffer = nullptr;
+    idx_t*  first_search_buffer = nullptr;
+    idx_t*  stable_probes_buffer = nullptr;
+    LightGBM::Boosting* probe_predictor = nullptr; ///< predictor to use for probing
     SearchParameters* quantizer_params = nullptr;
 
     virtual ~SearchParametersIVF() {}
@@ -256,6 +265,47 @@ struct IndexIVF : Index, IndexIVFInterface {
     /// does nothing by default
     virtual void train_residual(idx_t n, const float* x);
 
+    /** search a set of vectors, that are pre-quantized by the IVF
+*  quantizer. Fill in the corresponding heaps with the query
+*  results. The default implementation uses InvertedListScanners
+*  to do the search.
+*  !!! This version supports early stopping. !!!
+*
+* @param n      nb of vectors to query
+* @param x      query vectors, size nx * d
+* @param assign coarse quantization indices, size nx * nprobe
+* @param centroid_dis
+*               distances to coarse centroids, size nx * nprobe
+* @param distance
+*               output distances, size n * k
+* @param labels output labels, size n * k
+* @param store_pairs store inv list index + inv list offset
+*                     instead in upper/lower 32 bit of result,
+*                     instead of ids (used for reranking).
+* @param params used to override the object's search parameters
+* @param stats  search stats to be updated (can be null)
+*/
+    virtual void search_preassigned_with_early_stopping(
+            idx_t n,
+            const float* x,
+            idx_t k,
+            const idx_t* assign,
+            const float* centroid_dis,
+            float* distances,
+            idx_t* labels,
+            bool store_pairs,
+            const IVFSearchParameters* params = nullptr,
+            IndexIVFStats* stats = nullptr,
+            idx_t* previous_search = nullptr,
+            idx_t* first_search = nullptr,
+            idx_t* stable_probes = nullptr
+            ) const;
+/**
+    idx_t* const previous_search = early_stopping ? new idx_t[n * k]: nullptr;
+    idx_t* const first_search = early_stopping ? new idx_t[n * k]: nullptr;
+    double* const features = probe_predictor ? new double[n * n_features]: nullptr;
+    idx_t* const stable_probes = patience ? new idx_t[n] : nullptr;
+ */
     void search_preassigned(
             idx_t n,
             const float* x,
