@@ -239,8 +239,6 @@ else()
   add_compile_options(/bigobj)
 endif()
 
-add_compile_options(-fPIC>)
-
 
 # Handle `#include <faiss/foo.h>`.
 target_include_directories(faiss PUBLIC

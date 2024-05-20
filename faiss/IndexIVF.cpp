@@ -496,22 +496,31 @@ void IndexIVF::search_preassigned_with_early_stopping(
     const auto tolerance = params ? params->tolerance : 0.0f;
     const auto exit_point = params ? params->exit_index : 0;
     const auto probe_predictor = params ? params->probe_predictor : nullptr;
-    const size_t n_features = 7 + (2*exit_point - 1);
+    const size_t n_features = d + 14 + 2*(exit_point - 1);
+    double* features = params ? params->feature_buffer : nullptr;
 
-    memset(stable_probes, -1 * (exit_point == 0) , n * sizeof(idx_t));
-    memset(first_search, -1, n * k * sizeof(idx_t));
-    memset(previous_search, -1, n * k * sizeof(idx_t));
 
-//    printf("Early stopping: %d\n", early_stopping);
-//    printf("Patience: %d tolerance: %.2f predictor %p\n", patience, tolerance, probe_predictor);
     FAISS_THROW_IF_NOT_MSG(
             (patience > 0 && tolerance > 0.0f) || probe_predictor,
             "Early stopping requires patience or valid probe predictor");
 
-    LightGBM::PredictionEarlyStopConfig tree_config;
-    LightGBM::PredictionEarlyStopInstance tree_early_stop =
-            LightGBM::CreatePredictionEarlyStopInstance(std::string("none"),
-                                                        tree_config);
+    FAISS_THROW_IF_NOT_MSG(
+            !probe_predictor || (probe_predictor && (features)),
+            "Probe predictor requires valid feature buffer");
+
+    FAISS_THROW_IF_NOT_MSG( first_search && previous_search,
+                            "Early stopping requires valid buffers for previous search and first search");
+
+
+    memset(first_search, -1, n * k * sizeof(idx_t));
+    memset(previous_search, -1, n * k * sizeof(idx_t));
+
+    if (probe_predictor ){
+        memset(features, 0, n_features * sizeof(double));
+    }
+    if(patience > 0){
+        memset(stable_probes, -1 * (exit_point == 0) , n * sizeof(idx_t));
+    }
 
     bool do_parallel = omp_get_max_threads() >= 2 &&
             (pmode == 0           ? false
@@ -541,14 +550,6 @@ void IndexIVF::search_preassigned_with_early_stopping(
             }
             return intersection_size;
         };
-
-        auto set_features = [&](double* const dest,
-                const float* simi,
-                const idx_t* idxi,
-                const idx_t* prev_search,
-                const idx_t* first_search,
-                idx_t k,
-                size_t n_features){};
 
         // initialize + reorder a result heap
 
@@ -664,6 +665,48 @@ void IndexIVF::search_preassigned_with_early_stopping(
             }
         };
 
+
+        auto set_features = [&](
+                const idx_t query_offset,
+                double* const dest,
+                const float* simi,
+                const idx_t* idxi,
+                const float* coarse_dis,
+                const idx_t* prev_search,
+                const idx_t* first_search,
+                bool extract_intersections,
+                idx_t k,
+                size_t n_features,
+                size_t n_clusters){
+
+            size_t its = 2 * (exit_point - 1);
+            size_t p = 0;
+            const idx_t* pth_search = nullptr;
+            // query features
+            for (idx_t j = 0; j < d; j++){
+                dest[j] = x[(query_offset * d) + j];
+            }
+            if (extract_intersections){
+                // intersection features
+                for (idx_t j = 0; j < its; j+=2){
+                    p = j / 2;
+                    pth_search = prev_search + (query_offset * k * nprobe) + (p * k);
+                    dest[d + j] = intersection_between(pth_search, idxi, k) / k;
+                    dest[d + j + 1] = intersection_between(first_search, pth_search, k) / k;
+                }
+            }
+
+            // Li et al. features; total d + 14 features
+            for (idx_t j = 0; j < 11; j++){
+                dest[d + its +j -1] = coarse_dis[query_offset * n_clusters + j*10 - 1] / (coarse_dis[query_offset * n_clusters] + 1e-6);
+            }
+
+            dest[d + its + 10] = simi[0];
+            dest[d + its + 11] = simi[9];
+            dest[d + its + 12] = simi[0] / (simi[9] + 1e-6);
+            dest[d + its + 13] = simi[0] / (coarse_dis[query_offset * n_clusters] + 1e-6);
+        };
+
         /****************************************************
          * Actual loops, depending on parallel_mode
          ****************************************************/
@@ -684,12 +727,13 @@ void IndexIVF::search_preassigned_with_early_stopping(
 
                 idx_t nscan = 0;
 
-                auto query_previous_search = previous_search + (i * k);
+                auto query_previous_search = previous_search + (i * k * nprobe);
                 auto query_first_search = first_search + (i * k);
                 auto query_stable_probes = stable_probes + i;
-                auto query_features = new double[n_features];
-
+                auto current_search = query_previous_search;
+                // TODO: fix  current/previous search
                 for (idx_t ik = 0; ik < exit_point; ik++) {
+                    current_search = current_search + (ik * k);
                     nscan += scan_one_list(
                             keys[(i * nprobe) + ik],
                             coarse_dis[(i * nprobe) + ik],
@@ -704,32 +748,40 @@ void IndexIVF::search_preassigned_with_early_stopping(
                     if (ik == 0) {
                         std::memcpy(query_first_search, idxi, k * sizeof(idx_t));
                     }
-
-                    std::memcpy(query_previous_search, idxi, k * sizeof(idx_t));
-
+                    std::memcpy(current_search, idxi, k * sizeof(idx_t));
                 }
 
                 idx_t predicted_probes = exit_point;
+                double* query_features = features + (i * n_features);
                 double model_prediction = 0.0;
 
                 if (probe_predictor) {
+                    reorder_result(simi, idxi);
                     set_features(
+                            i,
                             query_features,
                             simi,
                             idxi,
+                            coarse_dis,
                             query_previous_search,
                             query_first_search,
+                            true,
                             k,
-                            n_features);
-                    probe_predictor->PredictRaw(query_features, &model_prediction, &tree_early_stop);
+                            n_features,
+                            nprobe);
+                    auto tree_early_stop = params->lgb_tree_early_stop;
+                    probe_predictor->InitPredict(0, probe_predictor->NumberOfTotalModel(), true);
+                    probe_predictor->Predict(query_features, &model_prediction, &tree_early_stop);
                     predicted_probes = std::max((idx_t) std::round(model_prediction), predicted_probes);
-                    delete[] query_features;
+                    heap_heapify<HeapForIP> (k, simi, idxi, simi, idxi, k);
                 } else {
                     predicted_probes = nprobe;
                 }
+                printf("Predicted probes: %f %d\n", model_prediction, i);
                 predicted_probes = std::min(predicted_probes, nprobe);
                 // loop over probes
                 for (idx_t ik = exit_point; ik < predicted_probes; ik++) {
+                    current_search = current_search + (ik * k);
                     nscan += scan_one_list(
                             keys[(i * nprobe) + ik],
                             coarse_dis[(i * nprobe) + ik],
@@ -737,23 +789,26 @@ void IndexIVF::search_preassigned_with_early_stopping(
                             idxi,
                             max_codes - nscan);
 
-                    auto intersection_size = ik > 0 ? intersection_between(query_previous_search, idxi, k): 1;
-
-                    *query_stable_probes = (*query_stable_probes + 1) * (intersection_size  >= (tolerance * k) );
-
-                    if (*query_stable_probes >= patience) {
-                        break;
-                    }
-
                     if (nscan >= max_codes) {
                         break;
                     }
 
-                    if (ik == 0) {
-                        std::memcpy(query_first_search, idxi, k * sizeof(idx_t));
-                    }
+                    if (patience > 0){
 
-                    std::memcpy(query_previous_search, idxi, k * sizeof(idx_t));
+                        auto intersection_size = ik > 0 ? intersection_between(query_previous_search, idxi, k): 1;
+
+                        *query_stable_probes = (*query_stable_probes + 1) * (intersection_size  >= (tolerance * k) );
+
+                        if (*query_stable_probes >= patience) {
+                            break;
+                        }
+
+                        if (ik == 0) {
+                            std::memcpy(query_first_search, idxi, k * sizeof(idx_t));
+                        }
+
+                        std::memcpy(current_search, idxi, k * sizeof(idx_t));
+                    }
                 }
 
                 ndis += nscan;

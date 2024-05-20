@@ -23,6 +23,7 @@
 #include <faiss/invlists/InvertedLists.h>
 #include <faiss/utils/Heap.h>
 #include <LightGBM/boosting.h>
+#include <LightGBM/prediction_early_stop.h>
 
 namespace faiss {
 
@@ -79,7 +80,11 @@ struct SearchParametersIVF : SearchParameters {
     idx_t*  previous_search_buffer = nullptr;
     idx_t*  first_search_buffer = nullptr;
     idx_t*  stable_probes_buffer = nullptr;
+    double* feature_buffer = nullptr;
     LightGBM::Boosting* probe_predictor = nullptr; ///< predictor to use for probing
+    LightGBM::PredictionEarlyStopConfig lgb_tree_config;
+    LightGBM::PredictionEarlyStopInstance lgb_tree_early_stop;
+
     SearchParameters* quantizer_params = nullptr;
 
     virtual ~SearchParametersIVF() {}
