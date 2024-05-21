@@ -499,6 +499,7 @@ void IndexIVF::search_preassigned_with_early_stopping(
     const auto tolerance = params ? params->tolerance : 0.0f;
     const auto exit_point = params ? params->exit_index : 0;
     const auto probe_predictor = params ? params->probe_predictor : nullptr;
+    const auto masker = params ? params->first_stage_clf : nullptr;
     const auto is_classifier = params ? params->is_classifier : false;
     const size_t n_features = params ? params-> n_features : 14 + ( 2 * (exit_point - 1) ) + 10;
     double* features = params ? params->feature_buffer : nullptr;
@@ -758,8 +759,9 @@ void IndexIVF::search_preassigned_with_early_stopping(
                 idx_t predicted_probes = exit_point;
                 double* query_features = features + (i * n_features);
                 double model_prediction = 0.0;
+                bool query_mask = true;
 
-                if (probe_predictor) {
+                if(masker){ // if masker is given (clf), we need to set the features
                     reorder_result(simi, idxi);
                     set_features(
                             i,
@@ -774,9 +776,32 @@ void IndexIVF::search_preassigned_with_early_stopping(
                             n_features,
                             nprobe);
                     auto tree_early_stop = params->lgb_tree_early_stop;
+                    masker->InitPredict(0, probe_predictor->NumberOfTotalModel(), true);
+                    masker->Predict(query_features, &model_prediction, &tree_early_stop);
+                    heap_heapify<HeapForIP> (k, simi, idxi, simi, idxi, k);
+                    query_mask = model_prediction > 0.5;
+                }
+
+                if (probe_predictor && query_mask) {
+                    if (!masker){ // if masker is not given (clf), we need to set the features
+                        reorder_result(simi, idxi);
+                        set_features(
+                                i,
+                                query_features,
+                                simi,
+                                idxi,
+                                coarse_dis,
+                                query_previous_searches,
+                                query_first_search,
+                                true,
+                                k,
+                                n_features,
+                                nprobe);
+                        heap_heapify<HeapForIP> (k, simi, idxi, simi, idxi, k);
+                    }
+                    auto tree_early_stop = params->lgb_tree_early_stop;
                     probe_predictor->InitPredict(0, probe_predictor->NumberOfTotalModel(), true);
                     probe_predictor->Predict(query_features, &model_prediction, &tree_early_stop);
-                    heap_heapify<HeapForIP> (k, simi, idxi, simi, idxi, k);
 
                     if (is_classifier){
                         predicted_probes = (model_prediction > 0.5) * (nprobe);
@@ -785,9 +810,9 @@ void IndexIVF::search_preassigned_with_early_stopping(
                         predicted_probes = (idx_t) std::round(model_prediction);
                     }
                 } else {
-                    predicted_probes = nprobe;
+                    predicted_probes = query_mask * nprobe;
                 }
-                predicted_probes = std::min(predicted_probes, nprobe);
+                predicted_probes = std::max((idx_t) exit_point, (idx_t) std::min(predicted_probes, nprobe));
 
                 // loop over probes
                 auto query_previous_search = previous_search + (i * k * exit_point);

@@ -82,6 +82,7 @@ struct SearchParametersIVF : SearchParameters {
     idx_t*  first_search_buffer = nullptr;
     idx_t*  stable_probes_buffer = nullptr;
     double* feature_buffer = nullptr;
+    LightGBM::Boosting* first_stage_clf = nullptr; ///< classifier to use for masking
     LightGBM::Boosting* probe_predictor = nullptr; ///< predictor to use for probing
     bool is_classifier = false; ///< whether the predictor is a classifier
     LightGBM::PredictionEarlyStopConfig lgb_tree_config;
