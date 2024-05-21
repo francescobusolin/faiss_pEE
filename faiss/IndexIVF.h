@@ -76,12 +76,14 @@ struct SearchParametersIVF : SearchParameters {
     int patience = -1;   ///< number of inverted lists to visit before early stopping search. -1 means deactivate
     float tolerance = 0; ///< early stopping tolerance. 0 means deactivate
     size_t exit_index = 0; ///< index *after* which possibly exit early from the search
+    size_t n_features = 0; ///< number of features to use for probing
 
     idx_t*  previous_search_buffer = nullptr;
     idx_t*  first_search_buffer = nullptr;
     idx_t*  stable_probes_buffer = nullptr;
     double* feature_buffer = nullptr;
     LightGBM::Boosting* probe_predictor = nullptr; ///< predictor to use for probing
+    bool is_classifier = false; ///< whether the predictor is a classifier
     LightGBM::PredictionEarlyStopConfig lgb_tree_config;
     LightGBM::PredictionEarlyStopInstance lgb_tree_early_stop;
 
