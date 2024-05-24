@@ -1,6 +1,6 @@
 # External Libraries
-We use LightGBM v4.3.0 to train and evaluate our learned models: see [https://github.com/microsoft/LightGBM/releases/tag/v4.3.0]
-Also, we tested our solution using openBLAS: see [https://github.com/OpenMathLib/OpenBLAS/releases/tag/v0.3.27]
+We use LightGBM v4.3.0 to train and evaluate our learned models: see [https://github.com/microsoft/LightGBM/releases/tag/v4.3.0] \\
+Also, we tested our solution using openBLAS: see [https://github.com/OpenMathLib/OpenBLAS/releases/tag/v0.3.27] \\
 So you need to have both these libraries available to be linked against our code.
 
 # Compilation
@@ -29,4 +29,12 @@ Finally, you can go ahead and build our experiment.cpp file inside the execs fol
 ```
 g++ experiment.cpp -I../faiss -I<PATH_TO_LIGHTGBM>/LightGBM/include  -L../faiss/build/faiss -L<PATH_TO_LIGHTGBM>/LightGBM -lfaiss -lgfortran -g -l_lightgbm -fopenmp -g -o faiss_paknn
 ```
-Again, make sure that all the paths are correct.
+Again, please make sure that all the paths are correct.
+
+# Run
+We provide a bash script with all the configurations present in the paper. As this is not release-ready code, there is little error checking inside. Therefore, some parameter configurations may not work as expected.
+In general though, everything *should* work fine as long as:
+* Either a patience **and** tolerance values are provided *or* a model is.
+* If masker is set, either patience (and tolerance) *or* a probe predictor is provided 
+* For now, only 'exit_position=10' is supported
+  
