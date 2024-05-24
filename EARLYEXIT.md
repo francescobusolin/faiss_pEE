@@ -4,7 +4,7 @@ Also, we tested our solution using openBLAS: see [https://github.com/OpenMathLib
 So you need to have both these libraries available to be linked against our code.
 
 # Compilation
-In general you can follow the instruction provided by FAISS to build from source; however note that we exclusively used the CPU-based version as customize and rebuild from source the GPU variant can and *will* be tedious and errore prone.
+In general, you can follow the instructions provided by FAISS to build from the source; however, note that we exclusively used and thus tested the CPU-based version as customization, and rebuilding from the source the GPU variant can and *will* be tedious and error-prone.
 The CMake command that we used to compile our solution is:
 ```
 cmake -DFAISS_ENABLE_GPU=OFF \
@@ -19,3 +19,14 @@ cmake -DFAISS_ENABLE_GPU=OFF \
 -DLIGHTGBM_INCLUDE=<PATH_TO_LIGHTGBM>/LightGBM/include \
 -DCMAKE_INSTALL_LIBDIR=lib  -B build .
 ```
+From which you will need to specify the libraries and headers locations
+Then, to build faiss run
+```
+make -j8 -C build faiss
+```
+
+Finally, you can go ahead and build our experiment.cpp file inside the execs folder using:
+```
+g++ experiment.cpp -I../faiss -I<PATH_TO_LIGHTGBM>/LightGBM/include  -L../faiss/build/faiss -L<PATH_TO_LIGHTGBM>/LightGBM -lfaiss -lgfortran -g -l_lightgbm -fopenmp -g -o faiss_paknn
+```
+Again, make sure that all the paths are correct.
