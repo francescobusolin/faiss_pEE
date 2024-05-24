@@ -676,6 +676,7 @@ void IndexIVF::search_preassigned_with_early_stopping(
             size_t its = 2 * (exit_point - 1);
             size_t p = 0;
             const idx_t* pth_search = nullptr;
+            const idx_t* ppth_search = nullptr;
             const idx_t* f_search = nullptr;
             // query features
             for (idx_t j = 0; j < d; j++){
@@ -685,7 +686,8 @@ void IndexIVF::search_preassigned_with_early_stopping(
                 // intersection features
                 for (idx_t p = 1; p < exit_point; p++){
                     pth_search = query_prev_search + (p * k);
-                    dest[d + (p-1)*2] = intersection_between(pth_search, idxi, k) / (k + 1e-6);
+                    ppth_search = query_prev_search + ((p-1) * k);
+                    dest[d + (p-1)*2] = intersection_between(pth_search, ppth_search, k) / (k + 1e-6);
                 }
 
                 for(idx_t p = 1; p < exit_point; p++){
@@ -736,7 +738,6 @@ void IndexIVF::search_preassigned_with_early_stopping(
                 auto query_first_search = first_search + (i * k);
                 auto query_stable_probes = stable_probes + i;
                 auto current_search = query_previous_searches;
-                // TODO: fix  current/previous search
                 for (idx_t ik = 0; ik < exit_point; ik++) {
                     current_search = current_search + (ik * k);
                     nscan += scan_one_list(
@@ -746,9 +747,6 @@ void IndexIVF::search_preassigned_with_early_stopping(
                             idxi,
                             max_codes - nscan);
 
-                    if (nscan >= max_codes) {
-                        break;
-                    }
 
                     if (ik == 0) {
                         std::memcpy(query_first_search, idxi, k * sizeof(idx_t));
@@ -776,7 +774,7 @@ void IndexIVF::search_preassigned_with_early_stopping(
                             n_features,
                             nprobe);
                     auto tree_early_stop = params->lgb_tree_early_stop;
-                    masker->InitPredict(0, probe_predictor->NumberOfTotalModel(), true);
+                    //masker->InitPredict(0, masker->NumberOfTotalModel(), true);
                     masker->Predict(query_features, &model_prediction, &tree_early_stop);
                     heap_heapify<HeapForIP> (k, simi, idxi, simi, idxi, k);
                     query_mask = model_prediction > 0.5;
@@ -800,7 +798,7 @@ void IndexIVF::search_preassigned_with_early_stopping(
                         heap_heapify<HeapForIP> (k, simi, idxi, simi, idxi, k);
                     }
                     auto tree_early_stop = params->lgb_tree_early_stop;
-                    probe_predictor->InitPredict(0, probe_predictor->NumberOfTotalModel(), true);
+                    //probe_predictor->InitPredict(0, probe_predictor->NumberOfTotalModel(), true);
                     probe_predictor->Predict(query_features, &model_prediction, &tree_early_stop);
 
                     if (is_classifier){
@@ -825,13 +823,9 @@ void IndexIVF::search_preassigned_with_early_stopping(
                             idxi,
                             max_codes - nscan);
 
-                    if (nscan >= max_codes) {
-                        break;
-                    }
-
                     if (patience > 0){
 
-                        auto intersection_size = ik > 0 ? intersection_between(query_previous_search, idxi, k): 1;
+                        size_t intersection_size = ik > 0 ? intersection_between(query_previous_search, idxi, k): k;
 
                         *query_stable_probes = (*query_stable_probes + 1) * (intersection_size  >= (tolerance * k) );
 
