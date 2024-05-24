@@ -33,7 +33,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<PATH_TO_FAISS>/faiss/build/faiss:<PATH_
 
 Finally, you can go ahead and build our experiment.cpp file inside the execs folder using:
 ```
-g++ experiment.cpp -I<PATH_TO_FAISS>/ -I<PATH_TO_LIGHTGBM>/LightGBM/include  -L../faiss/build/faiss -L<PATH_TO_LIGHTGBM>/LightGBM -lfaiss -lgfortran -g -l_lightgbm -fopenmp -g -o faiss_paknn
+g++ experiment.cpp -I<PATH_TO_FAISS>/ -I<PATH_TO_LIGHTGBM>/LightGBM/include  -L<PATH_TO_FAISS>/build/faiss -L<PATH_TO_LIGHTGBM>/LightGBM -lfaiss -lgfortran -g -l_lightgbm -fopenmp -o faiss_paknn
 ```
 Again, please make sure that all the paths are correct.
 
