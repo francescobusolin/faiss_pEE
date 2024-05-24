@@ -1,9 +1,9 @@
 #!/bin/bash
 
-INDEX_PATH=/home/busolin/indexes
-DATA_PATH=/home/busolin/dense_data/msmarco
-MODELS_PATH=/home/busolin/biEffortFaiss/models/
-TEST_OFFSETS=/home/busolin/biEffortFaiss/data/test_offsets.npy
+INDEX_PATH=PATH_TO_INDEXES # Path to the indexes
+DATA_PATH=PATH_TO_VECTORS # Path to the data
+MODELS_PATH=PATH_TO_MODELS # Path to the models
+TEST_OFFSETS=SOME_OTHER_PATH/test_offsets.npy # Path to the test offsets
 
 for encoder in contriver star tasb; do
   echo "Running $encoder"
