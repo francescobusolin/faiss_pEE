@@ -32,8 +32,8 @@ g++ experiment.cpp -I../faiss -I<PATH_TO_LIGHTGBM>/LightGBM/include  -L../faiss/
 Again, please make sure that all the paths are correct.
 
 # Run
-We provide a bash script with all the configurations present in the paper. As this is not release-ready code, there is little error checking inside. Therefore, some parameter configurations may not work as expected.
-In general though, everything *should* work fine as long as:
+We provide a bash script with all the configurations present in the paper. This **is not** release-ready code, so there is little error checking inside the added code and our main file. Therefore, some parameter configurations may not work as expected.
+In general, everything *should* work fine as long as:
 * Either a patience **and** tolerance values are provided *or* a model is.
 * If masker is set, either patience (and tolerance) *or* a probe predictor is provided 
 * For now, only 'exit_position=10' is supported
