@@ -43,4 +43,7 @@ In general, everything *should* work fine as long as:
 * Either a patience **and** tolerance values are provided *or* a model is.
 * If masker is set, either patience (and tolerance) *or* a probe predictor is provided 
 * For now, only 'exit_position=10' is supported
+
+# Results
+You can find the results of our test runs in the same folder. To obtain the number of clusters and/or documents visited, divide the numbers reported by 6980 * 6, i.e., by the number of queries times the runs performed (nq * n_runs), as the variables responsible for counting those quantities are global accumulators.
   
