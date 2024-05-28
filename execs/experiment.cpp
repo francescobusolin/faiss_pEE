@@ -175,6 +175,8 @@ int main(int argc, char** argv ) {
     }
     printf("Search time: %.4f s\n", elapsed.count());
     printf("Search time per query: %.4f ms\n", 1000 * elapsed.count() / nq);
+    printf("Documents scanned: %lu\n", faiss::indexIVF_stats.ndis);
+    printf("Cluster scanned: %lu\n", faiss::indexIVF_stats.nlist);
 
     delete[] I;
     delete[] D;
