@@ -92,10 +92,7 @@ tutorial/cpp/CMakeFiles/4-GPU.dir/4-GPU.cpp.s: cmake_force
 
 tutorial/cpp/4-GPU: tutorial/cpp/CMakeFiles/4-GPU.dir/4-GPU.cpp.o
 tutorial/cpp/4-GPU: tutorial/cpp/CMakeFiles/4-GPU.dir/build.make
-tutorial/cpp/4-GPU: faiss/libfaiss.a
-tutorial/cpp/4-GPU: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-tutorial/cpp/4-GPU: /usr/lib/x86_64-linux-gnu/libpthread.so
-tutorial/cpp/4-GPU: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+tutorial/cpp/4-GPU: faiss/libfaiss.so
 tutorial/cpp/4-GPU: tutorial/cpp/CMakeFiles/4-GPU.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable 4-GPU"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/tutorial/cpp && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/4-GPU.dir/link.txt --verbose=$(VERBOSE)

@@ -1,1 +1,1 @@
-/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/demo_nndescent.dir/demo_nndescent.cpp.o -o demo_nndescent  ../faiss/libfaiss.a /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so -lpthread /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a 
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/demo_nndescent.dir/demo_nndescent.cpp.o -o demo_nndescent  -Wl,-rpath,/home/busolin/biEffortFaiss/experiments/faiss/build/faiss ../faiss/libfaiss.so 

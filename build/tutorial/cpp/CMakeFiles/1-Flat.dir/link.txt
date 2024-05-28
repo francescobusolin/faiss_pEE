@@ -1,1 +1,1 @@
-/usr/bin/c++ -O3 -DNDEBUG "CMakeFiles/1-Flat.dir/1-Flat.cpp.o" -o 1-Flat  ../../faiss/libfaiss.a /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so -lpthread /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a 
+/usr/bin/c++ -O3 -DNDEBUG "CMakeFiles/1-Flat.dir/1-Flat.cpp.o" -o 1-Flat  -Wl,-rpath,/home/busolin/biEffortFaiss/experiments/faiss/build/faiss ../../faiss/libfaiss.so 

@@ -171,8 +171,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/faiss_avx2.dir/utils/sorting.cpp.o.d"
   "CMakeFiles/faiss_avx2.dir/utils/utils.cpp.o"
   "CMakeFiles/faiss_avx2.dir/utils/utils.cpp.o.d"
-  "libfaiss_avx2.a"
   "libfaiss_avx2.pdb"
+  "libfaiss_avx2.so"
 )
 
 # Per-language clean rules from dependency scanning.

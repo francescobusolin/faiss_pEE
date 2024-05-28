@@ -92,10 +92,7 @@ tutorial/cpp/CMakeFiles/3-IVFPQ.dir/3-IVFPQ.cpp.s: cmake_force
 
 tutorial/cpp/3-IVFPQ: tutorial/cpp/CMakeFiles/3-IVFPQ.dir/3-IVFPQ.cpp.o
 tutorial/cpp/3-IVFPQ: tutorial/cpp/CMakeFiles/3-IVFPQ.dir/build.make
-tutorial/cpp/3-IVFPQ: faiss/libfaiss.a
-tutorial/cpp/3-IVFPQ: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-tutorial/cpp/3-IVFPQ: /usr/lib/x86_64-linux-gnu/libpthread.so
-tutorial/cpp/3-IVFPQ: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+tutorial/cpp/3-IVFPQ: faiss/libfaiss.so
 tutorial/cpp/3-IVFPQ: tutorial/cpp/CMakeFiles/3-IVFPQ.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable 3-IVFPQ"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/tutorial/cpp && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/3-IVFPQ.dir/link.txt --verbose=$(VERBOSE)

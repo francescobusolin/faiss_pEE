@@ -269,28 +269,73 @@ faiss/CMakeFiles/faiss.dir/AutoTune.cpp.o: /home/busolin/biEffortFaiss/experimen
   /usr/include/c++/7/bits/unordered_set.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/DirectMap.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/InvertedLists.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /usr/include/c++/7/mutex \
   /usr/include/c++/7/chrono \
   /usr/include/c++/7/ratio \
   /usr/include/c++/7/ctime \
   /usr/include/c++/7/bits/parse_numbers.h \
   /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/HNSW.h \
   /usr/include/c++/7/queue \
   /usr/include/c++/7/deque \
   /usr/include/c++/7/bits/stl_deque.h \
   /usr/include/c++/7/bits/deque.tcc \
-  /usr/include/c++/7/bits/stl_heap.h \
   /usr/include/c++/7/bits/stl_queue.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFFlat.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQR.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexLSH.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/VectorTransform.h \
@@ -305,9 +350,7 @@ faiss/CMakeFiles/faiss.dir/AutoTune.cpp.o: /home/busolin/biEffortFaiss/experimen
   /usr/include/c++/7/thread \
   /usr/include/c++/7/atomic \
   /usr/include/c++/7/bits/atomic_futex.h \
-  /usr/include/c++/7/bits/std_function.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex-inl.h \
-  /usr/include/c++/7/iostream \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/MetaIndexes.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIDMap.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexReplicas.h \
@@ -823,7 +866,65 @@ faiss/CMakeFiles/faiss.dir/IVFlib.cpp.o: /home/busolin/biEffortFaiss/experiments
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
   /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexAdditiveQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AdditiveQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlat.h \
@@ -833,7 +934,6 @@ faiss/CMakeFiles/faiss.dir/IVFlib.cpp.o: /home/busolin/biEffortFaiss/experiments
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/LocalSearchQuantizer.h \
   /usr/include/c++/7/random \
   /usr/include/c++/7/bits/random.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
   /usr/include/x86_64-linux-gnu/c++/7/bits/opt_random.h \
   /usr/include/c++/7/bits/random.tcc \
   /usr/include/c++/7/numeric \
@@ -854,29 +954,20 @@ faiss/CMakeFiles/faiss.dir/IVFlib.cpp.o: /home/busolin/biEffortFaiss/experiments
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/WorkerThread.h \
   /usr/include/c++/7/condition_variable \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /usr/include/c++/7/deque \
   /usr/include/c++/7/bits/stl_deque.h \
   /usr/include/c++/7/bits/deque.tcc \
   /usr/include/c++/7/future \
-  /usr/include/c++/7/mutex \
   /usr/include/c++/7/thread \
   /usr/include/c++/7/atomic \
   /usr/include/c++/7/bits/atomic_futex.h \
-  /usr/include/c++/7/bits/std_function.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex-inl.h \
-  /usr/include/c++/7/iostream \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/hamdis-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/common.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/generic-inl.h \
-  /usr/include/c++/7/cstddef \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming-inl.h
 
 faiss/CMakeFiles/faiss.dir/Index.cpp.o: /home/busolin/biEffortFaiss/experiments/faiss/faiss/Index.cpp \
@@ -1369,28 +1460,74 @@ faiss/CMakeFiles/faiss.dir/Index2Layer.cpp.o: /home/busolin/biEffortFaiss/experi
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/PolysemousTraining.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/Quantizer.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer-inl.h \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQ.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlat.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /usr/include/c++/7/mutex \
   /usr/include/c++/7/chrono \
   /usr/include/c++/7/ratio \
   /usr/include/c++/7/ctime \
   /usr/include/c++/7/bits/parse_numbers.h \
   /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/PolysemousTraining.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/Quantizer.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer-inl.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQ.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlat.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.h \
@@ -3420,31 +3557,75 @@ faiss/CMakeFiles/faiss.dir/IndexBinaryIVF.cpp.o: /home/busolin/biEffortFaiss/exp
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
   /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlat.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/DistanceComputer.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexLSH.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/VectorTransform.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
   /usr/include/c++/7/mutex \
   /usr/include/c++/7/chrono \
   /usr/include/c++/7/ratio \
   /usr/include/c++/7/ctime \
   /usr/include/c++/7/bits/parse_numbers.h \
   /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlat.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/DistanceComputer.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexLSH.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/VectorTransform.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/hamdis-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/common.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/generic-inl.h \
-  /usr/include/c++/7/cstddef \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/approx_topk/mode.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/sorting.h \
@@ -4460,43 +4641,88 @@ faiss/CMakeFiles/faiss.dir/IndexHNSW.cpp.o: /home/busolin/biEffortFaiss/experime
   /usr/include/c++/7/bits/unordered_set.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/DirectMap.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/InvertedLists.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /usr/include/c++/7/mutex \
   /usr/include/c++/7/chrono \
   /usr/include/c++/7/ratio \
   /usr/include/c++/7/ctime \
   /usr/include/c++/7/bits/parse_numbers.h \
   /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/HNSW.h \
   /usr/include/c++/7/queue \
   /usr/include/c++/7/deque \
   /usr/include/c++/7/bits/stl_deque.h \
   /usr/include/c++/7/bits/deque.tcc \
-  /usr/include/c++/7/bits/stl_heap.h \
   /usr/include/c++/7/bits/stl_queue.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/random.h \
   /usr/include/c++/7/random \
   /usr/include/c++/7/bits/random.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
   /usr/include/x86_64-linux-gnu/c++/7/bits/opt_random.h \
   /usr/include/c++/7/bits/random.tcc \
   /usr/include/c++/7/numeric \
   /usr/include/c++/7/bits/stl_numeric.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/utils.h \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
   /usr/include/x86_64-linux-gnu/sys/stat.h \
   /usr/include/x86_64-linux-gnu/bits/stat.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/Index2Layer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/sorting.h
 
@@ -5006,6 +5232,22 @@ faiss/CMakeFiles/faiss.dir/IndexIVF.cpp.o: /home/busolin/biEffortFaiss/experimen
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
   /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /usr/include/c++/7/mutex \
   /usr/include/c++/7/chrono \
@@ -5018,13 +5260,41 @@ faiss/CMakeFiles/faiss.dir/IndexIVF.cpp.o: /home/busolin/biEffortFaiss/experimen
   /usr/include/c++/7/bits/algorithmfwd.h \
   /usr/include/c++/7/bits/stl_heap.h \
   /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
   /usr/include/c++/7/cinttypes \
   /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/hamdis-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/common.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/generic-inl.h \
-  /usr/include/c++/7/cstddef \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/approx_topk/mode.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/utils.h \
@@ -5285,10 +5555,68 @@ faiss/CMakeFiles/faiss.dir/IndexIVFAdditiveQuantizer.cpp.o: /home/busolin/biEffo
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/LocalSearchQuantizer.h \
   /usr/include/c++/7/random \
   /usr/include/c++/7/bits/random.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
   /usr/include/x86_64-linux-gnu/c++/7/bits/opt_random.h \
   /usr/include/c++/7/bits/random.tcc \
   /usr/include/c++/7/numeric \
@@ -5297,20 +5625,10 @@ faiss/CMakeFiles/faiss.dir/IndexIVFAdditiveQuantizer.cpp.o: /home/busolin/biEffo
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductAdditiveQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ResidualQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/approx_topk/mode.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ResultHandler.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/partitioning.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/extra_distances.h \
@@ -5566,10 +5884,68 @@ faiss/CMakeFiles/faiss.dir/IndexIVFAdditiveQuantizerFastScan.cpp.o: /home/busoli
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/LocalSearchQuantizer.h \
   /usr/include/c++/7/random \
   /usr/include/c++/7/bits/random.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
   /usr/include/x86_64-linux-gnu/c++/7/bits/opt_random.h \
   /usr/include/c++/7/bits/random.tcc \
   /usr/include/c++/7/numeric \
@@ -5580,20 +5956,7 @@ faiss/CMakeFiles/faiss.dir/IndexIVFAdditiveQuantizerFastScan.cpp.o: /home/busoli
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/approx_topk/mode.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFFastScan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/LookupTableScaler.h \
@@ -5610,7 +5973,6 @@ faiss/CMakeFiles/faiss.dir/IndexIVFAdditiveQuantizerFastScan.cpp.o: /home/busoli
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/hamdis-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/common.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/generic-inl.h \
-  /usr/include/c++/7/cstddef \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/quantize_lut.h
 
@@ -5858,19 +6220,69 @@ faiss/CMakeFiles/faiss.dir/IndexIVFFastScan.cpp.o: /home/busolin/biEffortFaiss/e
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
   /usr/include/c++/7/algorithm \
   /usr/include/c++/7/bits/stl_algo.h \
   /usr/include/c++/7/bits/algorithmfwd.h \
   /usr/include/c++/7/bits/stl_heap.h \
   /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
   /usr/include/c++/7/cinttypes \
   /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
   /usr/include/c++/7/set \
-  /usr/include/c++/7/bits/stl_tree.h \
   /usr/include/c++/7/bits/stl_set.h \
   /usr/include/c++/7/bits/stl_multiset.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
@@ -5880,12 +6292,6 @@ faiss/CMakeFiles/faiss.dir/IndexIVFFastScan.cpp.o: /home/busolin/biEffortFaiss/e
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/Quantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/LookupTableScaler.h \
@@ -5904,7 +6310,6 @@ faiss/CMakeFiles/faiss.dir/IndexIVFFastScan.cpp.o: /home/busolin/biEffortFaiss/e
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/hamdis-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/common.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/generic-inl.h \
-  /usr/include/c++/7/cstddef \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/approx_topk/mode.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/quantize_lut.h \
@@ -6154,19 +6559,69 @@ faiss/CMakeFiles/faiss.dir/IndexIVFFlat.cpp.o: /home/busolin/biEffortFaiss/exper
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
   /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlat.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/DistanceComputer.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
   /usr/include/c++/7/mutex \
   /usr/include/c++/7/chrono \
   /usr/include/c++/7/ratio \
   /usr/include/c++/7/ctime \
   /usr/include/c++/7/bits/parse_numbers.h \
   /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlat.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/DistanceComputer.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.h \
@@ -6416,6 +6871,65 @@ faiss/CMakeFiles/faiss.dir/IndexIVFPQ.cpp.o: /home/busolin/biEffortFaiss/experim
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/DistanceComputer.h \
@@ -6424,13 +6938,6 @@ faiss/CMakeFiles/faiss.dir/IndexIVFPQ.cpp.o: /home/busolin/biEffortFaiss/experim
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/Quantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/utils.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlat.h \
@@ -6438,18 +6945,11 @@ faiss/CMakeFiles/faiss.dir/IndexIVFPQ.cpp.o: /home/busolin/biEffortFaiss/experim
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/hamdis-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/common.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/generic-inl.h \
-  /usr/include/c++/7/cstddef \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/approx_topk/mode.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/code_distance/code_distance.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/code_distance/code_distance-generic.h
 
@@ -6698,12 +7198,66 @@ faiss/CMakeFiles/faiss.dir/IndexIVFPQFastScan.cpp.o: /home/busolin/biEffortFaiss
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
   /usr/include/c++/7/algorithm \
   /usr/include/c++/7/bits/stl_algo.h \
   /usr/include/c++/7/bits/algorithmfwd.h \
   /usr/include/c++/7/bits/stl_heap.h \
   /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
@@ -6712,16 +7266,7 @@ faiss/CMakeFiles/faiss.dir/IndexIVFPQFastScan.cpp.o: /home/busolin/biEffortFaiss
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/Quantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer-inl.h \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.h \
@@ -6983,6 +7528,65 @@ faiss/CMakeFiles/faiss.dir/IndexIVFPQR.cpp.o: /home/busolin/biEffortFaiss/experi
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/DistanceComputer.h \
@@ -6991,13 +7595,6 @@ faiss/CMakeFiles/faiss.dir/IndexIVFPQR.cpp.o: /home/busolin/biEffortFaiss/experi
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/Quantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/utils.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
@@ -7247,30 +7844,77 @@ faiss/CMakeFiles/faiss.dir/IndexIVFSpectralHash.cpp.o: /home/busolin/biEffortFai
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexLSH.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/DistanceComputer.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/VectorTransform.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPreTransform.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /usr/include/c++/7/mutex \
   /usr/include/c++/7/chrono \
   /usr/include/c++/7/ratio \
   /usr/include/c++/7/ctime \
   /usr/include/c++/7/bits/parse_numbers.h \
   /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexLSH.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/DistanceComputer.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/VectorTransform.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPreTransform.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/hamdis-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/common.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/generic-inl.h \
-  /usr/include/c++/7/cstddef \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/approx_topk/mode.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/utils.h
@@ -7754,6 +8398,65 @@ faiss/CMakeFiles/faiss.dir/IndexLattice.cpp.o: /home/busolin/biEffortFaiss/exper
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/lattice_Zn.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
@@ -7762,7 +8465,6 @@ faiss/CMakeFiles/faiss.dir/IndexLattice.cpp.o: /home/busolin/biEffortFaiss/exper
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/hamdis-inl.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/common.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming_distance/generic-inl.h \
-  /usr/include/c++/7/cstddef \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/approx_topk/mode.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/hamming-inl.h
 
@@ -8321,11 +9023,56 @@ faiss/CMakeFiles/faiss.dir/IndexNSG.cpp.o: /home/busolin/biEffortFaiss/experimen
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/IDSelector.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/DirectMap.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/InvertedLists.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/NSG.h \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.h
 
 faiss/CMakeFiles/faiss.dir/IndexPQ.cpp.o: /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.cpp \
@@ -9979,21 +10726,68 @@ faiss/CMakeFiles/faiss.dir/IndexScalarQuantizer.cpp.o: /home/busolin/biEffortFai
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /usr/include/c++/7/mutex \
   /usr/include/c++/7/chrono \
   /usr/include/c++/7/ratio \
   /usr/include/c++/7/ctime \
   /usr/include/c++/7/bits/parse_numbers.h \
   /usr/include/c++/7/bits/std_mutex.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/Quantizer.h \
   /usr/include/c++/7/algorithm \
   /usr/include/c++/7/bits/stl_algo.h \
   /usr/include/c++/7/bits/algorithmfwd.h \
   /usr/include/c++/7/bits/stl_heap.h \
   /usr/include/c++/7/bits/uniform_int_dist.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/Quantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/utils.h
@@ -10501,6 +11295,65 @@ faiss/CMakeFiles/faiss.dir/IndexShardsIVF.cpp.o: /home/busolin/biEffortFaiss/exp
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinary.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
@@ -10508,25 +11361,14 @@ faiss/CMakeFiles/faiss.dir/IndexShardsIVF.cpp.o: /home/busolin/biEffortFaiss/exp
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/WorkerThread.h \
   /usr/include/c++/7/condition_variable \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /usr/include/c++/7/deque \
   /usr/include/c++/7/bits/stl_deque.h \
   /usr/include/c++/7/bits/deque.tcc \
   /usr/include/c++/7/future \
-  /usr/include/c++/7/mutex \
   /usr/include/c++/7/thread \
   /usr/include/c++/7/atomic \
   /usr/include/c++/7/bits/atomic_futex.h \
-  /usr/include/c++/7/bits/std_function.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex-inl.h \
-  /usr/include/c++/7/iostream \
-  /usr/include/c++/7/cinttypes \
-  /usr/include/inttypes.h \
-  /usr/include/c++/7/functional \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/utils.h
 
 faiss/CMakeFiles/faiss.dir/MatrixStats.cpp.o: /home/busolin/biEffortFaiss/experiments/faiss/faiss/MatrixStats.cpp \
@@ -11512,6 +12354,65 @@ faiss/CMakeFiles/faiss.dir/clone_index.cpp.o: /home/busolin/biEffortFaiss/experi
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/PolysemousTraining.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h \
@@ -11523,7 +12424,6 @@ faiss/CMakeFiles/faiss.dir/clone_index.cpp.o: /home/busolin/biEffortFaiss/experi
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/LocalSearchQuantizer.h \
   /usr/include/c++/7/random \
   /usr/include/c++/7/bits/random.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
   /usr/include/x86_64-linux-gnu/c++/7/bits/opt_random.h \
   /usr/include/c++/7/bits/random.tcc \
   /usr/include/c++/7/numeric \
@@ -11535,27 +12435,16 @@ faiss/CMakeFiles/faiss.dir/clone_index.cpp.o: /home/busolin/biEffortFaiss/experi
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexAdditiveQuantizerFastScan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFastScan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexHNSW.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexScalarQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/HNSW.h \
   /usr/include/c++/7/queue \
   /usr/include/c++/7/deque \
   /usr/include/c++/7/bits/stl_deque.h \
   /usr/include/c++/7/bits/deque.tcc \
   /usr/include/c++/7/bits/stl_queue.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/random.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizerFastScan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizer.h \
@@ -11588,9 +12477,7 @@ faiss/CMakeFiles/faiss.dir/clone_index.cpp.o: /home/busolin/biEffortFaiss/experi
   /usr/include/c++/7/thread \
   /usr/include/c++/7/atomic \
   /usr/include/c++/7/bits/atomic_futex.h \
-  /usr/include/c++/7/bits/std_function.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex-inl.h \
-  /usr/include/c++/7/iostream \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/pq4_fast_scan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/CodePacker.h \
@@ -14892,6 +15779,52 @@ faiss/CMakeFiles/faiss.dir/impl/ScalarQuantizer.cpp.o: /home/busolin/biEffortFai
   /usr/include/c++/7/cassert \
   /usr/include/assert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissAssert.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/FaissException.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/fp16.h \
@@ -15159,6 +16092,64 @@ faiss/CMakeFiles/faiss.dir/impl/index_read.cpp.o: /home/busolin/biEffortFaiss/ex
   /usr/include/c++/7/unordered_set \
   /usr/include/c++/7/bits/unordered_set.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/DirectMap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/PolysemousTraining.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h \
@@ -15170,7 +16161,6 @@ faiss/CMakeFiles/faiss.dir/impl/index_read.cpp.o: /home/busolin/biEffortFaiss/ex
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/LocalSearchQuantizer.h \
   /usr/include/c++/7/random \
   /usr/include/c++/7/bits/random.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
   /usr/include/x86_64-linux-gnu/c++/7/bits/opt_random.h \
   /usr/include/c++/7/bits/random.tcc \
   /usr/include/c++/7/numeric \
@@ -15181,27 +16171,16 @@ faiss/CMakeFiles/faiss.dir/impl/index_read.cpp.o: /home/busolin/biEffortFaiss/ex
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexAdditiveQuantizerFastScan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFastScan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexHNSW.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexScalarQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/HNSW.h \
   /usr/include/c++/7/queue \
   /usr/include/c++/7/deque \
   /usr/include/c++/7/bits/stl_deque.h \
   /usr/include/c++/7/bits/deque.tcc \
   /usr/include/c++/7/bits/stl_queue.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/random.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizerFastScan.h \
@@ -15234,9 +16213,7 @@ faiss/CMakeFiles/faiss.dir/impl/index_read.cpp.o: /home/busolin/biEffortFaiss/ex
   /usr/include/c++/7/thread \
   /usr/include/c++/7/atomic \
   /usr/include/c++/7/bits/atomic_futex.h \
-  /usr/include/c++/7/bits/std_function.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex-inl.h \
-  /usr/include/c++/7/iostream \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFlat.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFromFloat.h \
@@ -15505,6 +16482,64 @@ faiss/CMakeFiles/faiss.dir/impl/index_write.cpp.o: /home/busolin/biEffortFaiss/e
   /usr/include/c++/7/unordered_set \
   /usr/include/c++/7/bits/unordered_set.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/DirectMap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/PolysemousTraining.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h \
@@ -15516,7 +16551,6 @@ faiss/CMakeFiles/faiss.dir/impl/index_write.cpp.o: /home/busolin/biEffortFaiss/e
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/LocalSearchQuantizer.h \
   /usr/include/c++/7/random \
   /usr/include/c++/7/bits/random.h \
-  /usr/include/c++/7/bits/uniform_int_dist.h \
   /usr/include/x86_64-linux-gnu/c++/7/bits/opt_random.h \
   /usr/include/c++/7/bits/random.tcc \
   /usr/include/c++/7/numeric \
@@ -15527,27 +16561,16 @@ faiss/CMakeFiles/faiss.dir/impl/index_write.cpp.o: /home/busolin/biEffortFaiss/e
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexAdditiveQuantizerFastScan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFastScan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/AlignedTable.h \
-  /usr/include/c++/7/algorithm \
-  /usr/include/c++/7/bits/stl_algo.h \
-  /usr/include/c++/7/bits/algorithmfwd.h \
-  /usr/include/c++/7/bits/stl_heap.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexHNSW.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexScalarQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/ctime \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/HNSW.h \
   /usr/include/c++/7/queue \
   /usr/include/c++/7/deque \
   /usr/include/c++/7/bits/stl_deque.h \
   /usr/include/c++/7/bits/deque.tcc \
   /usr/include/c++/7/bits/stl_queue.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/random.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizerFastScan.h \
@@ -15580,9 +16603,7 @@ faiss/CMakeFiles/faiss.dir/impl/index_write.cpp.o: /home/busolin/biEffortFaiss/e
   /usr/include/c++/7/thread \
   /usr/include/c++/7/atomic \
   /usr/include/c++/7/bits/atomic_futex.h \
-  /usr/include/c++/7/bits/std_function.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex-inl.h \
-  /usr/include/c++/7/iostream \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFlat.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFromFloat.h \
@@ -17137,6 +18158,38 @@ faiss/CMakeFiles/faiss.dir/index_factory.cpp.o: /home/busolin/biEffortFaiss/expe
   /usr/include/c++/7/bits/unordered_set.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/DirectMap.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/InvertedLists.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/PolysemousTraining.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h \
@@ -17156,15 +18209,9 @@ faiss/CMakeFiles/faiss.dir/index_factory.cpp.o: /home/busolin/biEffortFaiss/expe
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexScalarQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
-  /usr/include/c++/7/mutex \
-  /usr/include/c++/7/chrono \
-  /usr/include/c++/7/ratio \
-  /usr/include/c++/7/bits/parse_numbers.h \
-  /usr/include/c++/7/bits/std_mutex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/HNSW.h \
   /usr/include/c++/7/queue \
   /usr/include/c++/7/bits/stl_queue.h \
-  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizer.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizerFastScan.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFFastScan.h \
@@ -17196,7 +18243,6 @@ faiss/CMakeFiles/faiss.dir/index_factory.cpp.o: /home/busolin/biEffortFaiss/expe
   /usr/include/c++/7/atomic \
   /usr/include/c++/7/bits/atomic_futex.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex-inl.h \
-  /usr/include/c++/7/iostream \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFlat.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryHNSW.h \
@@ -18110,7 +19156,61 @@ faiss/CMakeFiles/faiss.dir/invlists/InvertedListsIOHook.cpp.o: /home/busolin/biE
   /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
   /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
   /usr/include/x86_64-linux-gnu/bits/mathinline.h \
-  /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h
+  /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h
 
 faiss/CMakeFiles/faiss.dir/invlists/OnDiskInvertedLists.cpp.o: /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/OnDiskInvertedLists.cpp \
   /usr/include/stdc-predef.h \
@@ -18359,6 +19459,65 @@ faiss/CMakeFiles/faiss.dir/invlists/OnDiskInvertedLists.cpp.o: /home/busolin/biE
   /usr/include/assert.h \
   /usr/include/c++/7/limits \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/ordered_key_value.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+  /usr/include/c++/7/functional \
+  /usr/include/c++/7/bits/std_function.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+  /usr/include/c++/7/map \
+  /usr/include/c++/7/bits/stl_tree.h \
+  /usr/include/c++/7/bits/stl_map.h \
+  /usr/include/c++/7/bits/stl_multimap.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+  /usr/include/c++/7/cstdarg \
+  /usr/include/c++/7/iostream \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
+  /usr/include/c++/7/mutex \
+  /usr/include/c++/7/chrono \
+  /usr/include/c++/7/ratio \
+  /usr/include/c++/7/ctime \
+  /usr/include/c++/7/bits/parse_numbers.h \
+  /usr/include/c++/7/bits/std_mutex.h \
+  /usr/include/c++/7/algorithm \
+  /usr/include/c++/7/bits/stl_algo.h \
+  /usr/include/c++/7/bits/algorithmfwd.h \
+  /usr/include/c++/7/bits/stl_heap.h \
+  /usr/include/c++/7/bits/uniform_int_dist.h \
+  /usr/include/c++/7/iomanip \
+  /usr/include/c++/7/locale \
+  /usr/include/c++/7/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/7/bits/locale_conv.h \
+  /usr/include/c++/7/bits/stringfwd.h \
+  /usr/include/c++/7/bits/allocator.h \
+  /usr/include/c++/7/bits/codecvt.h \
+  /usr/include/c++/7/bits/unique_ptr.h \
+  /usr/include/c++/7/bits/quoted_string.h \
+  /usr/include/c++/7/iterator \
+  /usr/include/c++/7/bits/stream_iterator.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h \
+  /usr/include/c++/7/cfloat \
+  /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+  /usr/include/c++/7/cinttypes \
+  /usr/include/inttypes.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h \
+  /usr/include/c++/7/cstddef \
+  /usr/include/c++/7/experimental/string_view \
+  /usr/include/c++/7/experimental/bits/lfts_config.h \
+  /usr/include/c++/7/experimental/bits/string_view.tcc \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h \
+  /usr/include/c++/7/stdlib.h \
+  /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/index_io.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/InvertedListsIOHook.h \
   /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/io.h \
@@ -21385,11 +22544,33 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances_simd.cpp:
 
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances_fused/simdlib_based.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances_fused/avx512.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
+
+/usr/include/unistd.h:
+
+/usr/include/x86_64-linux-gnu/bits/mman-shared.h:
+
+/usr/include/x86_64-linux-gnu/bits/mman.h:
+
+/usr/include/x86_64-linux-gnu/sys/mman.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/OnDiskInvertedLists.cpp:
+
+/usr/include/c++/7/bits/list.tcc:
+
 /usr/include/c++/7/bits/shared_ptr.h:
 
 /usr/include/c++/7/memory:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/Quantizer.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/7/include/float.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/NNDescent.cpp:
 
@@ -21511,13 +22692,19 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/c++/7/bits/hashtable.h:
 
-/usr/include/x86_64-linux-gnu/bits/mman-shared.h:
-
 /usr/include/c++/7/ext/aligned_buffer.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances_fused/distances_fused.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/code_distance/code_distance.h:
 
 /usr/include/c++/7/bits/invoke.h:
 
 /usr/include/c++/7/bits/uses_allocator.h:
+
+/usr/include/x86_64-linux-gnu/bits/mman-linux.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexRefine.h:
 
 /usr/include/c++/7/limits:
 
@@ -21534,6 +22721,8 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 /usr/include/c++/7/bits/regex_compiler.h:
 
 /usr/include/errno.h:
+
+/home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h:
 
 /usr/include/c++/7/cerrno:
 
@@ -21647,6 +22836,12 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/c++/7/regex:
 
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.cpp:
+
+/usr/include/c++/7/cstring:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
 /usr/include/c++/7/exception:
 
 /usr/include/c++/7/stdexcept:
@@ -21655,7 +22850,11 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/c++/7/list:
 
-/usr/include/x86_64-linux-gnu/sys/mman.h:
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/WorkerThread.cpp:
+
+/usr/include/c++/7/vector:
+
+/usr/include/c++/7/bits/ios_base.h:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
 
@@ -21705,6 +22904,10 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/stdc-predef.h:
 
+/usr/include/x86_64-linux-gnu/bits/environments.h:
+
+/usr/include/c++/7/type_traits:
+
 /usr/include/c++/7/random:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap-16.h:
@@ -21737,8 +22940,6 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.cpp:
 
-/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/7/include/stdint.h:
 
 /usr/include/c++/7/bits/istream.tcc:
@@ -21755,9 +22956,9 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/c++/7/bits/stl_function.h:
 
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexLattice.cpp:
-
 /usr/include/c++/7/bits/stl_map.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexLattice.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
@@ -21796,6 +22997,10 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
 /usr/include/c++/7/backward/binders.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
 /usr/include/c++/7/bits/nested_exception.h:
 
@@ -21843,8 +23048,6 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/lib/gcc/x86_64-linux-gnu/7/include/xmmintrin.h:
 
-/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
-
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFlat.h:
@@ -21854,6 +23057,10 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 /usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h:
 
 /usr/include/x86_64-linux-gnu/c++/7/bits/ctype_inline.h:
+
+/usr/include/x86_64-linux-gnu/bits/confname.h:
+
+/usr/include/c++/7/bits/regex_automaton.h:
 
 /usr/include/c++/7/cstdint:
 
@@ -21971,6 +23178,8 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexRefine.cpp:
 
+/usr/include/c++/7/cstdarg:
+
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/simdlib.h:
@@ -22007,6 +23216,8 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
+/usr/include/c++/7/experimental/bits/string_view.tcc:
+
 /usr/include/x86_64-linux-gnu/sys/select.h:
 
 /usr/include/c++/7/bits/allocated_ptr.h:
@@ -22019,23 +23230,113 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/c++/7/bits/atomic_lockfree_defines.h:
 
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/IDSelector.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/DirectMap.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/InvertedLists.h:
 
+/home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h:
+
+/home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h:
+
+/home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h:
+
+/home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h:
+
+/usr/include/c++/7/bits/std_function.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
+
+/home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/MetaIndexes.h:
+
+/usr/include/c++/7/map:
+
+/usr/include/endian.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/quantize_lut.h:
+
+/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+
+/usr/include/c++/7/bits/stl_multimap.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
+
+/usr/include/c++/7/cfloat:
+
+/usr/include/c++/7/iostream:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/pq4_fast_scan.h:
+
+/home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h:
+
+/home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h:
+
+/usr/include/c++/7/mutex:
+
+/usr/include/c++/7/ctime:
+
+/usr/include/c++/7/bits/algorithmfwd.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFFlat.h:
+
+/usr/include/c++/7/bits/stl_heap.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPreTransform.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.cpp:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.cpp:
+
+/usr/include/c++/7/locale:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/MatrixStats.h:
+
+/usr/include/c++/7/bits/locale_facets_nonio.h:
+
+/usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h:
+
+/usr/include/c++/7/bits/std_mutex.h:
+
+/usr/include/c++/7/bits/codecvt.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.h:
+
+/usr/include/c++/7/bits/locale_conv.h:
+
+/usr/include/c++/7/experimental/bits/lfts_config.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFastScan.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/random.h:
+
+/usr/include/c++/7/iterator:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShardsIVF.h:
+
+/home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fast_double_parser/include/fast_double_parser.h:
+
+/usr/include/c++/7/experimental/string_view:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/IDSelector.h:
+
+/home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format-inl.h:
+
+/usr/include/c++/7/stdlib.h:
+
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQR.cpp:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h:
-
-/usr/include/c++/7/mutex:
-
-/usr/include/c++/7/ctime:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/HNSW.h:
 
@@ -22045,39 +23346,13 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/c++/7/bits/deque.tcc:
 
-/usr/include/c++/7/bits/stl_heap.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPreTransform.h:
-
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.cpp:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFFlat.h:
-
-/usr/include/c++/7/bits/algorithmfwd.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQ.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQR.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexLSH.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShardsIVF.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/random.h:
-
-/usr/include/c++/7/iterator:
-
-/usr/include/x86_64-linux-gnu/bits/wchar2.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h:
-
-/usr/include/c++/7/bits/std_mutex.h:
-
-/usr/include/c++/7/bits/codecvt.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex.h:
 
@@ -22088,16 +23363,6 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 /usr/include/c++/7/thread:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFromFloat.h:
-
-/usr/include/c++/7/bits/std_function.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
-
-/usr/include/c++/7/iostream:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/pq4_fast_scan.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/MetaIndexes.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIDMap.h:
 
@@ -22115,6 +23380,8 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/kmeans1d.h:
 
+/home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/format.h:
+
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFromFloat.cpp:
 
 /usr/include/c++/7/bits/hashtable_policy.h:
@@ -22127,7 +23394,17 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/c++/7/math.h:
 
+/usr/include/c++/7/bits/quoted_string.h:
+
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexAdditiveQuantizer.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances_fused/distances_fused.cpp:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/Heap.cpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+
+/usr/include/x86_64-linux-gnu/c++/7/bits/cxxabi_tweaks.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/7/include/avx512erintrin.h:
 
@@ -22161,8 +23438,6 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/Index2Layer.cpp:
 
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances_fused/avx512.h:
-
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/Index2Layer.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexAdditiveQuantizer.cpp:
@@ -22173,35 +23448,27 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
+/usr/include/c++/7/iomanip:
+
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ResultHandler.h:
+
+/usr/include/x86_64-linux-gnu/bits/unistd.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/extra_distances.h:
+
+/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/extra_distances-inl.h:
 
 /usr/include/c++/7/bits/regex_compiler.tcc:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexAdditiveQuantizerFastScan.h:
 
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/OnDiskInvertedLists.cpp:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFastScan.h:
-
-/usr/include/c++/7/bits/locale_conv.h:
-
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/LookupTableScaler.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexReplicas.cpp:
 
-/usr/include/endian.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/quantize_lut.h:
-
-/usr/include/c++/7/map:
-
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFlat.cpp:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryHNSW.cpp:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexRefine.h:
-
-/usr/include/x86_64-linux-gnu/bits/mman-linux.h:
 
 /usr/include/c++/7/bits/stl_queue.h:
 
@@ -22216,8 +23483,6 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFPQFastScan.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/clone_index.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexFlatCodes.cpp:
 
 /usr/include/c++/7/ratio:
 
@@ -22303,12 +23568,6 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexScalarQuantizer.cpp:
 
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/MatrixStats.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.cpp:
-
-/usr/include/c++/7/locale:
-
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/VectorTransform.cpp:
 
 /usr/include/c++/7/stack:
@@ -22337,13 +23596,17 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductAdditiveQuantizer.cpp:
 
-/usr/lib/gcc/x86_64-linux-gnu/7/include/avx512pfintrin.h:
+/home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h:
 
-/usr/include/c++/7/stdlib.h:
+/usr/lib/gcc/x86_64-linux-gnu/7/include/avx512pfintrin.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinary.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/7/include/tmmintrin.h:
+
+/usr/include/c++/7/bits/locale_facets_nonio.tcc:
+
+/usr/lib/gcc/x86_64-linux-gnu/7/include/popcntintrin.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexScalarQuantizer.h:
 
@@ -22373,6 +23636,8 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /usr/include/c++/7/bits/stl_algobase.h:
 
+/home/busolin/biEffortFaiss/experiments/LightGBM/external_libs/fmt/include/fmt/core.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/7/include/f16cintrin.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/index_read.cpp:
@@ -22385,25 +23650,7 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/index_factory.h:
 
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances_fused/simdlib_based.h:
-
-/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
-
-/usr/include/c++/7/bits/stl_multimap.h:
-
-/usr/include/c++/7/bits/locale_facets_nonio.h:
-
-/usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/7/include/popcntintrin.h:
-
-/usr/include/c++/7/bits/locale_facets_nonio.tcc:
-
 /usr/include/c++/7/bits/regex_constants.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib.h:
-
-/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 
 /usr/include/c++/7/bits/regex_error.h:
 
@@ -22430,49 +23677,3 @@ faiss/CMakeFiles/faiss.dir/utils/utils.cpp.o: /home/busolin/biEffortFaiss/experi
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/OnDiskInvertedLists.h:
-
-/usr/include/c++/7/bits/list.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/mman.h:
-
-/usr/include/unistd.h:
-
-/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
-
-/usr/include/c++/7/type_traits:
-
-/usr/include/x86_64-linux-gnu/bits/environments.h:
-
-/usr/include/c++/7/bits/regex_automaton.h:
-
-/usr/include/x86_64-linux-gnu/bits/confname.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/extra_distances.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/extra_distances-inl.h:
-
-/usr/include/x86_64-linux-gnu/bits/unistd.h:
-
-/usr/include/c++/7/vector:
-
-/usr/include/c++/7/bits/ios_base.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/WorkerThread.cpp:
-
-/usr/include/c++/7/cstring:
-
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances.cpp:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/code_distance/code_distance.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances_fused/distances_fused.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
-
-/usr/include/x86_64-linux-gnu/c++/7/bits/cxxabi_tweaks.h:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/Heap.cpp:
-
-/home/busolin/biEffortFaiss/experiments/faiss/faiss/utils/distances_fused/distances_fused.cpp:

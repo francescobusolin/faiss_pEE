@@ -92,10 +92,7 @@ demo_imi_flat_EXTERNAL_OBJECTS =
 
 demos/demo_imi_flat: demos/CMakeFiles/demo_imi_flat.dir/demo_imi_flat.cpp.o
 demos/demo_imi_flat: demos/CMakeFiles/demo_imi_flat.dir/build.make
-demos/demo_imi_flat: faiss/libfaiss.a
-demos/demo_imi_flat: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-demos/demo_imi_flat: /usr/lib/x86_64-linux-gnu/libpthread.so
-demos/demo_imi_flat: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+demos/demo_imi_flat: faiss/libfaiss.so
 demos/demo_imi_flat: demos/CMakeFiles/demo_imi_flat.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable demo_imi_flat"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/demos && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo_imi_flat.dir/link.txt --verbose=$(VERBOSE)

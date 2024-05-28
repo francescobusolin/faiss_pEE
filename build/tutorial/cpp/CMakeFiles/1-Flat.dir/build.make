@@ -92,10 +92,7 @@ tutorial/cpp/CMakeFiles/1-Flat.dir/1-Flat.cpp.s: cmake_force
 
 tutorial/cpp/1-Flat: tutorial/cpp/CMakeFiles/1-Flat.dir/1-Flat.cpp.o
 tutorial/cpp/1-Flat: tutorial/cpp/CMakeFiles/1-Flat.dir/build.make
-tutorial/cpp/1-Flat: faiss/libfaiss.a
-tutorial/cpp/1-Flat: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-tutorial/cpp/1-Flat: /usr/lib/x86_64-linux-gnu/libpthread.so
-tutorial/cpp/1-Flat: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+tutorial/cpp/1-Flat: faiss/libfaiss.so
 tutorial/cpp/1-Flat: tutorial/cpp/CMakeFiles/1-Flat.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable 1-Flat"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/tutorial/cpp && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/1-Flat.dir/link.txt --verbose=$(VERBOSE)

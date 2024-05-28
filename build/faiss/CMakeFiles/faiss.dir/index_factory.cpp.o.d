@@ -239,6 +239,33 @@ faiss/CMakeFiles/faiss.dir/index_factory.cpp.o: \
  /usr/include/c++/7/unordered_set /usr/include/c++/7/bits/unordered_set.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/DirectMap.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/invlists/InvertedLists.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/boosting.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/config.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/export.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/meta.h \
+ /usr/include/c++/7/functional \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/common.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/json11.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/log.h \
+ /usr/include/c++/7/cstdarg /usr/include/c++/7/iostream \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/openmp_wrapper.h \
+ /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h /usr/include/c++/7/mutex \
+ /usr/include/c++/7/chrono /usr/include/c++/7/ratio \
+ /usr/include/c++/7/bits/parse_numbers.h \
+ /usr/include/c++/7/bits/std_mutex.h /usr/include/c++/7/iomanip \
+ /usr/include/c++/7/bits/quoted_string.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/../../../external_libs/fast_double_parser/include/fast_double_parser.h \
+ /usr/include/c++/7/cfloat \
+ /usr/lib/gcc/x86_64-linux-gnu/7/include/float.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/../../../external_libs/fmt/include/fmt/format.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/../../../external_libs/fmt/include/fmt/core.h \
+ /usr/include/c++/7/cstddef /usr/include/c++/7/experimental/string_view \
+ /usr/include/c++/7/experimental/bits/lfts_config.h \
+ /usr/include/c++/7/experimental/bits/string_view.tcc \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/../../../external_libs/fmt/include/fmt/format.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/utils/../../../external_libs/fmt/include/fmt/format-inl.h \
+ /usr/include/c++/7/stdlib.h \
+ /home/busolin/biEffortFaiss/experiments/LightGBM/include/LightGBM/prediction_early_stop.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexPQ.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/PolysemousTraining.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ProductQuantizer.h \
@@ -258,12 +285,8 @@ faiss/CMakeFiles/faiss.dir/index_factory.cpp.o: \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexScalarQuantizer.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ScalarQuantizer.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/AuxIndexStructures.h \
- /usr/include/c++/7/mutex /usr/include/c++/7/chrono \
- /usr/include/c++/7/ratio /usr/include/c++/7/bits/parse_numbers.h \
- /usr/include/c++/7/bits/std_mutex.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/HNSW.h \
  /usr/include/c++/7/queue /usr/include/c++/7/bits/stl_queue.h \
- /usr/lib/gcc/x86_64-linux-gnu/7/include/omp.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizer.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFAdditiveQuantizerFastScan.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexIVFFastScan.h \
@@ -293,7 +316,6 @@ faiss/CMakeFiles/faiss.dir/index_factory.cpp.o: \
  /usr/include/c++/7/thread /usr/include/c++/7/atomic \
  /usr/include/c++/7/bits/atomic_futex.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/impl/ThreadedIndex-inl.h \
- /usr/include/c++/7/iostream \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexShards.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryFlat.h \
  /home/busolin/biEffortFaiss/experiments/faiss/faiss/IndexBinaryHNSW.h \

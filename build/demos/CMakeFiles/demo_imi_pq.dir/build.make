@@ -92,10 +92,7 @@ demo_imi_pq_EXTERNAL_OBJECTS =
 
 demos/demo_imi_pq: demos/CMakeFiles/demo_imi_pq.dir/demo_imi_pq.cpp.o
 demos/demo_imi_pq: demos/CMakeFiles/demo_imi_pq.dir/build.make
-demos/demo_imi_pq: faiss/libfaiss.a
-demos/demo_imi_pq: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-demos/demo_imi_pq: /usr/lib/x86_64-linux-gnu/libpthread.so
-demos/demo_imi_pq: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+demos/demo_imi_pq: faiss/libfaiss.so
 demos/demo_imi_pq: demos/CMakeFiles/demo_imi_pq.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable demo_imi_pq"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/demos && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo_imi_pq.dir/link.txt --verbose=$(VERBOSE)

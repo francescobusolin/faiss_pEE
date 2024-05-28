@@ -734,10 +734,11 @@ void IndexIVF::search_preassigned_with_early_stopping(
 
                 idx_t nscan = 0;
 
-                auto query_previous_searches = previous_search + (i * k * exit_point);
-                auto query_first_search = first_search + (i * k);
-                auto query_stable_probes = stable_probes + i;
-                auto current_search = query_previous_searches;
+                auto query_previous_searches = previous_search + (i * k * exit_point); //<-; iterate over queries
+                auto query_first_search = first_search + (i * k);                      // |
+                auto query_stable_probes = stable_probes + i;                          // |
+                auto current_search = query_previous_searches; //<-------------------------; iterate over probes
+                *query_stable_probes = 0;
                 for (idx_t ik = 0; ik < exit_point; ik++) {
                     current_search = current_search + (ik * k);
                     nscan += scan_one_list(

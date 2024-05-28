@@ -92,10 +92,7 @@ bench_ivf_selector_EXTERNAL_OBJECTS =
 
 benchs/bench_ivf_selector: benchs/CMakeFiles/bench_ivf_selector.dir/bench_ivf_selector.cpp.o
 benchs/bench_ivf_selector: benchs/CMakeFiles/bench_ivf_selector.dir/build.make
-benchs/bench_ivf_selector: faiss/libfaiss.a
-benchs/bench_ivf_selector: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-benchs/bench_ivf_selector: /usr/lib/x86_64-linux-gnu/libpthread.so
-benchs/bench_ivf_selector: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+benchs/bench_ivf_selector: faiss/libfaiss.so
 benchs/bench_ivf_selector: benchs/CMakeFiles/bench_ivf_selector.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable bench_ivf_selector"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/benchs && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bench_ivf_selector.dir/link.txt --verbose=$(VERBOSE)

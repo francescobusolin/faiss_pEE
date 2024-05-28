@@ -92,10 +92,7 @@ demo_sift1M_EXTERNAL_OBJECTS =
 
 demos/demo_sift1M: demos/CMakeFiles/demo_sift1M.dir/demo_sift1M.cpp.o
 demos/demo_sift1M: demos/CMakeFiles/demo_sift1M.dir/build.make
-demos/demo_sift1M: faiss/libfaiss.a
-demos/demo_sift1M: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-demos/demo_sift1M: /usr/lib/x86_64-linux-gnu/libpthread.so
-demos/demo_sift1M: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+demos/demo_sift1M: faiss/libfaiss.so
 demos/demo_sift1M: demos/CMakeFiles/demo_sift1M.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable demo_sift1M"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/demos && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo_sift1M.dir/link.txt --verbose=$(VERBOSE)

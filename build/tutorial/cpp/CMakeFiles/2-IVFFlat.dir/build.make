@@ -92,10 +92,7 @@ tutorial/cpp/CMakeFiles/2-IVFFlat.dir/2-IVFFlat.cpp.s: cmake_force
 
 tutorial/cpp/2-IVFFlat: tutorial/cpp/CMakeFiles/2-IVFFlat.dir/2-IVFFlat.cpp.o
 tutorial/cpp/2-IVFFlat: tutorial/cpp/CMakeFiles/2-IVFFlat.dir/build.make
-tutorial/cpp/2-IVFFlat: faiss/libfaiss.a
-tutorial/cpp/2-IVFFlat: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-tutorial/cpp/2-IVFFlat: /usr/lib/x86_64-linux-gnu/libpthread.so
-tutorial/cpp/2-IVFFlat: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+tutorial/cpp/2-IVFFlat: faiss/libfaiss.so
 tutorial/cpp/2-IVFFlat: tutorial/cpp/CMakeFiles/2-IVFFlat.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable 2-IVFFlat"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/tutorial/cpp && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/2-IVFFlat.dir/link.txt --verbose=$(VERBOSE)

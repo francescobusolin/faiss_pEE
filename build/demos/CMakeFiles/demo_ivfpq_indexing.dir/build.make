@@ -92,10 +92,7 @@ demo_ivfpq_indexing_EXTERNAL_OBJECTS =
 
 demos/demo_ivfpq_indexing: demos/CMakeFiles/demo_ivfpq_indexing.dir/demo_ivfpq_indexing.cpp.o
 demos/demo_ivfpq_indexing: demos/CMakeFiles/demo_ivfpq_indexing.dir/build.make
-demos/demo_ivfpq_indexing: faiss/libfaiss.a
-demos/demo_ivfpq_indexing: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-demos/demo_ivfpq_indexing: /usr/lib/x86_64-linux-gnu/libpthread.so
-demos/demo_ivfpq_indexing: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+demos/demo_ivfpq_indexing: faiss/libfaiss.so
 demos/demo_ivfpq_indexing: demos/CMakeFiles/demo_ivfpq_indexing.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable demo_ivfpq_indexing"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/demos && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo_ivfpq_indexing.dir/link.txt --verbose=$(VERBOSE)

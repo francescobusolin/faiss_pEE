@@ -92,10 +92,7 @@ tutorial/cpp/CMakeFiles/5-Multiple-GPUs.dir/5-Multiple-GPUs.cpp.s: cmake_force
 
 tutorial/cpp/5-Multiple-GPUs: tutorial/cpp/CMakeFiles/5-Multiple-GPUs.dir/5-Multiple-GPUs.cpp.o
 tutorial/cpp/5-Multiple-GPUs: tutorial/cpp/CMakeFiles/5-Multiple-GPUs.dir/build.make
-tutorial/cpp/5-Multiple-GPUs: faiss/libfaiss.a
-tutorial/cpp/5-Multiple-GPUs: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-tutorial/cpp/5-Multiple-GPUs: /usr/lib/x86_64-linux-gnu/libpthread.so
-tutorial/cpp/5-Multiple-GPUs: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+tutorial/cpp/5-Multiple-GPUs: faiss/libfaiss.so
 tutorial/cpp/5-Multiple-GPUs: tutorial/cpp/CMakeFiles/5-Multiple-GPUs.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable 5-Multiple-GPUs"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/tutorial/cpp && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/5-Multiple-GPUs.dir/link.txt --verbose=$(VERBOSE)

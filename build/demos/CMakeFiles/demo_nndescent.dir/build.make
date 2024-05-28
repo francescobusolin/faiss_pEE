@@ -92,10 +92,7 @@ demo_nndescent_EXTERNAL_OBJECTS =
 
 demos/demo_nndescent: demos/CMakeFiles/demo_nndescent.dir/demo_nndescent.cpp.o
 demos/demo_nndescent: demos/CMakeFiles/demo_nndescent.dir/build.make
-demos/demo_nndescent: faiss/libfaiss.a
-demos/demo_nndescent: /usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
-demos/demo_nndescent: /usr/lib/x86_64-linux-gnu/libpthread.so
-demos/demo_nndescent: /home/busolin/biEffortFaiss/experiments/openBLAS/libopenblas.a
+demos/demo_nndescent: faiss/libfaiss.so
 demos/demo_nndescent: demos/CMakeFiles/demo_nndescent.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/busolin/biEffortFaiss/experiments/faiss/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable demo_nndescent"
 	cd /home/busolin/biEffortFaiss/experiments/faiss/build/demos && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo_nndescent.dir/link.txt --verbose=$(VERBOSE)
