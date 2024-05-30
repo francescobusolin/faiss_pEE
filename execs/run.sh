@@ -48,7 +48,7 @@ for encoder in contriver star tasb; do
     # patience
     ./faiss_paknn --index $INDEX_PATH/msmarco.$encoder.IVF65535.Flat.dot.fidx \
     --data $DATA_PATH/$encoder/query.dev.npy \
-    --np $probes -k 100 --n_runs 5 --patience $patience --patience_tol 0.95 --exit 10 --test_offsets $TEST_OFFSETS
+    --np $probes -k 100 --n_runs 5 --patience $patience --patience_tol 0.95 --exit 0 --test_offsets $TEST_OFFSETS
   echo "-----------------------------------"
 
   echo "Classifier w = 1"
