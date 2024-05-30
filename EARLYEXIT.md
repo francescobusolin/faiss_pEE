@@ -4,7 +4,7 @@ Also, we tested our solution using openBLAS: see [https://github.com/OpenMathLib
 So you need to have both these libraries available to be linked against our code.
 
 # Compilation
-In general, you can follow the instructions provided by FAISS to build from the source; however, note that we exclusively used and thus tested the CPU-based version as customization, and rebuilding from the source the GPU variant can and *will* be tedious and error-prone.
+In general, you can follow the instructions provided by FAISS to build from the source; however, please keep in mind that we exclusively used and thus tested the CPU-based version as customization, and rebuilding from the source the GPU variant can and *will* be tedious and error-prone.
 The CMake command that we used to compile our solution is:
 ```
 cmake -DFAISS_ENABLE_GPU=OFF \
@@ -31,7 +31,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<PATH_TO_FAISS>/faiss/build/faiss:<PATH_
 ```
 (and add it to .bashrc)
 
-Finally, you can go ahead and build our experiment.cpp file inside the execs folder using:
+Finally, you can go ahead and build our experiment.cpp file inside the early_exit folder using:
 ```
 g++ experiment.cpp -I<PATH_TO_FAISS>/ -I<PATH_TO_LIGHTGBM>/LightGBM/include  -L<PATH_TO_FAISS>/build/faiss -L<PATH_TO_LIGHTGBM>/LightGBM -lfaiss -lgfortran -g -l_lightgbm -fopenmp -o faiss_paknn
 ```
@@ -43,6 +43,8 @@ In general, everything *should* work fine as long as:
 * Either a patience **and** tolerance values are provided *or* a model is.
 * If masker is set, either patience (and tolerance) *or* a probe predictor is provided 
 * For now, only 'exit_position=10' is supported
+
+Inside the early_exit folder, there are also the scripts used to encode the datasets and compute the nearest neighbor using a Flat index.
 
 # Results
 You can find the results of our test runs in the same folder. To obtain the number of clusters and/or documents visited, divide the numbers reported by 6980 * 6, i.e., by the number of queries times the runs performed (nq * n_runs), as the variables responsible for counting those quantities are global accumulators.
