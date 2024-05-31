@@ -174,7 +174,7 @@ Cluster scanned: 4102924
 Patience
 *REDACTED*
 Searching
-Search parameters@10: nprobe=140, patience=10, tolerance=0.950000, predictor=(nil) (clf: 0)
+Search parameters@10: nprobe=140, patience=12, tolerance=0.950000, predictor=(nil) (clf: 0)
 Q 0: 7617413 5765192 88928 5765191 7603765 8712882 88924 8798421 780030 3403099
 Q 1: 378374 4339068 3866460 3575680 3866459 413899 6728594 413900 4339073 5019151
 Q 2: 7494170 7494174 1512631 1512633 3208205 6206849 5109791 2813420 1194314 6518607
@@ -188,7 +188,7 @@ Q 9: 6048217 5889507 1375288 3437507 1375282 5855870 1019524 7085007 7757828 619
 Search time: 2.4093 s
 Search time per query: 0.3452 ms
 Documents scanned: 171955504
-Cluster scanned: 938276
+Cluster scanned: 968276
 -----------------------------------
 Classifier w = 1
 *REDACTED*
@@ -209,7 +209,7 @@ Search time per query: 0.3536 ms
 Documents scanned: 187264252
 Cluster scanned: 1086220
 -----------------------------------
-Classifier w = 3
+Classifier w = 7
 *REDACTED*
 Searching
 Search parameters@10: nprobe=140, patience=0, tolerance=0.000000, predictor=0x560902b079d0 (clf: 1)
@@ -224,11 +224,11 @@ Q 7: 8081890 7186456 4420508 7186455 3622302 8392440 3699948 1332696 4298896 774
 Q 8: 7807976 8636699 8636705 8636702 8636704 7807975 8636697 7807973 5746915 6682474
 Q 9: 6048217 5889507 1375288 3437507 1375282 5855870 1019524 7085007 7757828 6192308
 Search time: 3.4158 s
-Search time per query: 0.4894 ms
-Documents scanned: 291062711
-Cluster scanned: 1708140
+Search time per query: 0.5223 ms
+Documents scanned: 301062711
+Cluster scanned: 2212140
 -----------------------------------
-Clf > Regressor (w = 3)
+Clf > Regressor (w = 7)
 *REDACTED*
 Searching
 Search parameters@10: nprobe=140, patience=0, tolerance=0.000000, predictor=0x5604fb9fbd10 (clf: 0)
@@ -250,7 +250,7 @@ Cluster scanned: 1544758
 Clf > Patience
 *REDACTED*
 Searching
-Search parameters@10: nprobe=140, patience=10, tolerance=0.950000, predictor=(nil) (clf: 0)
+Search parameters@10: nprobe=140, patience=12, tolerance=0.950000, predictor=(nil) (clf: 0)
 Q 0: 7617413 5765192 88928 5765191 7603765 8712882 88924 8798421 780030 3403099
 Q 1: 378374 4339068 3866460 3575680 3866459 413899 6728594 413900 4339073 5019151
 Q 2: 7494170 7494174 1512631 1512633 3208205 6206849 5109791 2813420 1194314 6518607
