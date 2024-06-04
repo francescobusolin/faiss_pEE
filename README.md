@@ -1,5 +1,5 @@
 # Early Exit
-You can find the proof-of-concept code of our CIKM 2024 submission on the [EARLYEXIT] (EARLYEXIT.md) page.
+You can find the proof-of-concept code of our CIKM 2024 submission on the [EARLYEXIT.md](EARLYEXIT.md) page.
 What follows is the original faiss documentation
 # Faiss
 
