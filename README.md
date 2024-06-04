@@ -1,3 +1,6 @@
+# Early Exit
+You can find the proof-of-concept code of our CIKM 2024 submission on the [EARLYEXIT.md]) page.
+What follows is the original faiss documentation
 # Faiss
 
 Faiss is a library for efficient similarity search and clustering of dense vectors. It contains algorithms that search in sets of vectors of any size, up to ones that possibly do not fit in RAM. It also contains supporting code for evaluation and parameter tuning. Faiss is written in C++ with complete wrappers for Python/numpy. Some of the most useful algorithms are implemented on the GPU. It is developed primarily at Meta's [Fundamental AI Research](https://ai.facebook.com/) group.
