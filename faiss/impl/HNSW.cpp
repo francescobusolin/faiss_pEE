@@ -8,7 +8,7 @@
 // -*- c++ -*-
 
 #include <faiss/impl/HNSW.h>
-
+#include <iostream>
 #include <string>
 
 #include <faiss/impl/AuxIndexStructures.h>
@@ -548,7 +548,6 @@ int search_from_candidates(
     while (candidates.size() > 0) {
         float d0 = 0;
         int v0 = candidates.pop_min(&d0);
-
         if (do_dis_check) {
             // tricky stopping condition: there are more that ef
             // distances that are processed already that are smaller
