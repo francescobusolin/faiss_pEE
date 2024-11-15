@@ -10,6 +10,7 @@
 #include <faiss/impl/HNSW.h>
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include <faiss/impl/AuxIndexStructures.h>
 #include <faiss/impl/DistanceComputer.h>
@@ -508,6 +509,17 @@ using MinimaxHeap = HNSW::MinimaxHeap;
 using Node = HNSW::Node;
 /** Do a BFS on the candidates list */
 
+    auto intersection_between = [&](const idx_t* a, const idx_t* b, size_t size) {
+        size_t intersection_size = 0;
+        std::unordered_set<idx_t> b_set(b, b + size);
+        for (size_t i = 0; i < size; i++) {
+            if (b_set.count(a[i])) {
+                intersection_size++;
+            }
+        }
+        return intersection_size;
+    };
+
 int search_from_candidates(
         const HNSW& hnsw,
         DistanceComputer& qdis,
@@ -529,6 +541,11 @@ int search_from_candidates(
     int efSearch = params ? params->efSearch : hnsw.efSearch;
     const IDSelector* sel = params ? params->sel : nullptr;
 
+    bool do_early_stop = params ? params->early_stop : false;
+    float early_stop_threshold = params ? params->early_stop_threshold : 0.0;
+    int patience_window = params ? params->patience_window : 0;
+    bool early_stop_flag = false;
+
     for (int i = 0; i < candidates.size(); i++) {
         idx_t v1 = candidates.ids[i];
         float d = candidates.dis[i];
@@ -542,9 +559,11 @@ int search_from_candidates(
         }
         vt.set(v1);
     }
-
+    idx_t* previous_I = new idx_t[k];
+    idx_t* current_I = I;
     int nstep = 0;
-
+    int patience = 0;
+    float intersection = 0;
     while (candidates.size() > 0) {
         float d0 = 0;
         int v0 = candidates.pop_min(&d0);
@@ -583,7 +602,20 @@ int search_from_candidates(
         }
 
         nstep++;
+
         if (!do_dis_check && nstep > efSearch) {
+            break;
+        }
+
+        if (do_early_stop){
+            intersection = intersection_between(current_I, previous_I, nres);
+            patience = (patience + 1) * (intersection >= (early_stop_threshold*nres));
+            early_stop_flag = patience >= patience_window;
+
+            memcpy(previous_I, current_I, nres * sizeof(idx_t));
+        }
+
+        if (do_early_stop && early_stop_flag){
             break;
         }
     }
@@ -595,7 +627,7 @@ int search_from_candidates(
         }
         stats.n3 += ndis;
     }
-
+    delete[] previous_I;
     return nres;
 }
 

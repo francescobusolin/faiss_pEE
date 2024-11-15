@@ -46,6 +46,10 @@ struct HNSWStats;
 struct SearchParametersHNSW : SearchParameters {
     int efSearch = 16;
     bool check_relative_distance = true;
+    bool early_stop = false;
+
+    float early_stop_threshold = 0.0;
+    int patience_window = 0;
 
     ~SearchParametersHNSW() {}
 };
