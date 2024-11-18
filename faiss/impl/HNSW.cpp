@@ -607,11 +607,10 @@ int search_from_candidates(
             break;
         }
 
-        if (do_early_stop){
+        if ( (level==0) && do_early_stop){
             intersection = intersection_between(current_I, previous_I, nres);
             patience = (patience + 1) * (intersection >= (early_stop_threshold*nres));
             early_stop_flag = patience >= patience_window;
-
             memcpy(previous_I, current_I, nres * sizeof(idx_t));
         }
 
