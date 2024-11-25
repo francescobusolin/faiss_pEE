@@ -293,21 +293,18 @@ struct IndexIVF : Index, IndexIVFInterface {
 * @param params used to override the object's search parameters
 * @param stats  search stats to be updated (can be null)
 */
-    virtual void search_preassigned_with_early_stopping(
+    void search_preassigned_with_early_stopping(
             idx_t n,
             const float* x,
             idx_t k,
-            const idx_t* assign,
-            const float* centroid_dis,
+            const idx_t* keys,
+            const float* coarse_dis,
             float* distances,
             idx_t* labels,
             bool store_pairs,
             const IVFSearchParameters* params = nullptr,
-            IndexIVFStats* stats = nullptr,
-            idx_t* previous_search = nullptr,
-            idx_t* first_search = nullptr,
-            idx_t* stable_probes = nullptr
-            ) const;
+            IndexIVFStats* stats = nullptr) const;
+
 /**
     idx_t* const previous_search = early_stopping ? new idx_t[n * k]: nullptr;
     idx_t* const first_search = early_stopping ? new idx_t[n * k]: nullptr;
