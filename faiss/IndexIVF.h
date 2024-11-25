@@ -78,10 +78,6 @@ struct SearchParametersIVF : SearchParameters {
     size_t exit_index = 0; ///< index *after* which possibly exit early from the search
     size_t n_features = 0; ///< number of features to use for probing
 
-    idx_t*  previous_search_buffer = nullptr;
-    idx_t*  first_search_buffer = nullptr;
-    idx_t*  stable_probes_buffer = nullptr;
-    double* feature_buffer = nullptr;
     LightGBM::Boosting* first_stage_clf = nullptr; ///< classifier to use for masking
     LightGBM::Boosting* probe_predictor = nullptr; ///< predictor to use for probing
     bool is_classifier = false; ///< whether the predictor is a classifier

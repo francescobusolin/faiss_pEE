@@ -770,6 +770,11 @@ void IndexIVF::search_preassigned(
             }
         }
 
+        //*** EARLY STOPPING ADDONS ***//
+        const idx_t patience_window = params ? params->patience : -1;
+        const float tolerance = params ? params->tolerance : 0.0f;
+        const idx_t exit_point = params ? params->exit_index : 0;
+
         FAISS_THROW_IF_NOT_MSG(
                 !(sel && store_pairs),
                 "selector and store_pairs cannot be combined");
@@ -846,6 +851,23 @@ void IndexIVF::search_preassigned(
                 } else {
                     heap_reorder<HeapForL2>(k, simi, idxi);
                 }
+            };
+
+            auto intersection_size = [&](const idx_t* A, const idx_t* B, size_t n) {
+                size_t res = 0;
+                std::unordered_map<idx_t, bool> map;
+
+                for (size_t i = 0; i < n; i++) {
+                    map[A[i]] = true;
+                }
+
+                for (size_t i = 0; i < n; i++) {
+                    if (map.find(B[i]) != map.end()) {
+                        res++;
+                    }
+                }
+
+                return res;
             };
 
             // single list scan using the current scanner (with query
@@ -936,6 +958,8 @@ void IndexIVF::search_preassigned(
             if (pmode == 0 || pmode == 3) {
 #pragma omp for
                 for (idx_t i = 0; i < n; i++) {
+                    idx_t patience_counter = 0;
+                    idx_t* prev_idxi = new idx_t[k];
                     if (interrupt) {
                         continue;
                     }
@@ -960,6 +984,14 @@ void IndexIVF::search_preassigned(
                         if (nscan >= max_codes) {
                             break;
                         }
+
+                        idx_t common_elements = ranklist_intersection_size(k, prev_idxi, k, idxi);
+                        patience_counter = (patience_counter + 1) * (common_elements >= (k * tolerance));
+                        memcpy(prev_idxi, idxi, k * sizeof(idx_t));
+
+                        if (patience_window > 0 && (patience_counter >= patience_window)){
+                            break;
+                        }
                     }
 
                     ndis += nscan;
@@ -968,7 +1000,7 @@ void IndexIVF::search_preassigned(
                     if (InterruptCallback::is_interrupted()) {
                         interrupt = true;
                     }
-
+                    delete[] prev_idxi;
                 } // parallel for
             } else if (pmode == 1) {
                 std::vector<idx_t> local_idx(k);

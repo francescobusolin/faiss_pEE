@@ -15,6 +15,7 @@
 #include <faiss/impl/AuxIndexStructures.h>
 #include <faiss/impl/DistanceComputer.h>
 #include <faiss/impl/IDSelector.h>
+#include <faiss/utils/utils.h>
 
 namespace faiss {
 
@@ -608,7 +609,7 @@ int search_from_candidates(
         }
 
         if ( (level==0) && do_early_stop){
-            intersection = intersection_between(current_I, previous_I, nres);
+            intersection = ranklist_intersection_size(nres, current_I, nres, previous_I);
             patience = (patience + 1) * (intersection >= (early_stop_threshold*nres));
             early_stop_flag = patience >= patience_window;
             memcpy(previous_I, current_I, nres * sizeof(idx_t));
