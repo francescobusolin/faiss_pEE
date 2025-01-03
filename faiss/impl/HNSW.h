@@ -50,6 +50,8 @@ struct SearchParametersHNSW : SearchParameters {
 
     float early_stop_threshold = 0.0;
     int patience_window = 0;
+    int stop_period = 100;
+
 
     ~SearchParametersHNSW() {}
 };

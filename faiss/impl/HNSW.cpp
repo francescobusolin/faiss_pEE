@@ -542,9 +542,11 @@ int search_from_candidates(
     int efSearch = params ? params->efSearch : hnsw.efSearch;
     const IDSelector* sel = params ? params->sel : nullptr;
 
-    bool do_early_stop = params ? params->early_stop : false;
+    bool early_stop_is_active = params ? params->early_stop : false;
     float early_stop_threshold = params ? params->early_stop_threshold : 0.0;
     int patience_window = params ? params->patience_window : 0;
+    int stop_period = params ? params->stop_period : 100;
+    bool do_early_stop = false;
     bool early_stop_flag = false;
 
     for (int i = 0; i < candidates.size(); i++) {
@@ -607,8 +609,13 @@ int search_from_candidates(
         if (!do_dis_check && nstep > efSearch) {
             break;
         }
+        do_early_stop = early_stop_is_active && (nstep % stop_period == 0);
 
-        if ( (level==0) && do_early_stop){
+        if (nstep == 1){
+            memcpy(previous_I, current_I, nres * sizeof(idx_t));
+        }
+
+        if ( level==0 && nstep > 1 && do_early_stop){
             intersection = ranklist_intersection_size(nres, current_I, nres, previous_I);
             patience = (patience + 1) * (intersection >= (early_stop_threshold*nres));
             early_stop_flag = patience >= patience_window;
