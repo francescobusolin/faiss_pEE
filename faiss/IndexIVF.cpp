@@ -987,9 +987,11 @@ void IndexIVF::search_preassigned(
 
                         idx_t common_elements = ranklist_intersection_size(k, prev_idxi, k, idxi);
                         patience_counter = (patience_counter + 1) * (common_elements >= (k * tolerance));
+                        //printf("Common elements: %ld Counter: %ld\n", common_elements, patience_counter);
                         memcpy(prev_idxi, idxi, k * sizeof(idx_t));
 
-                        if (patience_window > 0 && (patience_counter >= patience_window)){
+                        if ((patience_window > 0) && (patience_counter >= patience_window)){
+                            //printf("Early stopping of query %ld\n", i);
                             break;
                         }
                     }
